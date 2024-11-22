@@ -18,9 +18,9 @@
 {% endif %}
 {% endif %}
 
-{% if filter.selected %}
+{# {% if filter.selected %}
 {% set class = class ~ ' ocf-active' %}
-{% endif %}
+{% endif %} #}
 
 <div class="{{ class }}" id="ocf-filter-{{ filter.id }}">
   <div class="ocf-filter-body">
@@ -37,10 +37,10 @@
         {{ filter.suffix }}
       </span>    
       {% else %}
-      <span class="ocf-active-label">{{ filter.text_selected }}</span>    
+      {# <span class="ocf-active-label">{{ filter.text_selected }}</span>     #}
       {% endif %}                      
       
-      {# <span class="ocf-filter-name">{{ filter.name }}</span> #}
+      <span class="ocf-filter-name">{{ filter.name }}</span>
       
       <span class="ocf-filter-header-append">
         {% if filter.description %}

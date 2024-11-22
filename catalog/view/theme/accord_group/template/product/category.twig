@@ -51,7 +51,7 @@
 							{{ product_total }}
 						</div>
 						<div
-							class="body-catalog__tags tags-catalog"><!-- Динамически выводимые фильтры могут быть здесь -->
+							class="body-catalog__tags tags-catalog" data-da=".filter-catalog__tags-mobile, 1049.98, first"><!-- Динамически выводимые фильтры могут быть здесь -->
 						</div>
 					</div>
 					<div class="form-group input-group input-group-sm">
@@ -306,14 +306,6 @@ $(document).ready(function () {
                 $('.product-pagination__pages').html(newPagination);
 
                 // Замінюємо кнопку "Показати ще"
-                // var newPaginationButton = $(data).find('.product-pagination__button');
-                // var newNextPage = newPaginationButton.data('next-page');
-                // var newTotalPages = newPaginationButton.data('total-pages');
-                // if (newNextPage > newTotalPages) {
-                //     button.hide();
-                // }
-                // $('.product-pagination__button').data('next-page', newNextPage).data('total-pages', newTotalPages);
-
                 var newPaginationButton = $(data).find('.product-pagination__button').prop('outerHTML');
                 $('.product-pagination__button').replaceWith(newPaginationButton);
 
@@ -331,11 +323,16 @@ $(document).ready(function () {
     });
 });
 
+$('.body-catalog__filter-button').on('click', function () {
+    $('.ocf-btn-default').click();
+    $('.ocf-btn-mobile-fixed').click();
+});
+
 </script>
 
 <script>
     $(document).ready(function() {
-        $('.ocf-selected-filter').each(function() {
+        $('.ocf-selected-discard').each(function() {
             $(this).find('i').removeClass('ocf-icon ocf-times-circle').addClass('_icon-cross');
             let e = '<div class="tags-catalog__item">' + $(this).html() + '</div>';
             $('.body-catalog__tags.tags-catalog').append(e);

@@ -128,6 +128,45 @@ class ControllerCommonColumnLeft extends Controller {
 				);
 			}
 
+			
+
+			$main_menus = array();
+
+			if ($this->user->hasPermission('access', 'catalog/header_category')) {
+				$main_menus[] = array(
+					'name'	   => 'Меню в шапці',
+					'href'     => $this->url->link('catalog/header_category', 'user_token=' . $this->session->data['user_token'], true),
+					'children' => array()
+				);
+			}
+
+			if ($this->user->hasPermission('access', 'catalog/footer_category')) {
+				$main_menus[] = array(
+					'name'	   => 'Футер',
+					'href'     => $this->url->link('catalog/footer_category', 'user_token=' . $this->session->data['user_token'], true),
+					'children' => array()
+				);
+			}
+
+			if ($main_menus) {
+				$catalog[] = array(
+					'name'	   => 'Всі меню',
+					'href'     => '',
+					'children' => $main_menus
+				);
+			}
+
+
+			if ($catalog) {
+				$data['menus'][] = array(
+					'id'       => 'menu-catalog',
+					'icon'	   => 'fa-tags',
+					'name'	   => $this->language->get('text_catalog'),
+					'href'     => '',
+					'children' => $catalog
+				);
+			}
+
 			// BLOG
 			$blog = array();
 			if ($this->user->hasPermission('access', 'blog/article')) {

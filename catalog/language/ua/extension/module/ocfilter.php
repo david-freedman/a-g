@@ -31,6 +31,7 @@ $_['button_show_total_1']             = 'Показати <b class="ocf-btn-labe
 $_['button_show_total_2']             = 'Показати <b class="ocf-btn-label">%d</b> товари';
 $_['button_show_total_3']             = 'Показати <b class="ocf-btn-label">%d</b> товарів';
 $_['button_cancel_all']               = 'Скасувати';
+$_['button_cancel_all_selected']      = 'Скасувати все';
 $_['button_specify']                  = 'Уточнити';
 $_['button_show_more_values']         = 'Показати ще %s';
 $_['button_show_more_filters_1']      = 'Показати ще %s фільтр';

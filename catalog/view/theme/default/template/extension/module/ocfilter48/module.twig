@@ -7,7 +7,7 @@
     <div class="ocf-header">
       {# <i class="ocf-icon ocf-icon-16 ocf-brand ocf-sliders"></i> #}
       
-      {# {{ heading_title }} #}
+      {{ heading_title }}
       
       {% if layout == 'horizontal' and (search_button or selecteds) %}
       <div class="ocf-header-btn ocf-desktop">
@@ -25,6 +25,13 @@
       <button type="button" data-ocf="mobile" class="ocf-btn ocf-btn-link ocf-mobile ocf-close-mobile" aria-label="Close filter"><i class="ocf-icon ocf-icon-16 ocf-times"></i></button>
     </div>
           
+
+    <div class="filter-catalog__tags-mobile">
+      {% if selecteds %}
+        <button type="button" onclick="location = '{{ link }}';" class="filter-catalog__reset">{{ button_cancel_all_selected }}</button>        
+      {% endif %}
+    </div>
+
     <div class="ocf-body">     
       {% include('default/template/extension/module/ocfilter48/filter_list.twig') %}
     </div>      
@@ -41,7 +48,7 @@
             <button type="button" onclick="location = '{{ link }}';" class="ocf-btn ocf-btn-link">{{ button_cancel_all }}</button>
           {% else %}
             <button type="button" data-ocf-discard="*" class="ocf-btn ocf-btn-link ocf-disabled" disabled="disabled">{{ button_cancel_all }}</button>
-          {% endif %}        
+          {% endif %}
           {% if search_button %}
             <button type="button" class="ocf-disabled filter-catalog__submit button button--green" data-ocf="button" data-loading-text="{{ text_loading_ocf }}" disabled="disabled">{{ button_select }}</button>
           {% endif %}        

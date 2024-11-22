@@ -299,54 +299,40 @@
 			</div>
 			<div data-da=".spoilers-menu__body--catalog, 991.98" class="header__catalog catalog-header">
 				<div data-one-spoiler data-spoilers="991.98, max" class="catalog-header__spoilers spoilers-catalog-h">
-					
-					
 					{% if categories %}
-					
 						{% for category in categories %}
-						<details class="spoilers-catalog-h__item">
+							<details class="spoilers-catalog-h__item">
 								<summary class="spoilers-catalog-h__title">
 									<div class="spoilers-catalog-h__icon">
-											<img src="/image/{{ category.icon }}" alt="{{ category.name }}" class="ibg ibg--contain">
-										</div>
+										<img src="/image/{{ category.icon }}" alt="{{ category.name }}" class="ibg ibg--contain">
+									</div>
 									<span>{{ category.name }}</span>
 								</summary>
-
-							{% if category.children %}
-								<div class="spoilers-catalog-h__submenu submenu-catalog-h">
-								{% for child in category.children %}
-								<details class="submenu-catalog-h__block">
-									<summary class="submenu-catalog-h__title"></summary>
-									<a href="{{ child.href }}">{{ child.name }}</a>
-									
-									<ul class="submenu-catalog-h__list">
-										{% for subchild in child.children %}
-										<li class="submenu-catalog-h__item">
-											<a href="{{ subchild.href }}" class="submenu-catalog-h__link">{{ subchild.name }}</a>
-										</li>
-										{% endfor %}
-									</ul>
-								</details>
-								
-								{% endfor %}
-								<div class="submenu-catalog-h__block submenu-catalog-h__block--pc">
-									<img src="/image/{{ category.img_menu }}" class="ibg ibg--contain" alt="Image">
-								</div>
-								
-								</div>
-							{% endif %}
-						
-						</details>
-
+								{% if category.children %}
+									<div data-spoilers="991.98, max" class="spoilers-catalog-h__submenu submenu-catalog-h">
+										<div class="submenu-catalog-h__body">
+											{% for child in category.children %}
+												<details class="submenu-catalog-h__block">
+													<summary class="submenu-catalog-h__title"></summary>
+													<a href="{{ child.href }}">{{ child.name }}</a>
+													<ul class="submenu-catalog-h__list">
+														{% for subchild in child.children %}
+															<li class="submenu-catalog-h__item">
+																<a href="{{ subchild.href }}" class="submenu-catalog-h__link">{{ subchild.name }}</a>
+															</li>
+														{% endfor %}
+													</ul>
+												</details>
+											{% endfor %}
+										</div>
+										<div data-da="{.submenu-catalog-h} .submenu-catalog-h__body, 1439.98, last" class="submenu-catalog-h__block submenu-catalog-h__block--pc">
+											<img src="/image/{{ category.img_menu }}" class="ibg ibg--contain" alt="Image">
+										</div>
+									</div>
+								{% endif %}
+							</details>
 						{% endfor %}
-					
 					{% endif %}
-
-
-
-
-
-				
 				</div>
 			</div>
 		</header>
