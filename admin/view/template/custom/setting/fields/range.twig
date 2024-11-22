@@ -1,0 +1,8 @@
+<div class="custom-setting-range">
+<input{{ popover }} data-range="{{ values_options.range }}" data-type="{{ values_options.range_type }}" data-grid="{{ values_options.range_grid }}" data-step="{{ values_options.step }}" data-min="{{ values_options.min }}" data-max="{{ values_options.max }}" data-value="{{ value is iterable  ? value|json_encode : value }}" id="input-custom-setting-{{ id }}" class="input-range"/>
+<input type="hidden" class="input-range-from" name="custom_setting{{ name }}[from]" value="{{ value.from }}"/>
+<input type="hidden" class="input-range-to" name="custom_setting{{ name }}[to]" value="{{ value.to }}"/>
+{% if error %}
+    <div class="text-danger">{{ error }}</div>
+{% endif %}
+</div>

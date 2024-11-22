@@ -1,0 +1,2466 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+    <name>Custom Setting for OpenCart 3</name>
+    <code>custom_setting</code>
+    <version>1.0.0</version>
+    <author>support@web.gghb.ru</author>
+    <link>https://web.gghb.ru/</link>
+    <file path="admin/controller/common/column_left.php">
+        <operation>
+            <search>
+                <![CDATA[$report = array();]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            if($custom_setting = $this->load->controller('custom/setting/column_left')){
+                $data['menus'][] = $custom_setting;
+            }
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/extension/total/*.php">
+        <operation>
+            <search>
+                <![CDATA[$this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $extension = explode('/',$_SERVER['REQUEST_URI']);
+            if(isset($extension) && is_array($extension)){
+                $extension = strtok(end($extension),'&');
+            }
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'total_' . $extension);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            $extension = explode('/',$_SERVER['REQUEST_URI']);
+            if(isset($extension) && is_array($extension)){
+                $extension = strtok(end($extension),'&');
+            }
+
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'total_' . $extension,
+                'id' => 0,
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/extension/shipping/*.php">
+        <operation>
+            <search>
+                <![CDATA[$this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $extension = explode('/',$_SERVER['REQUEST_URI']);
+            if(isset($extension) && is_array($extension)){
+                $extension = strtok(end($extension),'&');
+            }
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'shipping_' . $extension);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            $extension = explode('/',$_SERVER['REQUEST_URI']);
+            if(isset($extension) && is_array($extension)){
+                $extension = strtok(end($extension),'&');
+            }
+
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'shipping_' . $extension,
+                'id' => 0,
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/extension/report/*.php">
+        <operation>
+            <search>
+                <![CDATA[$this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $extension = explode('/',$_SERVER['REQUEST_URI']);
+            if(isset($extension) && is_array($extension)){
+                $extension = strtok(end($extension),'&');
+            }
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'report_' . $extension);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            $extension = explode('/',$_SERVER['REQUEST_URI']);
+            if(isset($extension) && is_array($extension)){
+                $extension = strtok(end($extension),'&');
+            }
+
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'report_' . $extension,
+                'id' => 0,
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/extension/payment/*.php">
+        <operation>
+            <search>
+                <![CDATA[$this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $extension = explode('/',$_SERVER['REQUEST_URI']);
+            if(isset($extension) && is_array($extension)){
+                $extension = strtok(end($extension),'&');
+            }
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'payment_' . $extension);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            $extension = explode('/',$_SERVER['REQUEST_URI']);
+            if(isset($extension) && is_array($extension)){
+                $extension = strtok(end($extension),'&');
+            }
+
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'payment_' . $extension,
+                'id' => 0,
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/extension/fraud/*.php">
+        <operation>
+            <search>
+                <![CDATA[$this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $extension = explode('/',$_SERVER['REQUEST_URI']);
+            if(isset($extension) && is_array($extension)){
+                $extension = strtok(end($extension),'&');
+            }
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'fraud_' . $extension);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            $extension = explode('/',$_SERVER['REQUEST_URI']);
+            if(isset($extension) && is_array($extension)){
+                $extension = strtok(end($extension),'&');
+            }
+
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'fraud_' . $extension,
+                'id' => 0,
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/extension/feed/*.php">
+        <operation>
+            <search>
+                <![CDATA[$this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $extension = explode('/',$_SERVER['REQUEST_URI']);
+            if(isset($extension) && is_array($extension)){
+                $extension = strtok(end($extension),'&');
+            }
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'feed_' . $extension);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            $extension = explode('/',$_SERVER['REQUEST_URI']);
+            if(isset($extension) && is_array($extension)){
+                $extension = strtok(end($extension),'&');
+            }
+
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'feed_' . $extension,
+                'id' => 0,
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/extension/dashboard/*.php">
+        <operation>
+            <search>
+                <![CDATA[$this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $extension = explode('/',$_SERVER['REQUEST_URI']);
+            if(isset($extension) && is_array($extension)){
+                $extension = strtok(end($extension),'&');
+            }
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'dashboard_' . $extension);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            $extension = explode('/',$_SERVER['REQUEST_URI']);
+            if(isset($extension) && is_array($extension)){
+                $extension = strtok(end($extension),'&');
+            }
+
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'dashboard_' . $extension,
+                'id' => 0,
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/extension/captcha/*.php">
+        <operation>
+            <search>
+                <![CDATA[$this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $extension = explode('/',$_SERVER['REQUEST_URI']);
+            if(isset($extension) && is_array($extension)){
+                $extension = strtok(end($extension),'&');
+            }
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'captcha_' . $extension);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            $extension = explode('/',$_SERVER['REQUEST_URI']);
+            if(isset($extension) && is_array($extension)){
+                $extension = strtok(end($extension),'&');
+            }
+
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'captcha_' . $extension,
+                'id' => 0,
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/extension/analytics/*.php">
+        <operation>
+            <search>
+                <![CDATA[$this->request->post, $this->request->get['store_id']);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $extension = explode('/',$_SERVER['REQUEST_URI']);
+            if(isset($extension) && is_array($extension)){
+                $extension = strtok(end($extension),'&');
+            }
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'analytics_' . $extension, $this->request->get['store_id']);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            $extension = explode('/',$_SERVER['REQUEST_URI']);
+            if(isset($extension) && is_array($extension)){
+                $extension = strtok(end($extension),'&');
+            }
+
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'analytics_' . $extension,
+                'id' =>(isset($this->request->get['store_id']) ? $this->request->get['store_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/extension/theme/*.php">
+        <operation>
+            <search>
+                <![CDATA[$this->request->post, $this->request->get['store_id']);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $extension = explode('/',$_SERVER['REQUEST_URI']);
+            if(isset($extension) && is_array($extension)){
+                $extension = strtok(end($extension),'&');
+            }
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'theme_' . $extension, $this->request->get['store_id']);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            $extension = explode('/',$_SERVER['REQUEST_URI']);
+            if(isset($extension) && is_array($extension)){
+                $extension = strtok(end($extension),'&');
+            }
+
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'theme_'.$extension,
+                'id' =>(isset($this->request->get['store_id']) ? $this->request->get['store_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+
+    </file>
+    <file path="admin/model/setting/{module}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->db->escape(json_encode($data)) . "'");]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Replaced by Custom Setting modificator
+            
+            return $this->db->getLastId();
+                
+            // end content replaced by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/extension/module/*.php">
+        <operation error="skip">
+            <search index="0">
+                <![CDATA[$this->session->data['success'] = $this->language->get('text_success')]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+                $_module_info = $this->model_custom_setting->getModule($this->request->get['module_id']);
+            $extension = $_module_info['code'];
+                if(isset($this->request->post['custom_setting'])){
+                 $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'module_' . $extension, (isset($module_id) ? $module_id : 0));
+                } 
+]]>
+            </add>
+        </operation>
+        <operation error="skip">
+            <search index="0">
+                <![CDATA[$this->model_setting_module->addModule]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+           $module_id = $this->model_setting_module->addModule
+            ]]>
+            </add>
+        </operation>
+        <operation error="skip">
+            <search index="0">
+                <![CDATA[$this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+
+            $this->load->model('custom/setting');
+            if(!isset($this->request->get['module_id'])){
+                $extension = explode('/',$_SERVER['REQUEST_URI']);
+                if(isset($extension) && is_array($extension)){
+                    $extension = strtok(end($extension),'&');
+                }
+            }else{
+                $_module_info = $this->model_custom_setting->getModule($this->request->get['module_id']);
+                $extension = $_module_info['code'];
+            }
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'module_' . $extension, (isset($module_id) ? $module_id : 0));
+            ]]>
+            </add>
+        </operation>
+        <operation error="skip">
+            <search>
+                <![CDATA[$this->model_setting_module->editModule($this->request->get['module_id'], $this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $this->load->model('custom/setting');
+            $_module_info = $this->model_custom_setting->getModule($this->request->get['module_id']);
+            
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'module_'.$_module_info['code'], $this->request->get['module_id']);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $this->load->model('custom/setting');
+            if(!isset($this->request->get['module_id'])){
+                $extension = explode('/',$_SERVER['REQUEST_URI']);
+                if(isset($extension) && is_array($extension)){
+                    $extension = strtok(end($extension),'&');
+                }
+            }else{
+                $_module_info = $this->model_custom_setting->getModule($this->request->get['module_id']);
+                $extension = $_module_info['code'];
+            }
+
+            if(!empty($extension) &&!is_array($extension)){
+                $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                    'page' => 'module_' . $extension,
+                    'id' =>(isset($this->request->get['module_id']) ? $this->request->get['module_id'] : 0),
+                ));
+            }
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+
+    </file>
+    <file path="admin/controller/localisation/{weight_class}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->model_localisation_weight_class->addWeightClass($this->request->post);]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+            // Replaced by Custom Setting modificator
+            
+            // $this->model_localisation_weight_class->addWeightClass($this->request->post);
+            $weight_class_id = $this->model_localisation_weight_class->addWeightClass($this->request->post);
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'weight_class', $weight_class_id);
+                
+            // end content replaced by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$this->model_localisation_weight_class->editWeightClass($this->request->get['weight_class_id'], $this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'weight_class', $this->request->get['weight_class_id']);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'weight_class',
+                'id' =>(isset($this->request->get['weight_class_id']) ? $this->request->get['weight_class_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/localisation/{length_class}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->model_localisation_length_class->addLengthClass($this->request->post);]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+            // Replaced by Custom Setting modificator
+            
+            // $this->model_localisation_length_class->addLengthClass($this->request->post);
+            $length_class_id = $this->model_localisation_length_class->addLengthClass($this->request->post);
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'length_class', $length_class_id);
+                
+            // end content replaced by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$this->model_localisation_length_class->editLengthClass($this->request->get['length_class_id'], $this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'length_class', $this->request->get['length_class_id']);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'length_class',
+                'id' =>(isset($this->request->get['length_class_id']) ? $this->request->get['length_class_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/localisation/{tax_rate}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->model_localisation_tax_rate->addTaxRate($this->request->post);]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+            // Replaced by Custom Setting modificator
+            
+            // $this->model_localisation_tax_rate->addTaxRate($this->request->post);
+            $tax_rate_id = $this->model_localisation_tax_rate->addTaxRate($this->request->post);
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'tax_rate', $tax_rate_id);
+                
+            // end content replaced by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$this->model_localisation_tax_rate->editTaxRate($this->request->get['tax_rate_id'], $this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'tax_rate', $this->request->get['tax_rate_id']);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'tax_rate',
+                'id' =>(isset($this->request->get['tax_rate_id']) ? $this->request->get['tax_rate_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/localisation/{tax_class}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->model_localisation_tax_class->addTaxClass($this->request->post);]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+            // Replaced by Custom Setting modificator
+            
+            // $this->model_localisation_tax_class->addTaxClass($this->request->post);
+            $tax_class_id = $this->model_localisation_tax_class->addTaxClass($this->request->post);
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'tax_class', $tax_class_id);
+                
+            // end content replaced by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$this->model_localisation_tax_class->editTaxClass($this->request->get['tax_class_id'], $this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'tax_class', $this->request->get['tax_class_id']);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'tax_class',
+                'id' =>(isset($this->request->get['tax_class_id']) ? $this->request->get['tax_class_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/localisation/{geo_zone}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->model_localisation_geo_zone->addGeoZone($this->request->post);]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+            // Replaced by Custom Setting modificator
+            
+            // $this->model_localisation_geo_zone->addGeoZone($this->request->post);
+            $geo_zone_id = $this->model_localisation_geo_zone->addGeoZone($this->request->post);
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'geo_zone', $geo_zone_id);
+                
+            // end content replaced by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$this->model_localisation_geo_zone->editGeoZone($this->request->get['geo_zone_id'], $this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'geo_zone', $this->request->get['geo_zone_id']);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'geo_zone',
+                'id' =>(isset($this->request->get['geo_zone_id']) ? $this->request->get['geo_zone_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/localisation/{zone}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->model_localisation_zone->addZone($this->request->post);]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+            // Replaced by Custom Setting modificator
+            
+            // $this->model_localisation_zone->addZone($this->request->post);
+            $zone_id = $this->model_localisation_zone->addZone($this->request->post);
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'zone', $zone_id);
+                
+            // end content replaced by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$this->model_localisation_zone->editZone($this->request->get['zone_id'], $this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'zone', $this->request->get['zone_id']);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'zone',
+                'id' =>(isset($this->request->get['zone_id']) ? $this->request->get['zone_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/localisation/{country}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->model_localisation_country->addCountry($this->request->post);]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+            // Replaced by Custom Setting modificator
+            
+            // $this->model_localisation_country->addCountry($this->request->post);
+            $country_id = $this->model_localisation_country->addCountry($this->request->post);
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'country', $country_id);
+                
+            // end content replaced by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$this->model_localisation_country->editCountry($this->request->get['country_id'], $this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'country', $this->request->get['country_id']);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'country',
+                'id' =>(isset($this->request->get['country_id']) ? $this->request->get['country_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/localisation/{currency}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->model_localisation_currency->addCurrency($this->request->post);]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+            // Replaced by Custom Setting modificator
+            
+            // $this->model_localisation_currency->addCurrency($this->request->post);
+            $currency_id = $this->model_localisation_currency->addCurrency($this->request->post);
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'currency', $currency_id);
+                
+            // end content replaced by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$this->model_localisation_currency->editCurrency($this->request->get['currency_id'], $this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'currency', $this->request->get['currency_id']);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'currency',
+                'id' =>(isset($this->request->get['currency_id']) ? $this->request->get['currency_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/localisation/{language}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->model_localisation_language->addLanguage($this->request->post);]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+            // Replaced by Custom Setting modificator
+            
+            // $this->model_localisation_language->addLanguage($this->request->post);
+            $language_id = $this->model_localisation_language->addLanguage($this->request->post);
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'language', $language_id);
+                
+            // end content replaced by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$this->model_localisation_language->editLanguage($this->request->get['language_id'], $this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'language', $this->request->get['language_id']);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'language',
+                'id' =>(isset($this->request->get['language_id']) ? $this->request->get['language_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/customer/{custom_field}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->model_customer_custom_field->addCustomField($this->request->post);]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+            // Replaced by Custom Setting modificator
+            
+            // $this->model_customer_custom_field->addCustomField($this->request->post);
+            $custom_field_id = $this->model_customer_custom_field->addCustomField($this->request->post);
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'custom_field', $custom_field_id);
+                
+            // end content replaced by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$this->model_customer_custom_field->editCustomField($this->request->get['custom_field_id'], $this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'custom_field', $this->request->get['custom_field_id']);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'custom_field',
+                'id' =>(isset($this->request->get['custom_field_id']) ? $this->request->get['custom_field_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/sale/{voucher_theme}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->model_sale_voucher_theme->addVoucherTheme($this->request->post);]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+            // Replaced by Custom Setting modificator
+            
+            // $this->model_sale_voucher_theme->addVoucherTheme($this->request->post);
+            $voucher_theme_id = $this->model_sale_voucher_theme->addVoucherTheme($this->request->post);
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'voucher_theme', $voucher_theme_id);
+                
+            // end content replaced by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$this->model_sale_voucher_theme->editVoucherTheme($this->request->get['voucher_theme_id'], $this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'voucher_theme', $this->request->get['voucher_theme_id']);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'voucher_theme',
+                'id' =>(isset($this->request->get['voucher_theme_id']) ? $this->request->get['voucher_theme_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/sale/{voucher}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->model_sale_voucher->addVoucher($this->request->post);]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+            // Replaced by Custom Setting modificator
+            
+            // $this->model_sale_voucher->addVoucher($this->request->post);
+            $voucher_id = $this->model_sale_voucher->addVoucher($this->request->post);
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'voucher', $voucher_id);
+                
+            // end content replaced by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$this->model_sale_voucher->editVoucher($this->request->get['voucher_id'], $this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'voucher', $this->request->get['voucher_id']);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'voucher',
+                'id' =>(isset($this->request->get['voucher_id']) ? $this->request->get['voucher_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/view/template/sale/{voucher_form}.twig">
+        <operation>
+            <search>
+                <![CDATA[{{ tab_general }}</a></li>]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+                
+                <!-- Added by Custom Setting modificator -->
+                {{ custom_setting is defined ? custom_setting.nav : ''}}
+                
+                <!-- end content added by Custom Setting modificator -->
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[id="tab-general">]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+                
+                <!-- Added by Custom Setting modificator -->
+                {{ custom_setting is defined ? custom_setting.content : '' }}
+                
+                <!-- end content added by Custom Setting modificator -->
+                ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/sale/{return}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->model_sale_return->addReturn($this->request->post);]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+            // Replaced by Custom Setting modificator
+            
+            // $this->model_sale_return->addReturn($this->request->post);
+            $return_id = $this->model_sale_return->addReturn($this->request->post);
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'return', $return_id);
+                
+            // end content replaced by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$this->model_sale_return->editReturn($this->request->get['return_id'], $this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'return', $this->request->get['return_id']);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'return',
+                'id' =>(isset($this->request->get['return_id']) ? $this->request->get['return_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/localisation/{location}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->model_localisation_location->addLocation($this->request->post);]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+            // Replaced by Custom Setting modificator
+            
+            // $this->model_localisation_location->addLocation($this->request->post);
+            $location_id = $this->model_localisation_location->addLocation($this->request->post);
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'location', $location_id);
+                
+            // end content replaced by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$this->model_localisation_location->editLocation($this->request->get['location_id'], $this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'location', $this->request->get['location_id']);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'location',
+                'id' =>(isset($this->request->get['location_id']) ? $this->request->get['location_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/customer/{customer_group}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->model_customer_customer_group->addCustomerGroup($this->request->post);]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+            // Replaced by Custom Setting modificator
+            
+            // $this->model_customer_customer_group->addCustomerGroup($this->request->post);
+            $customer_group_id = $this->model_customer_customer_group->addCustomerGroup($this->request->post);
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'customer_group', $customer_group_id);
+                
+            // end content replaced by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$this->model_customer_customer_group->editCustomerGroup($this->request->get['customer_group_id'], $this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'customer_group', $this->request->get['customer_group_id']);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'customer_group',
+                'id' =>(isset($this->request->get['customer_group_id']) ? $this->request->get['customer_group_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/catalog/{filter}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->model_catalog_filter->addFilter($this->request->post);]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+            // Replaced by Custom Setting modificator
+            
+            // $this->model_catalog_filter->addFilter($this->request->post);
+            $filter_group_id = $this->model_catalog_filter->addFilter($this->request->post);
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'filter', $filter_group_id);
+                
+            // end content replaced by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$this->model_catalog_filter->editFilter($this->request->get['filter_group_id'], $this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'filter', $this->request->get['filter_group_id']);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'filter',
+                'id' =>(isset($this->request->get['filter_group_id']) ? $this->request->get['filter_group_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/catalog/{review}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->model_catalog_review->addReview($this->request->post);]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+            // Replaced by Custom Setting modificator
+            
+            // $this->model_catalog_review->addReview($this->request->post);
+            $review_id = $this->model_catalog_review->addReview($this->request->post);
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'review', $review_id);
+                
+            // end content replaced by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$this->model_catalog_review->editReview($this->request->get['review_id'], $this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'review', $this->request->get['review_id']);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'review',
+                'id' =>(isset($this->request->get['review_id']) ? $this->request->get['review_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/catalog/{download}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->model_catalog_download->addDownload($this->request->post);]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+            // Replaced by Custom Setting modificator
+            
+            // $this->model_catalog_download->addDownload($this->request->post);
+            $download_id = $this->model_catalog_download->addDownload($this->request->post);
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'download', $download_id);
+                
+            // end content replaced by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$this->model_catalog_download->editDownload($this->request->get['download_id'], $this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'download', $this->request->get['download_id']);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'download',
+                'id' =>(isset($this->request->get['download_id']) ? $this->request->get['download_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/catalog/{attribute_group}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->model_catalog_attribute_group->addAttributeGroup($this->request->post);]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+            // Replaced by Custom Setting modificator
+            
+            // $this->model_catalog_attribute_group->addAttributeGroup($this->request->post);
+            $attribute_group_id = $this->model_catalog_attribute_group->addAttributeGroup($this->request->post);
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'attribute_group', $attribute_group_id);
+                
+            // end content replaced by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$this->model_catalog_attribute_group->editAttributeGroup($this->request->get['attribute_group_id'], $this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'attribute_group', $this->request->get['attribute_group_id']);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'attribute_group',
+                'id' =>(isset($this->request->get['attribute_group_id']) ? $this->request->get['attribute_group_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/catalog/{attribute}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->model_catalog_attribute->addAttribute($this->request->post);]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+            // Replaced by Custom Setting modificator
+            
+            // $this->model_catalog_attribute->addAttribute($this->request->post);
+            $attribute_id = $this->model_catalog_attribute->addAttribute($this->request->post);
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'attribute', $attribute_id);
+                
+            // end content replaced by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$this->model_catalog_attribute->editAttribute($this->request->get['attribute_id'], $this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'attribute', $this->request->get['attribute_id']);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'attribute',
+                'id' =>(isset($this->request->get['attribute_id']) ? $this->request->get['attribute_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/catalog/{option}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->model_catalog_option->addOption($this->request->post);]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+            // Replaced by Custom Setting modificator
+            
+            // $this->model_catalog_option->addOption($this->request->post);
+            $option_id = $this->model_catalog_option->addOption($this->request->post);
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'option', $option_id);
+                
+            // end content replaced by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$this->model_catalog_option->editOption($this->request->get['option_id'], $this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'option', $this->request->get['option_id']);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'option',
+                'id' =>(isset($this->request->get['option_id']) ? $this->request->get['option_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/design/{banner}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->model_design_banner->addBanner($this->request->post);]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+            // Replaced by Custom Setting modificator
+            
+            // $this->model_design_banner->addBanner($this->request->post);
+            $banner_id = $this->model_design_banner->addBanner($this->request->post);
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'banner', $banner_id);
+                
+            // end content replaced by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$this->model_design_banner->editBanner($this->request->get['banner_id'], $this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'banner', $this->request->get['banner_id']);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'banner',
+                'id' =>(isset($this->request->get['banner_id']) ? $this->request->get['banner_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/view/template/{extension/{analytics,captcha,dashboard,feed,fraud,module,payment,report,shipping,total,theme}/*,sale/{return_form,voucher_theme_form},localisation/{location_form,language_form,currency_form,country_form,zone_form,geo_zone_form,tax_class_form,tax_rate_form,length_class_form,weight_class_form},customer/{customer_group_form,custom_field_form},catalog/{option_form,attribute_form,attribute_group_form,download_form,review_form,filter_form},design/{banner_form}}.twig">
+        <operation>
+            <search index="0">
+                <![CDATA[</form>]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+                <!-- Added by Custom Setting modificator -->
+                {{ custom_setting is defined ? custom_setting.content : '' }}
+                <!-- end content added by Custom Setting modificator -->
+                ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/customer/{customer}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->model_customer_customer->addCustomer($this->request->post);]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+            // Replaced by Custom Setting modificator
+            
+            // $this->model_customer_customer->addCustomer($this->request->post);
+            $customer_id = $this->model_customer_customer->addCustomer($this->request->post);
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'customer', $customer_id);
+                
+            // end content replaced by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$this->model_customer_customer->editCustomer($this->request->get['customer_id'], $this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'customer', $this->request->get['customer_id']);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'customer',
+                'id' =>(isset($this->request->get['customer_id']) ? $this->request->get['customer_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/view/template/customer/{customer_form}.twig">
+        <operation>
+            <search>
+                <![CDATA[{{ tab_ip }}</a></li>]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+                
+                <!-- Added by Custom Setting modificator -->
+                {{ custom_setting is defined ? custom_setting.nav : ''}}
+                
+                <!-- end content added by Custom Setting modificator -->
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[<div class="tab-pane" id="tab-ip">]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+                
+                <!-- Added by Custom Setting modificator -->
+                {{ custom_setting is defined ? custom_setting.content : '' }}
+                
+                <!-- end content added by Custom Setting modificator -->
+                ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/catalog/{information}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->model_catalog_information->addInformation($this->request->post);]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+            // Replaced by Custom Setting modificator
+            
+            $information_id = $this->model_catalog_information->addInformation($this->request->post);
+
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'information', $information_id);
+                
+            // end content replaced by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$this->model_catalog_information->editInformation($this->request->get['information_id'], $this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'information', $this->request->get['information_id']);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'information',
+                'id' =>(isset($this->request->get['information_id']) ? $this->request->get['information_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/catalog/{manufacturer}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->model_catalog_manufacturer->addManufacturer($this->request->post);]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+            // Replaced by Custom Setting modificator
+            
+            // $this->model_catalog_manufacturer->addManufacturer($this->request->post);
+            $manufacturer_id = $this->model_catalog_manufacturer->addManufacturer($this->request->post);
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'manufacturer', $manufacturer_id);
+                
+            // end content replaced by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$this->model_catalog_manufacturer->editManufacturer($this->request->get['manufacturer_id'], $this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'manufacturer', $this->request->get['manufacturer_id']);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'manufacturer',
+                'id' =>(isset($this->request->get['manufacturer_id']) ? $this->request->get['manufacturer_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/view/template/catalog/{manufacturer_form}.twig">
+        <operation>
+            <search>
+                <![CDATA[{{ tab_seo }}</a></li>]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+                
+                <!-- Added by Custom Setting modificator -->
+                {{ custom_setting is defined ? custom_setting.nav : ''}}
+                
+                <!-- end content added by Custom Setting modificator -->
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[<div class="tab-pane" id="tab-seo">]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+                
+                <!-- Added by Custom Setting modificator -->
+                {{ custom_setting is defined ? custom_setting.content : '' }}
+                
+                <!-- end content added by Custom Setting modificator -->
+                ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/catalog/{category}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->model_catalog_category->addCategory($this->request->post);]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+            // Replaced by Custom Setting modificator
+            
+            // $this->model_catalog_category->addCategory($this->request->post);
+            $category_id = $this->model_catalog_category->addCategory($this->request->post);
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'category', $category_id);
+                
+            // end content replaced by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$this->model_catalog_category->editCategory($this->request->get['category_id'], $this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'category', $this->request->get['category_id']);
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'category',
+                'id' =>(isset($this->request->get['category_id']) ? $this->request->get['category_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/catalog/{product}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->model_catalog_product->addProduct($this->request->post);]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+            // Replaced by Custom Setting modificator
+            // $this->model_catalog_product->addProduct($this->request->post);
+            $product_id = $this->model_catalog_product->addProduct($this->request->post);
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'product', $product_id);
+            // end content replaced by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$this->model_catalog_product->editProduct($this->request->get['product_id'], $this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'product', $this->request->get['product_id']);
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'product',
+                'id' =>(isset($this->request->get['product_id']) ? $this->request->get['product_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/view/template/catalog/{product_form,category_form,information_form}.twig">
+        <operation>
+            <search>
+                <![CDATA[{{ tab_design }}</a></li>]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+                
+                <!-- Added by Custom Setting modificator -->
+                {{ custom_setting is defined ? custom_setting.nav : ''}}
+                
+                <!-- end content added by Custom Setting modificator -->
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[<div class="tab-pane" id="tab-data">]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+                
+                <!-- Added by Custom Setting modificator -->
+                {{ custom_setting is defined ? custom_setting.content : '' }}
+                
+                <!-- end content added by Custom Setting modificator -->
+                ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/setting/{store}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'store', (isset($store_id) ? $store_id : $this->request->get['store_id']));
+                
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'store',
+                'id' =>(isset($this->request->get['store_id']) ? $this->request->get['store_id'] : 0),
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/setting/{setting}.php">
+        <operation>
+            <search>
+                <![CDATA[$this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $this->load->model('custom/setting');
+            $this->model_custom_setting->setValues($this->request->post['custom_setting'], 'setting');
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['header']]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            $data['custom_setting'] = $this->load->controller('custom/setting/handle', array(
+                'page' => 'setting'
+            ));
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/{extension/{analytics,captcha,dashboard,feed,fraud,module,payment,report,shipping,total,theme}/*,sale/{voucher,voucher_theme},localisation/{location,language,currency,country,zone,geo_zone,tax_class,tax_rate,length_class,weight_class},customer/{customer_group,custom_field},catalog/{option,attribute,attribute_group,download,manufacturer,review,filter},design/{banner}}.php">
+        <operation error="skip">
+            <search index="0">
+                <![CDATA[return !$this->error;]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+        // Added by Custom Setting modificator
+        if($custom_setting = $this->load->controller('custom/setting/handleValidate')){
+            $this->error['custom_setting'] = $custom_setting;
+        }
+
+        if ($this->error && !isset($this->error['warning'])) {
+            $this->error['warning'] = $this->language->get('error_warning');
+        }
+        // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/{sale/{return},catalog/{category,product,information},setting/{setting,store},customer/{customer}}.php">
+        <operation error="skip">
+            <search index="0">
+                <![CDATA[if ($this->error && !isset($this->error['warning'])) {]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+        // Added by Custom Setting modificator
+        if($custom_setting = $this->load->controller('custom/setting/handleValidate')){
+            $this->error['custom_setting'] = $custom_setting;
+        }
+        // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/view/template/setting/{setting,store_form}.twig">
+        <operation>
+            <search>
+                <![CDATA[{{ tab_server }}</a></li>]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+                
+                <!-- Added by Custom Setting modificator -->
+                {{ custom_setting is defined ? custom_setting.nav : ''}}
+                
+                <!-- end content added by Custom Setting modificator -->
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[<div class="tab-pane" id="tab-store">]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+                
+                <!-- Added by Custom Setting modificator -->
+                {{ custom_setting is defined ? custom_setting.content : '' }}
+                
+                <!-- end content added by Custom Setting modificator -->
+                ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/model/{localisation/location,design/layout}.php">
+        <operation error="skip">
+            <search>
+                <![CDATA[$sort_data = array(]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            if (!empty($data['filter_name'])) {
+                $sql .= " WHERE name LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+            }
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/model/design/banner.php">
+        <operation error="skip">
+            <search>
+                <![CDATA[$sort_data = array(]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            if (!empty($data['filter_name'])) {
+                $sql .= " WHERE name LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+            }
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/model/customer/customer_group.php">
+        <operation error="skip">
+            <search>
+                <![CDATA[$sort_data = array(]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            if (!empty($data['filter_name'])) {
+                $sql .= " AND cgd.name LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+            }
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/model/user/user_group.php">
+        <operation error="skip">
+            <search>
+                <![CDATA[$sql .= " ORDER BY name";]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            if (!empty($data['filter_name'])) {
+                $sql .= " WHERE name LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+            }
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/model/localisation/{weight_class,length_class}.php">
+        <operation error="skip">
+            <search>
+                <![CDATA[if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            if (!empty($data['filter_name'])) {
+                $sql .= " AND title LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+            }
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/model/marketing/coupon.php">
+        <operation error="skip">
+            <search>
+                <![CDATA[if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            if (!empty($data['filter_name'])) {
+                $sql .= " WHERE name LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+            }
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/model/localisation/country.php">
+        <operation error="skip">
+            <search>
+                <![CDATA[if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            if (!empty($data['filter_name'])) {
+                $sql .= " WHERE name LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+            }
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/model/localisation/currency.php">
+        <operation error="skip">
+            <search>
+                <![CDATA[if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            if (!empty($data['filter_name'])) {
+                $sql .= " WHERE title LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+            }
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/model/localisation/{stock_status,order_status}.php">
+        <operation error="skip">
+            <search>
+                <![CDATA[$sql .= " ORDER BY name";]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            if (!empty($data['filter_name'])) {
+                $sql .= " AND name LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+            }
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/model/localisation/{language,geo_zone}.php">
+        <operation error="skip">
+            <search>
+                <![CDATA[$sort_data = array(]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            if (!empty($data['filter_name'])) {
+                $sql .= " WHERE name LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+            }
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/model/localisation/zone.php">
+        <operation error="skip">
+            <search>
+                <![CDATA[$sort_data = array(]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            if (!empty($data['filter_name'])) {
+                $sql .= " WHERE z.name LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+            }
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/model/catalog/information.php">
+        <operation error="skip">
+            <search>
+                <![CDATA[if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            if (!empty($data['filter_name'])) {
+                $sql .= " AND id.title LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+            }
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/model/catalog/attribute_group.php">
+        <operation error="skip">
+            <search>
+                <![CDATA[$sort_data = array(]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            if (!empty($data['filter_name'])) {
+                $sql .= " AND agd.name LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+            }
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/model/user/api.php">
+        <operation error="skip">
+            <search>
+                <![CDATA[$sort_data = array(]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            if (!empty($data['filter_name'])) {
+                $sql .= " WHERE username LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+            }
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/model/localisation/tax_rate.php">
+        <operation error="skip">
+            <search>
+                <![CDATA[$sort_data = array(]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            if (!empty($data['filter_name'])) {
+                $sql .= " WHERE tr.name LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+            }
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/model/localisation/tax_class.php">
+        <operation error="skip">
+            <search>
+                <![CDATA[$sql .= " ORDER BY title";]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            if (!empty($data['filter_name'])) {
+                $sql .= " WHERE title LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+            }
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/model/catalog/filter.php">
+        <operation error="skip">
+            <search>
+                <![CDATA[$sort_data = array(]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            if (!empty($data['filter_name'])) {
+                $sql .= " AND fgd.name LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+            }
+            // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/model/catalog/option.php">
+        <operation error="skip">
+            <search>
+                <![CDATA[public function getOptionValues($option_id) {]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            // Added by Custom Setting modificator
+            public function getAllOptionValues($data = array()) {
+                $sql = "SELECT * FROM `" . DB_PREFIX . "option_value` ov LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (ov.option_value_id = ovd.option_value_id) WHERE ovd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
+
+                if (!empty($data['filter_name'])) {
+                    $sql .= " AND ovd.name LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+                }
+
+                $sql .= " GROUP BY ov.option_value_id";
+
+                $sort_data = array(
+                    'ovd.name',
+                    'ov.sort_order'
+                );
+
+                if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
+                    $sql .= " ORDER BY " . $data['sort'];
+                } else {
+                    $sql .= " ORDER BY ovd.name";
+                }
+
+                if (isset($data['order']) && ($data['order'] == 'DESC')) {
+                    $sql .= " DESC";
+                } else {
+                    $sql .= " ASC";
+                }
+
+                if (isset($data['start']) || isset($data['limit'])) {
+                    if ($data['start'] < 0) {
+                        $data['start'] = 0;
+                    }
+
+                    if ($data['limit'] < 1) {
+                        $data['limit'] = 20;
+                    }
+
+                    $sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+                }
+
+                $query = $this->db->query($sql);
+
+                return $query->rows;
+            }
+             // end content added by Custom Setting modificator
+            ]]>
+            </add>
+        </operation>
+    </file>
+</modification>

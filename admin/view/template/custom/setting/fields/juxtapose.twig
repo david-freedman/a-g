@@ -1,0 +1,34 @@
+<input type="hidden" name="custom_setting{{ name }}"/>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <td class="text-left">{{ column_title }}</td>
+                {% for key, column in values_options.settings %}
+                    <td class="text-left{{ column['required'] ? ' required' : '' }}" width="{{ column.width }}">
+                        {% if column.help %}
+                            <span data-toggle="tooltip" title="{{ column.help }}">
+                                {{ column.setting['title'] }}</span>
+                        {% else %}
+                            {{ column.setting['title'] }}
+                        {% endif %}
+                    </td>
+                {% endfor %}
+            </tr>
+
+        </thead>
+        <tbody>
+            {% for row_id, row in rows %}
+                <tr>
+                    <td class="text-left">{{ row.title }}</td>
+                    {% for v in value[row_id]['settings'] %}
+                        <td class="text-left">{{ v.output }}</td>
+                    {% endfor %}
+                </td>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% if error %}
+    <div class="text-danger">{{ error }}</div>
+{% endif %}

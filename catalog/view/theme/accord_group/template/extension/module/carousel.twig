@@ -1,0 +1,26 @@
+<section class="home__brands brands-section">
+  <div class="brands-section__container">
+    <h2 class="brands-section__title title">Популярні бренди</h2>
+    <div class="brands-section__slider splide" id="carousel{{ module }}">
+      <div class="splide__arrows">
+        <button class="splide__arrow splide__arrow--prev _icon-arrow-circle-left"></button>
+        <button class="splide__arrow splide__arrow--next _icon-arrow-circle-right"></button>
+      </div>
+      <div class="splide__track">
+        <ul class="splide__list">
+          {% for banner in banners %}
+            <li class="splide__slide">
+              {% if banner.link %}
+                <a href="{{ banner.link }}">
+                  <img src="{{ banner.image }}" alt="{{ banner.title }}" class="ibg">
+                </a>
+              {% else %}
+                <img src="{{ banner.image }}" alt="{{ banner.title }}" class="ibg">
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

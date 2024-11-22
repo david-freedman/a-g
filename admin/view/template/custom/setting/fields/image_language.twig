@@ -1,0 +1,38 @@
+{% if values_options.shown_tab %}
+    <ul class="nav nav-tabs" id="nav-custom-setting-setting-{{ id }}">
+        {% for language in languages %}
+            <li>
+                <a href="#tab-custom-setting-setting-{{ id }}-{{ language.language_id }}" data-toggle="tab" aria-expanded="false"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/>
+                    {{ language.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <div class="tab-content">
+        {% for language in languages %}
+            <div{{ popover }} class="tab-pane{{ error[language.language_id] ? ' has-error' : '' }}" id="tab-custom-setting-setting-{{ id }}-{{ language.language_id }}">
+                <a href="" id="thumb-image-custom_setting-setting-{{ id }}-{{ language.language_id }}" data-toggle="image" class="img-thumbnail">
+                    <img{{ popover }} src="{{ thumb[language.language_id] is not empty ? thumb[language.language_id] : placeholder }}" alt="" title="" data-placeholder="{{ placeholder }}" width="{{ values_options.placeholder_size.width ?:100 }}" height="{{ values_options.placeholder_size.height ?:100 }}"/>
+                </a>
+                <input type="hidden" name="custom_setting{{ name }}[{{ language.language_id }}]" value="{{ value[language.language_id] }}" id="input-image-custom_setting-setting-{{ id }}-{{ language.language_id }}"/>
+                {% if error[language.language_id] %}
+                    <div class="text-danger">{{ error[language.language_id] }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div{{ popover }}>
+        {% for language in languages %}
+            <div class="input-group{{ error[language.language_id] ? ' has-error' : '' }}">
+                <span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+                <a href="" id="thumb-image-custom_setting-setting-{{ id }}-{{ language.language_id }}" data-toggle="image" class="img-thumbnail">
+                    <img{{ popover }} src="{{ thumb[language.language_id] is not empty ? thumb[language.language_id] : placeholder }}" alt="" title="" data-placeholder="{{ placeholder }}" width="{{ values_options.placeholder_size.width ?:100 }}" height="{{ values_options.placeholder_size.height ?:100 }}"/>
+                </a>
+                <input type="hidden" name="custom_setting{{ name }}[{{ language.language_id }}]" value="{{ value[language.language_id] }}" id="input-image-custom_setting-setting-{{ id }}-{{ language.language_id }}"/>
+            </div>
+            {% if error[language.language_id] %}
+                <div class="text-danger">{{ error[language.language_id] }}</div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}

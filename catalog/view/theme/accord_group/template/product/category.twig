@@ -1,0 +1,353 @@
+{{ header }}
+<main class="page page--gray">
+	<div class="page__breadcrumbs breadcrumbs">
+		<div class="breadcrumbs__container">
+			<a href="{{ home }}" class="breadcrumbs__link _icon-house"></a>
+			<ul class="breadcrumbs__list">
+				{% for breadcrumb in breadcrumbs %}
+					<li class="breadcrumbs__item">
+						<a class="breadcrumbs__link" href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	<div class="page__catalog catalog">
+
+		{% if img_banner_cat %}
+			<div class="catalog__hero hero-catalog">
+				<img src="/image/{{ img_banner_cat }}" alt="Background" class="hero-catalog__bg ibg">
+				<div class="hero-catalog__container">
+					<div class="hero-catalog__body">
+						<h1 class="hero-catalog__title">{{ text_baner_cat }}</h1>
+						<a href="{{ link_baner_cat }}" class="hero-catalog__link button button--green">Дивитись більше</a>
+					</div>
+				</div>
+			</div>
+		{% endif %}
+		<section class="catalog__categories categories-catalog">
+			<div class="categories-catalog__container">
+				<h2 class="categories-catalog__title">{{ heading_title }}</h2>
+				<div class="categories-catalog__items">
+					{% for category in categories %}
+						<a href="{{ category.href }}" class="categories-catalog__item">
+							<div class="categories-catalog__image">
+								<img src="{{ category.thumb }}" alt="{{ category.name }}" class="ibg">
+							</div>
+							<h3 class="categories-catalog__item-title">{{ category.name }}</h3>
+						</a>
+					{% endfor %}
+				</div>
+			</div>
+		</section>
+		<section class="catalog__body body-catalog">
+			<div class="body-catalog__container">
+				<div class="body-catalog__header">
+					<div class="body-catalog__results">
+						<button data-filter-button class="body-catalog__filter-button button _icon-filter">
+							<span>Фільтри</span>
+						</button>
+						<div class="body-catalog__label">Знайдено товара
+							{{ product_total }}
+						</div>
+						<div
+							class="body-catalog__tags tags-catalog"><!-- Динамически выводимые фильтры могут быть здесь -->
+						</div>
+					</div>
+					<div class="form-group input-group input-group-sm">
+						<div
+							class="form-group input-group input-group-sm">
+							{# <label class="input-group-addon" for="input-sort">{{ text_sort }}</label> #}
+							<select id="input-sort" name="sort" class="form-control" data-class-modif="border" onchange="location = this.value;">
+								{% for sorts in sorts %}
+									{% if sorts.value == sort ~ '-' ~ order %}
+										<option value="{{ sorts.href }}" selected="selected">{{ sorts.text }}</option>
+									{% else %}
+										<option value="{{ sorts.href }}">{{ sorts.text }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						</div>
+
+
+					</div>
+
+				</div>
+				<div class="body-catalog__content">
+					<div class="filter-catalog__modules">
+						{% if column_left %}
+							{{ column_left }}
+						{% endif %}
+					</div>
+					{% include 'accord_group/template/product/partial_list.twig' %}
+				</div>
+
+			</div>
+		</section>
+		<section class="catalog__additional-modules">
+			<div class="body-catalog__additional-modules">
+				{% if modules_bottom %}
+					{{ modules_bottom }}
+				{% endif %}
+			</div>
+		</section>
+
+		<section data-da=".catalog, 767.98, last" class="catalog__readmore readmore">
+			<div data-showmore="items" class="readmore__container">
+				<div data-showmore-content="1" class="readmore__content text">
+
+					<img src="{{ thumb }}" alt="{{ heading_title }}" title="{{ heading_title }} " style="float: left; margin-right: 15px; margin-bottom: 15px; width: 7.5rem; aspect-ratio: 120 / 115;
+						    -o-object-fit: contain; object-fit: contain; background-color: #fff;">
+
+					{{ description }}
+
+				</div>
+				<button hidden data-showmore-button type="button" class="readmore__button _icon-arrow-down">
+					<span>Показати
+						                    ще</span>
+					<span>Сховати</span>
+				</button>
+			</div>
+		</section>
+		{% if title_acc %}
+			<section class="catalog__faq faq-section">
+				<div class="faq-section__grid-container">
+					<div class="faq-section__content">
+						<div class="faq-section__body">
+							<h2 class="faq-section__title">{{ title_acc }}</h2>
+							<div class="faq-section__text text">
+								{{ text_acc | raw }}
+							</div>
+							<div data-spoilers class="faq-section__spoilers faq-spoilers">
+								{% if mass_add_acc %}
+									<div class="faq-spoilers">
+										{% for item in mass_add_acc %}
+											<details class="faq-spoilers__item">
+												<summary class="faq-spoilers__title">{{ item.title }}</summary>
+												<div class="faq-spoilers__text text">
+													<p>{{ item.text | raw }}</p>
+												</div>
+											</details>
+										{% endfor %}
+									</div>
+								{% else %}
+									<p>No data available for spoilers.</p>
+								{% endif %}
+							</div>
+						</div>
+						<div data-da=".faq-section__body, 991.98, 2" class="faq-section__image">
+							{% if img_acc %}
+								<img src="/image/{{ img_acc }}" alt="Image" class="ibg">
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</section>
+		{% endif %}
+	</div>
+</main>
+
+<script>
+// Отримуємо оригінальний селект
+const origSelect = document.querySelector("#input-sort");
+// якщо селект знайденно
+if (origSelect) {
+    // відслідковуємо зміни в селекті
+  document.addEventListener("selectCallback", (e) => {
+    // якщо зміни відбулись в оригінальному селекті
+    if (e.detail.select === origSelect) {
+        // переходимо на нову сторінку
+        location.href = e.detail.select.selectedOptions[0].value;
+    }
+  });
+}
+
+$(document).ready(function () {
+    // Подія кліку на посилання пагінації
+    $(document).on('click', '.product-pagination__link, .product-pagination__arrow', function (e) {
+        e.preventDefault();
+
+        // Отримуємо URL з атрибута "href"
+        var url = $(this).attr('href');
+
+        // Перевіряємо, чи URL не порожній
+        if (url === '#' || $(this).hasClass('_disabled')) {
+            return;
+        }
+
+        // Додаємо індикатор завантаження
+        $('.products-catalog__items').addClass('loading');
+
+        // Виконуємо AJAX-запит
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function (data) {
+                // Парсимо отриманий HTML
+                var newContent = $(data).find('.products-catalog__items').html();
+
+                // Замінюємо контент секції з товарами
+                $('.products-catalog__items').html(newContent);
+
+                // Замінюємо плагінацію
+                var newPagination = $(data).find('.product-pagination__pages').html();
+                $('.product-pagination__pages').html(newPagination);
+
+                // Замінюємо кнопку "Показати ще"
+                var newPaginationButton = $(data).find('.product-pagination__button').prop('outerHTML');
+                $('.product-pagination__button').replaceWith(newPaginationButton);
+                // Прокручуємо до секції товарів з відступом
+                var offsetTop = $('.catalog__body').offset().top - 20; // 20px відступ зверху
+                $('html, body').animate({
+                    scrollTop: offsetTop
+                }, 500); // Час прокрутки в мілісекундах
+
+                // Оновлюємо URL у браузері
+                window.history.pushState(null, '', url);
+            },
+            error: function () {
+                alert('Помилка завантаження. Спробуйте ще раз.');
+            },
+            complete: function () {
+                // Видаляємо індикатор завантаження
+                $('.products-catalog__items').removeClass('loading');
+            }
+        });
+    });
+});
+
+$(document).ready(function () {
+    $('.product-pagination__count').find('.select__options .select__option').each(function() {
+        $(this).on('click', function () {
+            // Отримуємо вибраний URL
+            var url = $(this).data('value');
+
+            var currentUrl = new URL(window.location.href);            
+            var newUrl = new URL(url);
+
+            // Витягуємо параметри limit і page з поточного URL
+            var currentLimit = parseInt(currentUrl.searchParams.get('limit')) || {{ default_limit }};
+            var newLimit = parseInt(newUrl.searchParams.get('limit')) || {{ default_limit }};
+
+            // Додаємо індикатор завантаження
+            $('.products-catalog__items').addClass('loading');
+
+            // Виконуємо AJAX-запит
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (data) {
+                    // Парсимо отриманий HTML
+                    var newContent = $(data).find('.products-catalog__items').html();
+
+                    // Замінюємо контент секції з товарами
+                    $('.products-catalog__items').html(newContent);
+
+                    // Замінюємо плагінацію (якщо потрібно)
+                    var newPagination = $(data).find('.product-pagination__pages').html();
+                    $('.product-pagination__pages').html(newPagination);
+
+                    // Замінюємо кнопку "Показати ще"
+                    var newPaginationButton = $(data).find('.product-pagination__button').prop('outerHTML');
+                    $('.product-pagination__button').replaceWith(newPaginationButton);
+
+                    if (newLimit < currentLimit) {
+                        // Прокручуємо до секції товарів з відступом
+                        var offsetTop = $('.catalog__body').offset().top - 20; // 20px відступ зверху
+                        $('html, body').animate({
+                            scrollTop: offsetTop
+                        }, 500); // Час прокрутки в мілісекундах
+                    }
+
+                    // Оновлюємо URL у браузері
+                    window.history.pushState(null, '', url);
+                },
+                error: function () {
+                    alert('Помилка завантаження. Спробуйте ще раз.');
+                },
+                complete: function () {
+                    // Видаляємо індикатор завантаження
+                    $('.products-catalog__items').removeClass('loading');
+                }
+            });
+        });
+    });
+});
+
+$(document).ready(function () {
+    $(document).on('click', '#load-more', function () {
+        var button = $(this);
+        var nextPage = button.data('next-page');
+        var totalPages = button.data('total-pages');
+
+        if (!nextPage || nextPage > totalPages) return;
+
+        // Формуємо URL для завантаження наступної сторінки
+        var currentUrl = new URL(window.location.href);
+        currentUrl.searchParams.set('page', nextPage);
+        var url = currentUrl.href;
+
+        // Додаємо індикатор завантаження
+        $('.products-catalog__items').addClass('loading');
+
+        // Виконуємо AJAX-запит
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function (data) {
+                // Парсимо отриманий HTML
+                var newContent = $(data).find('.products-catalog__items').html();
+
+                // Додаємо нові товари до списку
+                $('.products-catalog__items').append(newContent);
+
+                // Замінюємо плагінацію (якщо потрібно)
+                var newPagination = $(data).find('.product-pagination__pages').html();
+                $('.product-pagination__pages').html(newPagination);
+
+                // Замінюємо кнопку "Показати ще"
+                // var newPaginationButton = $(data).find('.product-pagination__button');
+                // var newNextPage = newPaginationButton.data('next-page');
+                // var newTotalPages = newPaginationButton.data('total-pages');
+                // if (newNextPage > newTotalPages) {
+                //     button.hide();
+                // }
+                // $('.product-pagination__button').data('next-page', newNextPage).data('total-pages', newTotalPages);
+
+                var newPaginationButton = $(data).find('.product-pagination__button').prop('outerHTML');
+                $('.product-pagination__button').replaceWith(newPaginationButton);
+
+                // Оновлюємо URL у браузері
+                window.history.pushState(null, '', url);
+            },
+            error: function () {
+                alert('Помилка завантаження. Спробуйте ще раз.');
+            },
+            complete: function () {
+                // Видаляємо індикатор завантаження
+                $('.products-catalog__items').removeClass('loading');
+            }
+        });
+    });
+});
+
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('.ocf-selected-filter').each(function() {
+            $(this).find('i').removeClass('ocf-icon ocf-times-circle').addClass('_icon-cross');
+            let e = '<div class="tags-catalog__item">' + $(this).html() + '</div>';
+            $('.body-catalog__tags.tags-catalog').append(e);
+            $('.ocf-selected-card').hide();
+        });
+        
+        if ($('.body-catalog__tags.tags-catalog').length > 0) {
+            let button = $('.ocf-selected-card').find('.ocf-between button').first().clone();
+            button.removeClass().addClass('tags-catalog__item tags-catalog__item--reset _icon-cross');
+            $('.body-catalog__tags.tags-catalog').append(button);
+        }
+    });
+</script>
+{{ content_bottom }}
+{{ footer }}

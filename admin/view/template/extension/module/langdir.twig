@@ -1,0 +1,167 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right">
+        <button type="submit" form="form-langdir" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary">
+          <i class="fa fa-save"></i></button>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
+      </div>
+      <h1>{{ heading_title }}</h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+          {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="container-fluid">
+    {% if error_warning %}
+      <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+    {% endif %}
+    {% if (success) %} 
+    <div class="alert alert-success"><i class="fa fa-exclamation-circle"></i> {{ success }}</div>
+    {% endif %} 
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
+      </div>
+      <div class="panel-body">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-langdir" class="form-horizontal">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#tab-data" data-toggle="tab">{{ tab_data }}</a></li>
+            <li><a href="#tab-support" data-toggle="tab">{{ tab_support }}</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="tab-data">
+              
+              <!-- Hreflang -->
+              <div class="row" style="margin-bottom: 15px;">
+                <div class="col-sm-12">
+                  <label class="col-sm-2 control-label" for="input-hreflang">{{ entry_hreflang }}</label>
+                  <div class="col-sm-2">
+                    {% for language in languages %}
+                    <div class="form-group" style="border: 0; padding: 0; padding-top: 9px;">
+                      <div class="col-sm-12">
+                          <div class="input-group">
+                            <span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+                            <input type="text" class="form-control" name="langdir_hreflang[{{ language.language_id }}]" id="input-hreflang" value="{{ langdir_hreflang[language.language_id] ? langdir_hreflang[language.language_id] : '' }}" />
+                          </div>
+                          {% if errors.hreflang[language.language_id] %}
+                            <div class="text-danger">{{ errors.hreflang[language.language_id] }}</div>
+                          {% endif %}
+                      </div>
+                    </div>
+                    {% endfor %}
+                  </div>
+                  <div class="col-sm-5">{{ help_hreflang }}</div>
+                </div>
+              </div><!-- /row -->
+              
+              <!-- Langdir -->
+              <div class="row" style="margin-bottom: 15px;">
+                <div class="col-sm-12">
+                  <label class="col-sm-2 control-label" for="input-langdir">{{ entry_langdir }}</label>
+                  <div class="col-sm-2">
+                    {% for language in languages %}
+                    <div class="form-group" style="border: 0; padding: 0; padding-top: 9px;">
+                      <div class="col-sm-12">
+                          <div class="input-group">
+                            <span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+                            <input type="text" class="form-control" name="langdir_dir[{{ language.language_id }}]" id="input-dir" value="{{ langdir_dir[language.language_id] ? langdir_dir[language.language_id] : '' }}" />
+                          </div>
+                          {% if errors.dir[language.language_id] %}
+                            <div class="text-danger">{{ errors.dir[language.language_id] }}</div>
+                          {% endif %}
+                      </div>
+                    </div>
+                    {% endfor %}
+                  </div>
+                  <div class="col-sm-5">
+                     
+                  </div>
+                </div>
+              </div><!-- /row -->
+              
+              <!-- Off -->
+              <div class="form-group" style="margin-bottom: 30px;"> 
+                <div class="checkbox col-sm-6 col-sm-offset-2">
+                  &nbsp;&nbsp;&nbsp;<label><input type="checkbox" name="langdir_off" value="1" {% if langdir_off == 1 %}checked="checked"{% endif %}> {{ entry_dir_off }}</label>
+                </div>
+              </div>
+                  
+              <!-- Meta Tags -->              
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <td class="text-left" style="width: 250px;">{{ entry_store }}</td>
+                      <td class="text-left" style="width: calc(100% - (250px + 15px));">{{ entry_meta }}</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for store in stores %}
+                      <tr>
+                        <td class="text-left">{{ store.name }}</td>
+                        <td class="text-left">                       
+                            <ul class="nav nav-tabs">
+                              {% for language in languages %}
+                                <li class="{% if (loop.index ==1) %} active in {% endif %}">
+                                  <a href="#meta-tags-{{ store.store_id }}-{{ language.language_id }}" data-toggle="tab"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/> {{ language.name }}</a></li>
+                                  {% endfor %}
+                            </ul> 
+                            <div class="tab-content">
+                              {% for language in languages %}
+                                <div class="tab-pane fade {% if (loop.index ==1) %} active in {% endif %}" id="meta-tags-{{ store.store_id }}-{{ language.language_id }}">
+                                  <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="input-meta-title[{{ language.language_id }}]">{{ entry_meta_title }}</label>
+                                    <div class="col-sm-10">
+                                      <input type="text" name="langdir_data[{{ language.language_id }}][meta_title]" value="{{ langdir_data[language.language_id] ? langdir_data[language.language_id].meta_title : '' }}" placeholder="{{ entry_meta_title }}" id="input-meta-title[{{ language.language_id }}]" class="form-control"/>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="input-meta-description{{ language.language_id }}">{{ entry_meta_description }}</label>
+                                    <div class="col-sm-10">
+                                      <textarea name="langdir_data[{{ language.language_id }}][meta_description]" rows="5" placeholder="{{ entry_meta_description }}" id="input-meta-description{{ language.language_id }}" class="form-control">{{ langdir_data[language.language_id] ? langdir_data[language.language_id].meta_description : ''  }}</textarea>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="input-meta-keyword{{ language.language_id }}">{{ entry_meta_keyword }}</label>
+                                    <div class="col-sm-10">
+                                      <textarea name="langdir_data[{{ language.language_id }}][meta_keyword]" rows="5" placeholder="{{ entry_meta_keyword }}" id="input-meta-keyword{{ language.language_id }}" class="form-control">{{ langdir_data[language.language_id] ? langdir_data[language.language_id].meta_keyword : '' }}</textarea>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="input-address{{ language.language_id }}">{{ entry_address }}</label>
+                                    <div class="col-sm-10">
+                                      <textarea name="langdir_data[{{ language.language_id }}][address]" rows="5" placeholder="{{ entry_address }}" id="input-address{{ language.language_id }}" class="form-control">{{ langdir_data[language.language_id] ? langdir_data[language.language_id].address : '' }}</textarea>
+                                    </div>
+                                  </div>
+                                </div>
+                              {% endfor %}
+                            </div>
+                      
+                      </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="tab-support">
+                <div class="panel-body">
+                  {{ help_support }}
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    $('.nav-tabs li:first a').tab('show');
+  </script>
+  {{ footer }}

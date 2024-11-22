@@ -1,0 +1,18 @@
+<ul class="nav nav-tabs" id="nav-custom_setting-setting-{{ id }}">
+    {% for language in languages %}
+        <li>
+            <a href="#tab-custom_setting-setting-{{ id }}-{{ language.language_id }}" data-toggle="tab" aria-expanded="false"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/>
+                {{ language.name }}</a>
+        </li>
+    {% endfor %}
+</ul>
+<div class="tab-content">
+    {% for language in languages %}
+        <div{{ popover }} class="tab-pane{{ error[language.language_id] ? ' has-error' : '' }}" id="tab-custom_setting-setting-{{ id }}-{{ language.language_id }}">
+            <textarea name="custom_setting{{ name }}[{{ language.language_id }}]" id="input-custom-setting-{{ id }}-{{ language.language_id }}" class="form-control texteditor">{{ value[language.language_id] }}</textarea>
+            {% if error[language.language_id] %}
+                <div class="text-danger">{{ error[language.language_id] }}</div>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>

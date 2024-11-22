@@ -1,0 +1,44 @@
+<section class="home__group group-home">
+    <div class="group-home__container">
+        <div class="group-home__body">
+            <div class="group-home__content">
+                <h2 class="group-home__title title">{{ title_offer_text|raw  }}</h2>
+                <div class="group-home__text text">
+                    {{ text_offer_home|raw  }}
+                </div>
+                <div class="group-home__label">{{ title_offer_text2|raw  }}</div>
+				<div class="group-home__text text">
+                    {{ text_offer_home2|raw  }}
+                </div>
+            </div>
+            <div class="group-home__items">
+                {% for item in offer_item_prop %}
+                    <a href="{{ item.offer_link_prop }}" class="group-home__item item-group-home">
+                        <img src="/image/{{ item.offer_img_prop }}" alt="Image" class="item-group-home__bg">
+                        <div class="item-group-home__body">
+                            {{ item.offer_text_prop }}
+                        </div>
+                    </a>
+                {% endfor %}
+
+
+            </div>
+        </div>
+        <div data-da=".group-home__content, 991.92, 2" class="group-home__images">
+            <div class="group-home__image">
+                <img src="/image/{{item_galereya_1}}" alt="Image" class="ibg">
+            </div>
+            <div class="group-home__image">
+                <img src="/image/{{item_galereya_2}}" alt="Image" class="ibg">
+            </div>
+            <div class="group-home__col">
+                <div class="group-home__image">
+                    <img src="/image/{{item_galereya_3}}" alt="Image" class="ibg">
+                </div>
+                <div class="group-home__image">
+                    <img src="/image/{{item_galereya_4}}" alt="Image" class="ibg">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

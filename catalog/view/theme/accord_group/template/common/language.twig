@@ -1,0 +1,49 @@
+{% if languages|length > 1 %}
+<div class="language-selector">
+  <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-language">
+    <select name="code" data-class-modif="lang" id="input-language">
+      {% for language in languages %}
+        <option value="{{ language.code }}" {% if language.code == code %}selected{% endif %}>
+          {{ language.name }}
+        </option>
+      {% endfor %}
+    </select>
+    <input type="hidden" name="redirect" value="{{ redirect }}" />
+  </form>
+</div>
+
+<select name="form[]" data-class-modif="lang">
+  {% for language in languages %}
+  <option value="{{ language.code }}" {% if language.code == code %}selected{% endif %}>
+    {{ language.name }}
+  </option>
+{% endfor %}
+</select>
+
+<script>
+  // Проверяем, существует ли уже переменная langSelect
+  var langSelect;
+  if (!langSelect) {
+    // Получаем оригинальный селект для выбора языка
+    langSelect = document.querySelector("#input-language");
+
+    if (langSelect) {
+      // Слушаем событие выбора в селекте
+      document.addEventListener("selectCallback", (e) => {
+        // Если изменения произошли в нашем селекте
+        if (e.detail.select === langSelect) {
+          console.log('Changing language to:', e.detail.select.value);
+          // Обновляем значение в скрытом инпуте и отправляем форму
+          document.querySelector("#form-language").submit();
+        }
+      });
+
+      // Генерируем кастомное событие при изменении языка
+      langSelect.addEventListener("change", function() {
+        const event = new CustomEvent("selectCallback", { detail: { select: this } });
+        document.dispatchEvent(event);
+      });
+    }
+  }
+</script>
+{% endif %}

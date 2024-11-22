@@ -1,0 +1,151 @@
+<div class="body-catalog__products products-catalog">
+	<div class="products-catalog__items">
+		{% for product in products %}
+			<article class="item-product">
+				<div class="item-product__image">
+					{% if product.special %}
+						<div class="item-product__label item-product__label--yellow">Акція</div>
+					{% endif %}
+					<div class="item-product__actions">
+						<button type="button" class="item-product__button item-product__button--fav _icon-heart" onclick="wishlist.add('{{ product.product_id }}');" data-toggle="tooltip" title="{{ button_wishlist }}"></button>
+						<button type="button" class="item-product__button _icon-libra" onclick="compare.add('{{ product.product_id }}');" data-toggle="tooltip" title="{{ button_compare }}"></button>
+						<button type="button" class="item-product__button _icon-bag" onclick="cart.add('{{ product.product_id }}', '{{ product.minimum }}');"></button>
+					</div>
+
+					<div class="item-product__slider splide">
+						<div class="splide__track">
+							<a href="{{ product.href }}" class="item-product__image-link" style="z-index: 2"></a>
+							<ul class="splide__list">
+								{% for image in product.images %}
+									<li class="splide__slide">
+										<img src="{{ image }}" alt="{{ product.name }}" class="ibg">
+									</li>
+								{% endfor %}
+							</ul>
+						</div>
+
+						{#{% if product.show_slider_controls %}#}
+						<div class="splide__arrows" style="{% if product.show_slider_controls %} opacity:0 {% endif %}">
+							<button class="splide__arrow splide__arrow--prev _icon-ch-left"></button>
+							<div class="splide__pagination"></div>
+							<button class="splide__arrow splide__arrow--next _icon-ch-right"></button>
+						</div>
+						{#{% endif %}#}
+					</div>
+				</div>
+
+				<h3 class="item-product__title">
+					<a href="{{ product.href }}" class="item-product__link">{{ product.name }}</a>
+				</h3>
+
+				<div class="item-product__info">
+					<div class="item-product__brand">
+						<span>Бренд:</span>
+						{{ product.manufacturer }}
+
+
+					</div>
+					<button type="button" class="item-product__video-btn _icon-camera" style="{% if not product.video %} opacity:0 {% endif %}">Відео-огляд</button>
+				</div>
+
+				<div class="item-product__body">
+					<div class="item-product__price">
+						{% if product.special %}
+							<span class="price-old">{{ product.price }}</span>
+							<span class="price-new">{{ product.special }}</span>
+						{% else %}
+							{{ product.price }}
+						{% endif %}
+
+					</div>
+
+					{% if product.rating %}
+						<div class="rating">
+							{% for i in 1..5 %}
+								{% if product.rating < i %}
+									<span class="fa fa-stack">
+										<i class="fa fa-star-o fa-stack-2x"></i>
+									</span>
+								{% else %}
+									<span class="fa fa-stack">
+										<i class="fa fa-star fa-stack-2x"></i>
+										<i class="fa fa-star-o fa-stack-2x"></i>
+									</span>
+								{% endif %}
+							{% endfor %}
+						</div>
+					{% endif %}
+
+					<div class="item-product__availability
+						{% if product.stock == text_special_order %}
+							item-product__availability--yellow  <!-- Стиль для под заказ -->
+						{% elseif product.stock == text_out_of_stock %}
+							item-product__availability--gray  <!-- Стиль для нет в наличии -->
+						{% else %}
+							item-product__availability--green  <!-- Стиль для в наличии -->
+						{% endif %}">
+						{{ product.stock }}
+						<!-- Выводим текст статуса на текущем языке -->
+					</div>
+
+					{% if product.stock == text_out_of_stock %}
+						<button type="button" onclick="cart.add('{{ product.product_id }}', '{{ product.minimum }}');" class="item-product__buy-button button _icon-track">
+							Замовити
+						</button>
+					{% else %}
+						<button type="button" onclick="cart.add('{{ product.product_id }}', '{{ product.minimum }}');" class="item-product__buy-button button button--green _icon-cart">
+							Купити
+						</button>
+					{% endif %}
+
+				</div>
+			</article>
+		{% endfor %}
+        <script>
+			var splideInstances = [];
+            $('.item-product__slider').each(function(index) {
+				if (splideInstances[index]) {
+					splideInstances[index].destroy(true); // Видаляємо Splide і його обгортку
+				}
+                splideInstances[index] = new Splide(this, {
+                    perPage: 1,
+                    arrows: true,
+                    pagination: true,
+                    drag: false
+                }).mount();
+            });
+        </script>
+	</div>
+
+	<div class="products-catalog__pagination product-pagination">
+		<div class="product-pagination__count">
+			<div class="product-pagination__label">
+				{{ text_limit }}
+			</div>
+
+			<select name="form[]" id="input-limit" data-class-modif="border">
+                {% for item in limits %}
+                    <option value="{{ item.href }}" {% if item.value == limit %}selected="selected"{% endif %}>
+                        {{ item.text }}
+                    </option>
+                {% endfor %}
+            </select>
+		</div>
+		<div class="product-pagination__pages">
+			<a href="{{ prev_link ?: '#' }}" class="product-pagination__arrow {% if not prev_link %}_disabled{% endif %} _icon-ch-left"></a>
+			<ul class="product-pagination__list">
+				{% for page in custom_pagination %}
+					<li class="product-pagination__item">
+						<a href="{{ page.href }}" class="product-pagination__link {% if page.active %}_active{% endif %}">{{ page.text }}</a>
+					</li>
+				{% endfor %}
+			</ul>
+			<a href="{{ next_link ?: '#' }}" class="product-pagination__arrow {% if not next_link %}_disabled{% endif %} _icon-ch-right"></a>
+		</div>
+
+				<button id="load-more" class="product-pagination__button button button--green _icon-cart" data-next-page="{{ next_page }}" data-total-pages="{{ total_pages }}" {% if next_page == false %}style="display:none"{% endif %}>
+					Показати ще
+				</button>
+			</div>
+	</div>
+</div>

@@ -1,0 +1,42 @@
+<section class="product__viewed recomendations recomendations--small-scrollbar">
+	<div class="recomendations__grid-container">
+		<div class="recomendations__header">
+			<h2 class="recomendations__title">
+				{{ heading_title }}
+			</h2>
+		</div>
+		<div class="recomendations__label">
+            {{ description_text }}
+		</div>
+		<div data-simplebar class="recomendations__body">
+			<div class="recomendations__items">
+                {% for product in products %}
+                <article class="item-product-min">
+                    <div class="item-product-min__image">
+                        <button type="button" onclick="wishlist.add('{{ product.product_id }}');" class="item-product-min__fav _icon-heart {% if product.wishlist %}_active{% endif %}">
+                        </button>
+                        <a href="{{ product.href }}" class="item-product-min__image-link">
+                            <img class="ibg" src="{{ product.thumb }}" alt="{{ product.name }}">
+                        </a>
+                    </div>
+                    <h3 class="item-product-min__title">
+                        <a href="{{ product.href }}" class="item-product-min__link">{{ product.name }}</a>
+                    </h3>
+                    <div class="item-product-min__body">
+                        <div class="item-product-min__price">
+                            {% if product.special %}
+                                {{ product.special }}
+                                <span>{{ product.price }}</span>
+                            {% else %}
+                                {{ product.price }}
+                            {% endif %}
+                        </div>
+                        <button type="button" onclick="cart.add('{{ product.product_id }}', '{{ product.minimum }}');" class="item-product-min__buy-button button button--green _icon-cart">
+                        </button>
+                    </div>
+                </article>
+                {% endfor %}
+			</div>
+		</div>
+	</div>
+</section>

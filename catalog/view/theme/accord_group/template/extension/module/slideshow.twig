@@ -1,0 +1,29 @@
+<section class="home__hero hero">
+  <div class="hero__grid-container">
+    <div class="hero__slider splide">
+      <div class="splide__track">
+        <ul class="splide__list">
+          {% for banner in banners %}
+          <li class="splide__slide">
+            <div class="hero__item">
+              <img src="{{ banner.image }}" alt="{{ banner.title }}" class="hero__bg">
+              <div class="hero__body">
+                <h3 class="hero__title">
+                  {{ banner.title }}
+                </h3>
+                {% if banner.link %}
+                <a href="{{ banner.link }}" class="hero__link button button--green">
+                  Дізнатись більше
+                </a>
+                {% endif %}
+              </div>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+        
+      </div>
+     
+    </div>
+  </div>
+</section>

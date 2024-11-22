@@ -1,0 +1,21 @@
+<select{{ popover }} name="custom_setting{{ name }}" id="input-custom-setting-{{ id }}" class="form-control">
+    {% if values_options.empty %}
+        <option value="">{{ text_none }}</option>
+    {% endif %}
+    {% set optgroup = [] %}
+    {% for v in options if v not in optgroup %}
+        {% if v.group %}
+            <optgroup label="{{ v.group }}">
+            {% endif %}
+            {% for p in options if p.group == v.group and p not in optgroup %}
+                <option value="{{ p.key }}" {{ value == p.key ? ' selected="selected"': '' }}>{{ p.title }}</option>
+                {% set optgroup = optgroup|merge([p]) %}
+            {% endfor %}
+            {% if v.group %}
+            </optgroup>
+        {% endif %}
+    {% endfor %}
+</select>
+{% if error %}
+    <div class="text-danger">{{ error }}</div>
+{% endif %}

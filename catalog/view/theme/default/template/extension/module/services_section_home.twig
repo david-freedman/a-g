@@ -1,0 +1,39 @@
+<section class="home__services services-section">
+    <div class="services-section__container">
+        <div class="services-section__body">
+            <div class="services-section__content">
+                <h2 class="services-section__title title">
+                    {{ title_servise_home }}
+                </h2>
+                <div class="services-section__text text">
+                    {{ text_servise_home }}
+                </div>
+            </div>
+            <a href="{{ link_servise_home }}" class="services-section__link button button--green">
+               {{ name_servise_btn }}
+            </a>
+        </div>
+        <div class="services-section__items">
+            {% for item in item_servises_home %}
+            <article class="services-section__item item-services-s">
+                <a href="{{ item.link_serv_home_item }}" class="item-services-s__image">
+                    <img src="/image/{{ item.img_servise_posluga }}" alt="Image" class="ibg">
+                    <h3 class="item-services-s__title item-services-s__title--image">
+                        {{ item.titile_servise_posluga }}
+                    </h3>
+                </a>
+                <div class="item-services-s__body">
+                    <h3 class="item-services-s__title">
+                        <a href="{{ item.link_serv_home_item }}" class="item-services-s__link">{{ item.titile_servise_posluga }}</a>
+                    </h3>
+                    <div class="item-services-s__text text">
+                        <p>{{ item.text_servises_home }}</p>
+                    </div>
+                    <a href="{{ item.link_serv_home_item }}" class="item-services-s__button-link button button--green">Замовити послугу</a>
+                </div>
+            </article>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="{{ direction }}" lang="{{ lang }}" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="{{ direction }}" lang="{{ lang }}" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="{{ direction }}" lang="{{ lang }}" >
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{{ title }}</title>
+{% if robots %}
+<meta name="robots" content="{{ robots }}" />
+{% endif %}
+<base href="{{ base }}" />
+{% if description %}
+<meta name="description" content="{{ description }}" />
+{% endif %}
+{% if keywords %}
+<meta name="keywords" content="{{ keywords }}" />
+{% endif %}
+<meta property="og:title" content="{{ title }}" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{{ og_url }}" />
+{% if og_image %}
+<meta property="og:image" content="{{ og_image }}" />
+{% else %}
+<meta property="og:image" content="{{ logo }}" />
+{% endif %}
+<meta property="og:site_name" content="{{ name }}" />
+<script src="catalog/view/javascript/jquery/jquery-2.1.1.min.js" type="text/javascript"></script>
+<script src="catalog/view/javascript/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<link href="catalog/view/theme/accord_group/stylesheet/style.css" rel="stylesheet">
+{% for style in styles %}
+<link href="{{ style.href }}" type="text/css" rel="{{ style.rel }}" media="{{ style.media }}" />
+{% endfor %}
+{% for script in scripts %}
+<script src="{{ script }}" type="text/javascript"></script>
+{% endfor %}
+
+<script src="catalog/view/javascript/common.js" type="text/javascript"></script>
+
+{% for link in links %}
+<link href="{{ link.href }}" rel="{{ link.rel }}" />
+{% endfor %}
+{% for analytic in analytics %}
+{{ analytic }}
+{% endfor %}
+
+<script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
+<link href=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css " rel="stylesheet">
+</head>
+<body>
+  <div class="wrapper">
+		<header class="header">
+			
+			<a href="{{ link_baner_top }}" class="header__promo promo-header" style="background-color:{{ color_bagra }};">
+
+				<div class="promo-header__container">
+					<div class="promo-header__image">
+						<img src="/image/{{ photo_left }}" alt="Banner" class="ibg">
+					</div>
+					<div class="promo-header__text">
+						{{ text_for }}
+					</div>
+					<div class="promo-header__logo">
+						<img src="/image/{{ photo_right }}" alt="Logo" class="ibg--contain">
+					</div>
+					<div class="promo-header__label" style="background-color:{{color_sale}}">{{ sale_banner_top }}</div>
+				</div>
+			</a>
+			<div class="header__top">
+				<div class="header__container">
+					<div class="header__menu menu">
+						<nav class="menu__body">
+							<ul class="menu__list">
+								{% for item in block_menu_header_top %}
+								<li class="copy-menu__item">
+								  <a href="{{ item.link_menu_top }}" class="copy-menu__link">{{ item.text_menu_top }}</a>
+								</li>
+							  {% endfor %}
+								
+							</ul>
+						</nav>
+					</div>
+					
+						{{ language }}
+				
+					<a href="tel:{{ telephone }}" data-da=".mobile-menu__body, 991.98, 6" class="header__phone _icon-phone">{{ telephone }}  </a>
+            
+					<a href="{{ login }}" class="header__profile _icon-profile-circle"></a>
+				</div>
+			</div>
+			<div class="header__bottom">
+				<div class="header__container">
+					<button data-menu type="button" class="menu__icon icon-menu"><span></span></button>
+					<a data-da=".mobile-menu__header, 991.98, first" href="{{ home }}" class="header__logo">
+						{% if logo %}
+							{% if home == og_url %}
+								<img src="{{ logo }}" title="{{ name }}" alt="{{ name }}" class="ibg ibg--contain" />
+							{% else %}
+								<img src="{{ logo }}" title="{{ name }}" alt="{{ name }}" class="ibg ibg--contain" />
+							{% endif %}
+						{% else %}
+							<h1>{{ name }}</h1>
+						{% endif %}
+					</a>					
+					<button data-catalog-header class="header__catalog-button _icon-catalog button">
+						Каталог
+					</button>
+					{{ search }}
+					<div data-da=".mobile-menu__body, 991.98, 2" class="header__actions actions-header">
+						<a href="{{ wishlist }}" class="actions-header__item">
+							<div class="actions-header__icon _icon-heart">
+								<div class="actions-header__count" id="wishlist-total">{{ text_wishlist }}</div>
+							</div>
+							<span>Збережене</span>
+						</a>
+						<a href="#" class="actions-header__item">
+							<div class="actions-header__icon _icon-libra"></div>
+							<span>Список порівнянь</span>
+						</a>
+						<a href="#" class="actions-header__item">
+							<div class="actions-header__icon _icon-bag"></div>
+							<span>Комерційна пропозиція</span>
+						</a>
+						<a href="{{ shopping_cart }}" data-da=".header__bottom .header__container, 991.98, last" class="actions-header__item actions-header__item--circle">
+							<div class="actions-header__icon _icon-cart"><div class="actions-header__count" id="wishlist-total">{{ text_items }}</div></div>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="header__categories categories-header">
+				<div class="categories-header__container">
+					{% if categories %}
+						{% for category in categories %}
+							<div class="categories-header__item">
+								<a target="_blank" href="{{ category.href }}" class="categories-header__link"></a>
+								<div class="categories-header__image">
+									<img src="/image/{{ category.icon }}" alt="{{ category.name }}" class="ibg ibg--contain">
+								</div>
+								<h3 class="categories-header__title">{{ category.name }}</h3>
+								{% if category.children %}
+									<div class="categories-header__menu menu-categories-h">
+										<div class="menu-categories-h__body">
+											{% for child in category.children %}
+												<div class="menu-categories-h__block">
+													<h4 class="menu-categories-h__title">
+														<a href="{{ child.href }}" class="menu-categories-h__link">
+															{{ child.name }}
+														</a>
+													</h4>
+													<ul class="menu-categories-h__list">
+														{% for subchild in child.children %}
+															<li class="menu-categories-h__item">
+																<a href="{{ subchild.href }}" class="menu-categories-h__link">
+																	{{ subchild.name }}
+																</a>
+															</li>
+														{% endfor %}
+													</ul>
+												</div>
+											{% endfor %}
+											
+										</div>
+										<a data-da="{.menu-categories-h} .menu-categories-h__body, 991.98, last" href="#" class="menu-categories-h__banner">
+											<img src="/image/{{ category.img_menu }}" alt="Image">
+										</a>
+									</div>
+								{% endif %}
+							</div>
+						{% endfor %}
+					{% endif %}
+				</div>
+			</div>
+			
+			<div class="mobile-menu">
+				<div class="mobile-menu__header">
+					{{ language }}
+					<button data-menu type="button" class="mobile-menu__close  _icon-cross"></button>
+				</div>
+				<div class="mobile-menu__body">
+					<div data-da=".mobile-menu__body, 991.98, first" data-spoilers class="mobile-menu__spoilers spoilers-menu">
+						<details class="spoilers-menu__block">
+							<summary class="spoilers-menu__title spoilers-menu__title--bg _icon-catalog"><span>Каталог товарів</span>
+							</summary>
+							<div class="spoilers-menu__body spoilers-menu__body--catalog">
+
+							</div>
+						</details>
+						<details class="spoilers-menu__block">
+							<summary class="spoilers-menu__title spoilers-menu__title--purple spoilers-menu__title--bg _icon-house-smile">
+								<span>Послуги</span>
+							</summary>
+							<div class="spoilers-menu__body">
+								<ul class="spoilers-menu__list">
+									<li class="spoilers-menu__item">
+										<a href="#" class="spoilers-menu__link">
+											Комплексне оснащення
+										</a>
+									</li>
+									<li class="spoilers-menu__item">
+										<a href="#" class="spoilers-menu__link">
+											Проектування ресторанів і кафе
+										</a>
+									</li>
+									<li class="spoilers-menu__item">
+										<a href="#" class="spoilers-menu__link">
+											Монтаж і сервіс обладнання
+										</a>
+									</li>
+								</ul>
+							</div>
+						</details>
+					</div>
+					<div data-da=".mobile-menu__body, 991.98, 3" class="mobile-menu__login login-mob-menu">
+						<div class="login-mob-menu__text">
+							Увійдійть в особистий кабінет, щоб отримувати персональні пропозиції і знижки
+						</div>
+						<a href="#" class="login-mob-menu__link _icon-profile-circle button button--border">Увійти в особистий
+							кабінет</a>
+					</div>
+					<div data-da=".mobile-menu__body, 991.98, 4" class="mobile-menu__actions actions-header">
+						<a href="#" class="actions-header__item actions-header__item--green">
+							<div class="actions-header__icon _icon-chart"></div>
+							Кейси
+						</a>
+						<a href="#" class="actions-header__item actions-header__item--red">
+							<div class="actions-header__icon _icon-label"></div>
+							Акції
+						</a>
+						<a href="#" class="actions-header__item">
+							<div class="actions-header__icon _icon-house"></div>
+							Головна
+						</a>
+					</div>
+					<div data-da=".mobile-menu__body, 991.98, 5" data-spoilers class="mobile-menu__spoilers spoilers-menu spoilers-menu--padding">
+						<details class="spoilers-menu__block spoilers-menu__block--big-margin">
+							<summary class="spoilers-menu__title _icon-location">
+								<span>Про нас</span>
+							</summary>
+							<div class="spoilers-menu__body">
+								<ul class="spoilers-menu__list">
+									<li class="spoilers-menu__item">
+										<a href="#" class="spoilers-menu__link">
+											Про Accord Group
+										</a>
+									</li>
+									<li class="spoilers-menu__item">
+										<a href="#" class="spoilers-menu__link">
+											Бренди
+										</a>
+									</li>
+									<li class="spoilers-menu__item">
+										<a href="#" class="spoilers-menu__link">
+											Наші клієнти
+										</a>
+									</li>
+									<li class="spoilers-menu__item">
+										<a href="#" class="spoilers-menu__link">
+											Вакансії
+										</a>
+									</li>
+									<li class="spoilers-menu__item">
+										<a href="#" class="spoilers-menu__link">
+											Новини
+										</a>
+									</li>
+									<li class="spoilers-menu__item">
+										<a href="#" class="spoilers-menu__link">
+											Контакти
+										</a>
+									</li>
+								</ul>
+							</div>
+						</details>
+						<details class="spoilers-menu__block spoilers-menu__block--big-margin">
+							<summary class="spoilers-menu__title _icon-info">
+								<span>Клієнтам</span>
+							</summary>
+							<div class="spoilers-menu__body">
+								<ul class="spoilers-menu__list">
+									<li class="spoilers-menu__item">
+										<a href="#" class="spoilers-menu__link">
+											Доставка та умови оплати
+										</a>
+									</li>
+									<li class="spoilers-menu__item">
+										<a href="#" class="spoilers-menu__link">
+											Питання і відповіді
+										</a>
+									</li>
+								</ul>
+							</div>
+						</details>
+					</div>
+				</div>
+			</div>
+			<div data-da=".spoilers-menu__body--catalog, 991.98" class="header__catalog catalog-header">
+				<div data-one-spoiler data-spoilers="991.98, max" class="catalog-header__spoilers spoilers-catalog-h">
+					
+					
+					{% if categories %}
+					
+						{% for category in categories %}
+						<details class="spoilers-catalog-h__item">
+								<summary class="spoilers-catalog-h__title">
+									<div class="spoilers-catalog-h__icon">
+											<img src="/image/{{ category.icon }}" alt="{{ category.name }}" class="ibg ibg--contain">
+										</div>
+									<span>{{ category.name }}</span>
+								</summary>
+
+							{% if category.children %}
+								<div class="spoilers-catalog-h__submenu submenu-catalog-h">
+								{% for child in category.children %}
+								<details class="submenu-catalog-h__block">
+									<summary class="submenu-catalog-h__title"></summary>
+									<a href="{{ child.href }}">{{ child.name }}</a>
+									
+									<ul class="submenu-catalog-h__list">
+										{% for subchild in child.children %}
+										<li class="submenu-catalog-h__item">
+											<a href="{{ subchild.href }}" class="submenu-catalog-h__link">{{ subchild.name }}</a>
+										</li>
+										{% endfor %}
+									</ul>
+								</details>
+								
+								{% endfor %}
+								<div class="submenu-catalog-h__block submenu-catalog-h__block--pc">
+									<img src="/image/{{ category.img_menu }}" class="ibg ibg--contain" alt="Image">
+								</div>
+								
+								</div>
+							{% endif %}
+						
+						</details>
+
+						{% endfor %}
+					
+					{% endif %}
+
+
+
+
+
+				
+				</div>
+			</div>
+		</header>

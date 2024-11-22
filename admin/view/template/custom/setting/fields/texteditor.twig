@@ -1,0 +1,6 @@
+<div {{ popover }}>
+    <textarea name="custom_setting{{ name }}" id="input-custom-setting-{{ id }}" class="texteditor">{{ value }}</textarea>
+</div>
+{% if error %}
+    <div class="text-danger">{{ error }}</div>
+{% endif %}

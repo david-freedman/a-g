@@ -1,0 +1,41 @@
+<section class="home__news news-section">
+  <div class="news-section__grid-container">
+      <div class="news-section__header">
+          <h2 class="news-section__title title">{{ heading_title }}</h2>
+          <div class="news-section__text text">
+              <p>Будьте в курсі найсвіжіших новин, захопливих подій і цікавих матеріалів!</p>
+          </div>
+          <a href="#" class="news-section__link button button--green">Більше новин</a>
+      </div>
+      <div class="news-section__slider splide">
+          <div class="splide__track">
+              <ul class="splide__list">
+                {% for article in articles %}
+                <li class="splide__slide">
+                    <article class="news-section__item item-news-s">
+                        <a href="{{ article.href }}" class="item-news-s__image">
+                            <img src="{{ article.thumb }}" alt="{{ article.name }}" class="ibg">
+                            <div class="item-news-s__label">{{ article.date_added }}</div>
+                        </a>
+                        <div class="item-news-s__body">
+                            <div class="item-news-s__tags">
+                                <div class="item-news-s__tag">Новини</div>
+                                <div class="item-news-s__tag">Події</div>
+                            </div>
+                            <h3 class="item-news-s__title">
+                                <a href="{{ article.href }}" class="item-news-s__link">{{ article.name }}</a>
+                            </h3>
+                            <div class="item-news-s__text text">
+                                <p>{{ article.description }}</p>
+                            </div>
+                            <a href="{{ article.href }}" class="item-news-s__button button button--border">Читати</a>
+                        </div>
+                    </article>
+                </li>
+            {% endfor %}
+          </ul>
+        </div>
+    </div>
+</div>
+</section>
+        

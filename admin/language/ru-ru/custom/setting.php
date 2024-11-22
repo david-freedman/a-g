@@ -1,0 +1,263 @@
+<?php
+// Heading
+$_['heading_title']     = 'Настраиваемые поля';
+$_['coords']     = '55.75387766501031, 37.627392349243166';
+
+// Text
+$_['text_success']      = 'Настройки успешно изменены!';
+$_['text_list']         = 'Список полей';
+$_['text_add']          = 'Добавить';
+$_['text_edit']         = 'Редактирование';
+$_['text_all']         = 'Все';
+$_['text_date']         = 'Дата';
+$_['text_time']         = 'Время';
+$_['text_integrated_info']         = '<b>Внимание!</b> Некоторые настройки нельзя редактировать, так как поле интегрировано.';
+$_['text_developer_block_value_integrated']  = 'Перейдите в режим разработчика, что бы отредактировать поле.';
+$_['text_developer_integrated_info']  = '<b>Внимание!</b> Интегрированные поля, нельзя удалять и частично редактировать, они являются частью CMS. Перейдите в режим разработчика, что бы интегрировать поле.';
+$_['text_integrated']         = 'Интегрирован';
+$_['text_developer']         = 'Разработчик';
+$_['text_pages']         = 'Страницы';
+$_['text_google_map']  = 'Google карты';
+$_['text_yandex_map']  = 'Yandex карты';
+$_['text_2gis_map']  = '2Gis карты';
+$_['text_group_text']  = 'Текстовые';
+$_['text_group_select']  = 'Выбор';
+$_['text_group_extended']  = 'Расширенные';
+$_['text_group_image']  = 'Изображение';
+$_['text_group_html']  = 'HTML';
+$_['text_group_map']  = 'Карта';
+$_['text_group_other']  = 'Другое';
+$_['text_tab']        = 'Вкладка';
+$_['text_view_code']        = 'Посмотреть пример кода для вставки';
+$_['text_download_indicate']  = 'Желательно указать';
+$_['text_code_php_helper']        = 'Получаем значение поля %s из секции %s';
+$_['text_code_php_setting_code']        = 'Уникальный индификатор поля';
+$_['text_code_php_section_code']        = 'Уникальный индификатор секции';
+$_['text_code_php_page']        = 'Код формы в админ-панеле';
+$_['text_code_php_page_id']        = 'Id объекта в админ-панеле';
+$_['text_code_php_output']        = 'Инициализируем полученные данные';
+$_['text_code_controller']        = 'Контроллер (php)';
+$_['text_code_twig']        = 'Шаблонизатор (twig)';
+$_['text_code_ocmod']        = 'Ocmod (xml)';
+$_['text_min']        = 'Min';
+$_['text_max']        = 'Max';
+$_['text_single']        = 'Одиночный';
+$_['text_double']        = 'Двойной';
+
+// Column
+$_['column_title']       = 'Название поля';
+$_['column_setting_code']       = 'Уникальный код';
+$_['column_type'] = 'Тип поля';
+$_['column_section']       = 'Раздел';
+$_['column_status'] = 'Статус';
+$_['column_sort_order'] = 'Порядок сортировки';
+$_['column_action']     = 'Действие';
+
+//Button
+$_['button_integrated']     = 'Интегрировать в Opencart';
+$_['button_disintegrated']     = 'Разентегрировать';
+
+// Entry 
+$_['entry_text']        = 'Текст';
+$_['entry_integrated']        = 'Интегрирован';
+$_['entry_help']        = 'Текст помошника';
+$_['entry_popover']        = 'Текст Popover';
+$_['entry_error']        = 'Текст ошибки';
+$_['entry_value_default']        = 'Значение по умполчанию';
+$_['entry_required']        = 'Обязательно';
+$_['entry_show_developer']        = 'Показывать только разработчику';
+$_['entry_setting_code']        = 'Уникальный код';
+$_['entry_title']        = 'Название поля';
+$_['entry_section']        = 'Раздел';
+$_['entry_type']        = 'Тип поля';
+$_['entry_code']        = 'Код';
+$_['entry_settings']        = 'Поля';
+$_['entry_show_tab']        = 'Отображать вкладками';
+$_['entry_sort_order']  = 'Порядок сортировки';
+$_['entry_route']  = 'Свой контроллер';
+$_['entry_model']  = 'Контроллер';
+$_['entry_text_none']  = 'Пустое значение';
+$_['entry_filter']  = 'Фильтр';
+$_['entry_row_title']  = 'Заголовок';
+$_['entry_row_value']  = 'Значение';
+$_['entry_row_setting']  = 'Поле';
+$_['entry_row_column']  = 'Колонка';
+$_['entry_row_width']  = 'Ширина';
+$_['entry_row_key']  = 'Ключ';
+$_['entry_rows']  = 'Высота Rows';
+$_['entry_collation']  = 'Сопоставление';
+$_['entry_style']  = 'Стиль';
+$_['entry_values']  = 'Значения';
+$_['entry_regex']  = 'Regex';
+$_['entry_placeholder']  = 'Указать Placeholder';
+$_['entry_Inline']  = 'В Линию';
+$_['entry_column_number']  = 'Количество столбцов';
+$_['entry_step']  = 'Шаги';
+$_['entry_range_grid']  = 'Показывать сетку';
+$_['entry_format']  = 'Формат';
+$_['entry_pick']  = 'Режим';
+$_['entry_page']  = 'Показывать на страницах';
+$_['entry_modules']  = 'Показывать в модулях';
+$_['entry_themes']  = 'Показывать в шаблонах';
+$_['entry_placeholder_size']  = 'Размер миниатюры';
+$_['entry_placeholder_size_width']  = 'Ширина';
+$_['entry_placeholder_size_height']  = 'Высота';
+$_['entry_block_width']  = 'На всю ширину';
+$_['entry_rows_limit']  = 'Ограничть кол-во строк';
+$_['entry_pre_rows']  = 'Начальное кол-во строк';
+$_['entry_integrate_values']  = 'Интегрировать значения';
+$_['entry_value_from']  = 'Брать значения из поля';
+$_['entry_vertical_tab']  = 'Отображать вкладки вертикально';
+$_['entry_mask']  = 'Маска ввода';
+$_['entry_custom_validate']  = 'Проверка PHP';
+$_['entry_custom_handle']  = 'Предопределить контроллер';
+$_['entry_tab_name']  = 'Название вкладки';
+$_['entry_map_type']  = 'Тип карты';
+$_['entry_yandex_map_apikey']  = 'API-ключ яндекс карт';
+$_['entry_google_map_apikey']  = 'API-ключ google карт';
+$_['entry_height_map']  = 'Высота в px';
+$_['entry_html']  = 'Html';
+$_['entry_accordion']  = 'Аккордеон';
+$_['entry_range']  = 'Диапазон';
+$_['entry_range_type']  = 'Тип диапазона';
+
+// Help
+$_['help_regex']  = 'Укажите проверку с помощью Regex PHP';
+$_['help_controller']  = 'Брать значения из функции контрллера.';
+$_['help_code']  = 'Код должен быть уникальным для каждого раздела, он будет использоваться при ображении к полю. После интеграции, поле будет недоступно для редактирования.';
+$_['help_rows']  = 'Высота поля с помощью атрибута Rows';
+$_['help_text_none']  = 'Добавляет пустое значение';
+$_['help_Inline']  = 'Уменьшает длинну поля с помощью класса .form-inline';
+$_['help_filter']  = 'Фильтрует значения при выборке filter_data. Например limit => 5';
+$_['help_integrate']  = 'Интегрирует значения, что предотвращает их редактирование.';
+$_['help_settings']  = 'Поля, которые будут отображаться в каждой вкладке. Не рекомендуется использовать дублирующие ключи вкладок и полей, например: вкладки языков, и поле использующее языковую поддержку.';
+$_['help_value_from']  = 'Значения будут браться из значений другого поля, например: можно задать другому полю значение из контроллера языков, и задать это поле здесь, значения будут имитировать языковую поддержку.';
+$_['help_values']  = 'Ручное добавление';
+$_['help_row_key']  = 'Ключ вкладки, для доступа к значениям, если используется контроллер, то ключ будет - id значения';
+$_['help_ignore']  = 'Если поле используется во вкладкаих или блоке настроек, данная настройка будет проигнорирована';
+$_['help_error_ignore']  = 'Если поле вызовет ошибку, данная настройка будет проигнорирована';
+$_['help_route']  = 'Контроллер должен возвращать минимум 1 значение, смотрите пример в файле, вы можете сделать выборку по API из любых данных. Значение case в switch. См. пример в файле custom/dev/setting_handle.';
+$_['help_collation']  = 'Сопоставьте входящие данные с контроллера';
+$_['help_mask']  = 'Масска ввода с помощью jquery плагина RobinHerbots/Inputmask';
+$_['help_custom_validate']  = 'Установите путь к своей PHP валидации поля. Значение case в switch. См. пример в файле custom/dev/setting_handle.';
+$_['help_custom_handle']  = 'Предопределить контроллер валидации и получения значений. custom/dev/setting_handle';
+
+// Select
+$_['select_catalog']  = 'Каталог';
+$_['select_product']  = 'Товары';
+$_['select_category']  = 'Категории';
+$_['select_manufacturer']  = 'Производители';
+$_['select_attribute']  = 'Атрибуты';
+$_['select_attribute_group']  = 'Группы атрибутов';
+$_['select_option']  = 'Опции';
+$_['select_option_value']  = 'Значения опций';
+$_['select_filter_group']  = 'Группы фильтров';
+$_['select_filter']  = 'Фильтры';
+$_['select_information']  = 'Статьи';
+$_['select_download']  = 'Загрузки';
+$_['select_localisation']  = 'Локализация';
+$_['select_currency']  = 'Валюты';
+$_['select_weight_class']  = 'Единицы веса';
+$_['select_length_class']  = 'Единицы измерения';
+$_['select_order_status']  = 'Статусы заказов';
+$_['select_stock_status']  = 'Состояние на складе';
+$_['select_language']  = 'Языки';
+$_['select_country']  = 'Страны';
+$_['select_zone']  = 'Регионы';
+$_['select_geo_zone']  = 'Географические зоны';
+$_['select_tax']  = 'Налоги';
+$_['select_tax_class']  = 'Налоговый класс';
+$_['select_tax_rate']  = 'Налоговые ставки';
+$_['select_marketing']  = 'Маркетинг';
+$_['select_coupon']  = 'Купоны';
+$_['select_design']  = 'Дизайн';
+$_['select_banner']  = 'Баннеры';
+$_['select_layout']  = 'Макеты';
+$_['select_customer']  = 'Клиенты';
+$_['select_customer_group']  = 'Группы клиентов';
+$_['select_setting']  = 'Настройки';
+$_['select_location']  = 'Местонахождения';
+$_['select_user_permission']  = 'Группы пользователей';
+$_['select_store']  = 'Магазины';
+$_['select_other']  = 'Прочее';
+$_['select_section']  = 'Разделы';
+$_['select_table']  = 'Таблицы';
+$_['select_api']  = 'Api';
+$_['select_permission']  = 'Права';
+$_['select_controller']  = 'Свой контроллер';
+
+
+// Type
+$_['text_type_text']  = 'Текстовое поле';
+$_['text_type_password']  = 'Пароль';
+$_['text_type_text_language']  = 'Языковой текст';
+$_['text_type_textarea']  = 'Крупный текст';
+$_['text_type_textarea_language']  = 'Крупный языковой текст';
+$_['text_type_texteditor_language']  = 'Языковой текстовый редактор';
+$_['text_type_image_language']  = 'Языковое изображение';
+
+$_['text_type_number']  = 'Число';
+
+$_['text_type_checkbox']  = 'Чекбокс';
+$_['text_type_radio']  = 'Радио кнопки';
+$_['text_type_old_radio']  = 'Радио кнопки (Старые)';
+$_['text_type_select']  = 'Выпадающий список';
+$_['text_type_image']  = 'Изображение';
+$_['text_type_texteditor']  = 'Текстовый редактор';
+$_['text_type_codemirror']  = 'Кодовый редактор';
+$_['text_type_colorpicker']  = 'Цвет';
+$_['text_type_datetimepicker']  = 'Дата';
+$_['text_type_iconpicker']  = 'Иконка';
+$_['text_type_autocomplete']  = 'Автозаполнение';
+$_['text_type_multiple_autocomplete']  = 'Множественное автозаполнение';
+$_['text_type_block']  = 'Блок с полями';
+$_['text_type_tab']  = 'Вкладки с полями';
+$_['text_type_add_tab']  = 'Добавление вкладок';
+$_['text_type_title']  = 'Заголовок';
+$_['text_type_alert']  = 'Уведомление';
+$_['text_type_array']  = 'Массив значений';
+$_['text_type_juxtapose']  = 'Сопоставление';
+$_['text_type_geocode']  = 'Координаты (Карта)';
+$_['text_type_select_route']  = 'Выпадающий список (Значения другого поля)';
+$_['text_type_html']  = 'Html';
+$_['text_type_controller']  = 'Контроллер';
+$_['text_type_faq']  = 'FAQ';
+$_['text_type_accordion']  = 'Аккордеон';
+$_['text_type_range']  = 'Диапазон';
+
+// Menu
+$_['menu_title']                    = 'Настройки';
+$_['menu_section']                    = 'Разделы';
+$_['menu_setting']                    = 'Список полей';
+$_['menu_page']                    = 'Страница настроек';
+$_['menu_custom']                    = 'Разработка';
+
+// Tab
+$_['tab_custom_setting']                    = 'Дополнительно';
+$_['tab_other']                    = 'Прочее';
+$_['entry_status']                    = 'Статус';
+// Error
+
+$_['error_text']          = 'Это поле обязательно!';
+$_['error_reserve']          = 'Это имя зарезервировано, укажите другое!';
+$_['error_min_column']          = 'Добавьте минимум %s колонку';
+$_['error_pre_rows']          = 'Начальное количество не может быть больше ограниченного';
+$_['error_min_count']          = 'Значение не может быть меньше %s';
+$_['error_max_count']          = 'Значение не может быть больше %s';
+$_['error_min_setting']          = 'Добавьте минимум %s значение';
+$_['error_dublicate']          = 'Дубликат поля!';
+$_['error_controller']          = 'Контроллер не найден!';
+$_['error_field_block']          = 'Поле не может быть блоком!';
+$_['error_field_section']          = 'Поле должно быть из того же раздела что и блок!';
+$_['error_field_empty']          = 'Такого поля не существует!';
+$_['error_field_in_block']          = 'Нельзя указывать текущее поле!';
+$_['error_json']          = 'Json некорректный!';
+$_['error_latin']          = 'Разрешены только строчные латинские буквы и цифры, без пробела и символов!';
+$_['error_code_repeat']          = 'Индификатор с таким именем в этом разделе уже существует.';
+$_['error_warning']          = 'Внимательно проверьте форму на ошибки!';
+$_['error_permission']  = 'У Вас нет прав для изменения настроек!';
+$_['error_name']        = 'Название поля должно быть от 1 до 64 символов!';
+$_['error_size_map']        = 'Выоста карты должно быть от 100 до 800!';
+$_['error_row_title']        = 'Заголовок значения должен быть от 1 до 64 символов!';
+$_['error_row_value']        = 'Значения должено быть от 1 до 64 символов!';
+$_['error_integrated']          = 'Нельзя удалять интегрированые поля!';

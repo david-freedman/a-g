@@ -1,0 +1,32 @@
+{% if values_options.shown_tab %}
+    <ul class="nav nav-tabs" id="nav-custom-setting-setting-{{ id }}">
+        {% for language in languages %}
+            <li>
+                <a href="#tab-custom-setting-setting-{{ id }}-{{ language.language_id }}" data-toggle="tab" aria-expanded="false"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/>
+                    {{ language.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <div class="tab-content">
+        {% for language in languages %}
+            <div{{ popover }} class="tab-pane{{ error[language.language_id] ? ' has-error' : '' }}" id="tab-custom-setting-setting-{{ id }}-{{ language.language_id }}">
+                <input type="text" id="input-custom-setting-{{ id }}-{{ language.language_id }}" value="{{ value[language.language_id] }}" name="custom_setting{{ name }}[{{ language.language_id }}]" class="form-control" placeholder="{{ placeholder }}"{{ values_options.mask ? ' data-mask="'~values_options.mask ~'"' : '' }}/>
+                {% if error[language.language_id] %}
+                    <div class="text-danger">{{ error[language.language_id] }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div{{ popover }}>
+        {% for language in languages %}
+            <div class="input-group{{ error[language.language_id] ? ' has-error' : '' }}">
+                <span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+                <input type="text" id="input-custom-setting-{{ id }}-{{ language.language_id }}" value="{{ value[language.language_id] }}" name="custom_setting{{ name }}[{{ language.language_id }}]" class="form-control" placeholder="{{ placeholder }}"{{ values_options.mask ? ' data-mask="'~values_options.mask ~'"' : '' }}/>
+            </div>
+            {% if error[language.language_id] %}
+                <div class="text-danger">{{ error[language.language_id] }}</div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}

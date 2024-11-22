@@ -1,0 +1,84 @@
+<div class="custom-setting-view-code">
+    <a data-toggle="collapse" class="help-block" href="#collapse-custom-setting-view-code-accordion-{{ id }}" aria-expanded="false">{{ text_view_code }}</a>
+    <div id="collapse-custom-setting-view-code-accordion-{{ id }}" class="panel-collapse collapse custom-setting-view-code-collapse" aria-expanded="false">
+        <div class="row">
+            <div class="col-sm-12">
+                <br>
+                <h3>{{ text_code_controller }}</h3>
+<textarea class="custom-setting-code" data-code="php" style="display:none">
+
+// {{ text_code_php_helper }}
+$setting_value = $this->load->controller('custom/setting/getValue', array(
+    'section' => '{{ section_code }}', // {{ text_code_php_section_code }}
+    'setting' => '{{ setting_code }}', // {{ text_code_php_setting_code }}
+    'page' => '{{ page }}'{% if page_id %},{% endif %} // {{ text_code_php_page }}
+{% if page_id %}
+    'id' => '{{ page_id }}', // {{ text_code_php_page_id }}
+{% endif %}
+));
+
+// {{ text_code_php_output }}
+$data['setting_value'] = $setting_value;
+
+// echo '<pre>', print_r($setting_value, 1), '</pre>';
+</textarea>
+            </div>
+            <div class="col-sm-12">
+                <br>
+                <h3>{{ text_code_twig }}</h3>
+<textarea class="custom-setting-code" data-code="twig" style="display:none">
+
+{{ '{{# dsfdsfds #}}' }}
+{{ '{{ setting_value|json_encode }}' }}
+</textarea>
+            </div>
+            <div class="col-sm-12">
+                <br>
+                <h3>{{ text_code_ocmod }}</h3>
+<textarea class="custom-setting-code" data-code="xml" style="display:none">
+<!-- -->
+<file path="catalog/controller/product/product.php">
+    <operation>
+        <search>
+            <![CDATA[$data['header']]]>
+        </search>
+        <add position="before">
+            <![CDATA[
+        // Added by My modificator
+        // {{ text_code_php_helper }}
+        $setting_value = $this->load->controller('custom/setting/getValue', array(
+            'section' => '{{ section_code }}', // {{ text_code_php_section_code }}
+            'setting' => '{{ setting_code }}', // {{ text_code_php_setting_code }}
+            'page' => '{{ page }}'{% if page_id %},{% endif %} // {{ text_code_php_page }}
+        {% if page_id %}
+            'id' => '{{ page_id }}', // {{ text_code_php_page_id }}
+        {% endif %}
+        ));
+
+        // {{ text_code_php_output }}
+        $data['setting_value'] = $setting_value;
+        // end content added by My modificator
+        ]]>
+        </add>
+    </operation>
+</file>
+<!-- -->
+<file path="catalog/view/theme/*/template/product/product.twig">
+    <operation>
+        <search>
+            <![CDATA[</h1>]]>
+        </search>
+        <add position="after">
+            <![CDATA[
+        <!-- Added by My modificator -->
+        {{ '{{ setting_value|json_encode }}' }}
+        <!-- end content added by My modificator -->
+        ]]>
+        </add>
+    </operation>
+</file>
+</textarea>
+            </div>
+        </div>
+    </div>
+</div>

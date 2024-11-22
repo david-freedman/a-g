@@ -1,0 +1,53 @@
+<input type="hidden" name="custom_setting{{ name }}"/>
+<table id="setting-value-block-{{ setting_id }}-{{ id }}" data-id="{{ id }}" data-name="{{ name }}" class="table table-striped table-bordered table-hover">
+    <thead>
+        <tr>
+            {% for key, row in values_options.settings %}
+                <td class="text-left{{ row['required'] ? ' required' : '' }}" width="{{ row.width }}">
+                    {% if row.help %}
+                        <span data-toggle="tooltip" title="{{ row.help }}">
+                            {{ row.description[language_id]['title'] }}</span>
+                    {% else %}
+                        {{ row.description[language_id]['title'] }}
+                    {% endif %}
+                </td>
+            {% endfor %}
+            {% if not values_options.rows_limit %}
+                <td style="width: 57px;"></td>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for key, v in value %}
+            <tr id="setting-value-block-{{ setting_id }}-{{ id }}-row-{{ key }}">
+                {% for children in v %}
+                    <td class="text-left">{{ children.output }}</td>
+                {% endfor %}
+                {% if not values_options.rows_limit %}
+                    <td class="text-right">
+                        <button type="button" onclick="confirm('{{ text_confirm }}') ? ($(this).tooltip('destroy'), $('#setting-value-block-{{ setting_id }}-{{ id }}-row-{{ key }}').remove()) : false;" data-toggle="tooltip" class="btn btn-danger" title="{{ button_remove }}">
+                            <i class="fa fa-minus-circle"></i>
+                        </button>
+                    </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </tbody>
+    {% if not values_options.rows_limit %}
+        <tfoot>
+            <tr>
+                <td colspan="{{ values_options.settings|length }}"></td>
+
+                <td class="text-right">
+                    <button type="button" onclick="addSettingValueRow('{{ setting_id }}','{{ id }}');" data-toggle="tooltip" class="btn btn-primary" title="{{ button_add }}">
+                        <i class="fa fa-plus-circle"></i>
+                    </button>
+                </td>
+
+            </tr>
+        </tfoot>
+    {% endif %}
+</table>
+{% if error %}
+    <div class="text-danger">{{ error }}</div>
+{% endif %}

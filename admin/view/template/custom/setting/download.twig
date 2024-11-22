@@ -1,0 +1,64 @@
+
+// My custom build is Ready!
+$custom_settings = array(
+    // Upload My sections
+    'sections' => array(
+{% for section in upload['sections'] %}
+        // {{ section.section_code }} 
+        array(
+{% for key, value in section %}
+{% if key == 'descriptions' %}
+            '{{ key }}' => array(
+{% for language_id, v in value %}
+{% if languages[language_id]['code'] %}
+                // {{ languages[language_id]['name'] }}
+                '{{ languages[language_id]['code'] }}' => array(
+{% for a, d in v %}
+                    '{{ a }}' => '{{ d }}'{{ loop.last ? '' : ',' }}
+{% endfor %}
+                ){{ loop.last ? '' : ',' }}
+{% endif %}
+{% endfor %}
+            ){{ loop.last ? '' : ',' }}
+{% else %}
+            '{{ key }}' => '{{ value }}'{{ loop.last ? '' : ',' }}{{ ((key == 'integrated') and value == '0') ? ' //  '~text_download_indicate~'  1' : ''}}
+{% endif %}
+{% endfor %}
+        ){{ loop.last ? '' : ',' }}
+{% endfor %}
+    ),
+    // Upload My settings
+    'settings' => array(
+{% for setting in upload['settings'] %}
+        // {{ setting.setting_code }} in {{ setting.section_code }} 
+        array(
+{% for key, value in setting %}
+{% if key == 'pages' or key == 'descriptions' %}
+{% if key == 'pages' %}
+            '{{ key }}' => array({% for k, v in value %}'{{ v }}'{{ loop.last ? '' : ',' }}{% endfor %}){{ loop.last ? '' : ',' }}
+{% endif %}
+{% if key == 'descriptions' %}
+            '{{ key }}' => array(
+{% for language_id, v in value %}
+{% if languages[language_id]['code'] %}
+                // {{ languages[language_id]['name'] }}
+                '{{ languages[language_id]['code'] }}' => array(
+{% for a, d in v %}
+                    '{{ a }}' => '{{ d }}'{{ loop.last ? '' : ',' }}
+{% endfor %}
+                ){{ loop.last ? '' : ',' }}
+{% endif %}
+{% endfor %}
+            ){{ loop.last ? '' : ',' }}
+{% endif %}
+{% else %}
+            '{{ key }}' => '{{ value }}'{{ loop.last ? '' : ',' }}{{ ((key == 'integrated' or key == 'status') and value == '0') ? ' // '~text_download_indicate~' 1' : ''}}
+{% endif %}
+{% endfor %}
+        ){{ loop.last ? '' : ',' }}
+{% endfor %}
+    )
+);
+
+$install_status = $this->load->controller('custom/setting/installBuild', $custom_settings);
+

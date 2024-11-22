@@ -1,0 +1,18 @@
+<div {{ popover }}>
+    <input type="text" name="custom_setting{{ name }}" id="input-custom-setting-{{ id }}" data-id="{{ setting_id }}" value="" class="form-control input-multiple-autocomplete" placeholder="{{ placeholder }}"/>
+
+    <div id="input-custom-setting-{{ id }}-multiple" class="well well-sm" style="height: 150px; overflow: auto;">
+
+        {% for key, v in value %}
+            <div id="input-custom-setting-{{ id }}-multiple-{{ key }}-value">
+                <i class="fa fa-minus-circle" onclick="$(this).parent().remove();"></i>
+                {{ v.title }}
+                <input type="hidden" name="custom_setting{{ name }}[{{ key }}][value]" value="{{ v.value }}"/>
+                <input type="hidden" name="custom_setting{{ name }}[{{ key }}][title]" value="{{ v.title }}"/>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% if error %}
+    <div class="text-danger">{{ error }}</div>
+{% endif %}

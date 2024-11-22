@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+	<name>
+		Backup
+	</name>
+	<code>
+		Codi
+	</code>
+	<date>
+		04.03.2024
+	</date>
+	<author>
+		test
+	</author>
+    <file path="system/library/template/twig.php">
+		<operation>
+			<search>
+				<![CDATA[$twig = new \Twig\Environment($loader, $config);]]>
+			</search>
+			<add position="after">
+				<![CDATA[
+				$twig->addFilter(new \Twig\TwigFilter('dd', function ($string) {
+                    return '<div style="background-color: #f3f4f6; border-left: 5px solid #9ca3af; padding: 20px; margin: 20px 0; font-family: Consolas, Monaco, monospace; font-size: 14px;"><pre style="margin: 0; padding: 10px; background-color: #1e293b; color: #e5e7eb; border-radius: 5px;">' . json_encode($string, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT) . '</pre></div>';
+                }));
+				]]>
+			</add>
+		</operation>
+	</file>
+</modification>

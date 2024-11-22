@@ -1,0 +1,154 @@
+<footer class="footer">
+  <div class="footer__container">
+    <div class="footer__body">
+      <div class="footer__info info-footer">
+        <div class="info-footer__image">
+          <img src="/image/{{ logo_foter }}" alt="Logo" class="ibg ibg--contain">
+        </div>
+        <div class="info-footer__text text">
+          {{ text_foter }}
+        </div>
+      </div>
+      <nav data-da=".footer__container, 1099.98, 1" class="footer__menu menu-footer">
+        <div class="menu-footer__block">
+          <h3 class="menu-footer__title">
+           {{ title_section_one_foter }}
+          </h3>
+          <ul class="menu-footer__list">
+            {% for item in item_menu_footer %}
+            <li class="menu-footer__item">
+              <a href="{{ item.link_item_menu_footer }}" class="menu-footer__link">{{ item.text_link_menu_footer }}</a>
+            </li>
+          {% endfor %}
+          
+          </ul>
+        </div>
+        <div class="menu-footer__block">
+          <h3 class="menu-footer__title">
+           {{title_section_one_foter2 }}
+          </h3>
+          <ul class="menu-footer__list">
+            {% for item in item_menu_footer2 %}
+            <li class="menu-footer__item">
+              <a href="{{ item.link_item_menu_footer }}" class="menu-footer__link">{{ item.text_link_menu_footer }}</a>
+            </li>
+          {% endfor %}
+        </div>
+        <div class="menu-footer__block">
+          <h3 class="menu-footer__title">
+           {{ title_section_one_foter3 }}
+          </h3>
+          <ul class="menu-footer__list">
+            {% for item in item_menu_footer3 %}
+            <li class="menu-footer__item">
+              <a href="{{ item.link_item_menu_footer }}" class="menu-footer__link">{{ item.text_link_menu_footer }}</a>
+            </li>
+          {% endfor %}
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div data-da=".footer__body, 1099.98, last" class="footer__contacts contacts-footer">
+      <div class="contacts-footer__block">
+        <h3 class="contacts-footer__title">
+          {{ contact_foter_text }}
+        </h3>
+        <ul class="contacts-footer__list">
+          <li class="contacts-footer__item">
+            <a href="#" class="contacts-footer__link _icon-location"><span>{{ adress_foter }}</span></a>
+          </li>
+          <li class="contacts-footer__item">
+            <a href="tel:{{ phone_foter }}" class="contacts-footer__link _icon-phone"><span>{{ phone_foter }}</span></a>
+          </li>
+          <li class="contacts-footer__item">
+            <a href="{{ email_foter }}" class="contacts-footer__link _icon-mail"><span>{{ email_foter }}</span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="contacts-footer__social social-component">
+        <div class="social-component__label">{{ social_foter_name }}</div>
+        <div class="social-component__list">
+          {% for item in block_soc_footer %}
+            <a href="{{ item.link_soc_footer }}" class="social-component__item {{ item.icon_soc_footer }}"></a>
+        {% endfor %}
+
+      
+        
+        </div>
+      </div>
+    </div>
+    <div class="footer__copy copy-footer">
+      <p class="copy-footer__text">
+       {{ text_under_contact }}
+      </p>
+      <div class="copy-footer__body">
+        <ul class="copy-footer__list">
+          {% for item in link_order_foter %}
+          <li class="copy-footer__item">
+            <a href="{{ item.link_item_menu_footer }}" class="copy-footer__link">{{ item.text_link_menu_footer }}</a>
+          </li>
+        {% endfor %}
+        </ul>
+        <div class="copy-footer__label">© 2024 Всі права захищені</div>
+        <div class="copy-footer__image">
+          <img src="catalog/view/theme/accord_group/img/footer/visa.webp" alt="Image" class="ibg ibg--contain">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mobile-bar">
+    <a href="#" class="mobile-bar__item ">
+      <div class="mobile-bar__icon _icon-house-smile">
+      </div>
+      Послуги
+    </a>
+    <a href="#" class="mobile-bar__item ">
+      <div class="mobile-bar__icon _icon-heart">
+        <div class="mobile-bar__count">11</div>
+      </div>
+      Збережене
+    </a>
+    <a href="#" class="mobile-bar__item ">
+      <div class="mobile-bar__icon _icon-catalog">
+      </div>
+      Каталог
+    </a>
+    <a href="#" class="mobile-bar__item ">
+      <div class="mobile-bar__icon _icon-profile-circle">
+      </div>
+      Кабінет
+    </a>
+    <a href="#" class="mobile-bar__item ">
+      <div class="mobile-bar__icon _icon-cart">
+      </div>
+      Кошик
+    </a>
+  </div>
+
+  <div data-spoilers data-spoilers-speed="300" class="contacts-bar">
+    <details class="contacts-bar__body">
+      <summary class="contacts-bar__button _icon-chat"></summary>
+      <div class="contacts-bar__items">
+        <button data-spoiler-close-btn type="button" class="contacts-bar__item _icon-cross"></button>
+        <a href="#" class="contacts-bar__item _icon-chat"></a>
+        <a href="#" class="contacts-bar__item _icon-phone"></a>
+        <a href="#" class="contacts-bar__item _icon-s-vbr"></a>
+        <a href="#" class="contacts-bar__item _icon-s-tg"></a>
+      </div>
+    </details>
+  </div>
+</footer>
+</div>
+<script src="catalog/view/theme/accord_group/js/app.js" type="text/javascript"></script>
+{% for style in styles %}
+<link href="{{ style.href }}" type="text/css" rel="{{ style.rel }}" media="{{ style.media }}" />
+{% endfor %}
+{% for script in scripts %}
+<script src="{{ script }}" type="text/javascript"></script>
+
+{% endfor %}
+<!--
+OpenCart is open source software and you are free to remove the powered by OpenCart if you want, but its generally accepted practise to make a small donation.
+Please donate via PayPal to donate@opencart.com
+//-->
+</body></html>

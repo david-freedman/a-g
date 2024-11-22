@@ -1,0 +1,19 @@
+<div>
+    {% if values|length >1 %}
+        <div{{ popover }} style="height: {{ (values|length * 28) + 28 > 350 ? 350 : (values|length * 28)+ 28 }}px; overflow: auto;" class="well well-sm" id="input-custom-setting-{{ id }}">
+        {% endif %}
+        {% for key, v in values %}
+            <div class="checkbox">
+                <label>
+                    <input type="hidden" name="custom_setting{{ name }}[{{ key }}]" value=""/>
+                    <input id="input-custom-setting-{{ id }}-{{ key }}" type="checkbox" name="custom_setting{{ name }}[{{ key }}]" value="{{ v.value }}" {{ value[key] == v.value ? ' checked="checked"': '' }}/>
+                    {{ v.title }}
+                </label>
+                {% if values|length >1 %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% if error %}
+        <div class="text-danger">{{ error }}</div>
+    {% endif %}

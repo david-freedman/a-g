@@ -1,0 +1,7 @@
+<a href="" id="thumb-image-custom_setting-setting-{{ id }}" data-toggle="image" class="img-thumbnail">
+    <img{{ popover }} src="{{ thumb is not empty ? thumb : placeholder }}" alt="" title="" data-placeholder="{{ placeholder }}" width=" {{ values_options.placeholder_size.width ?:100 }}" height=" {{ values_options.placeholder_size.height ?:100 }}"/>
+</a>
+<input type="hidden" name="custom_setting{{ name }}" value="{{ value }}" id="input-image-custom_setting-setting-{{ id }}"/>
+{% if error %}
+    <div class="text-danger">{{ error }}</div>
+{% endif %}

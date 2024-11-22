@@ -1,0 +1,99 @@
+<div class="tab-pane" id="tab-custom-settings">
+    <div class="form-group">
+        {% if sections|length >=tab_limit %}
+            <div class="col-lg-2 col-md-3">
+                <ul class="nav nav-pills nav-stacked list-group" id="nav-custom-settings">
+                    {% for section in sections %}
+                        <li>
+                            <a href="#tab-custom-setting-{{ section.section_code }}" data-toggle="tab" aria-expanded="true">
+                                {% if section.icon %}
+                                    <i class="{{ section.icon }}"></i>
+                                {% endif %}
+                                {{ section.title }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <div class="{{ sections|length >= tab_limit ? 'col-lg-10 col-md-9' : 'col-lg-12 col-md-12' }}">
+            <div class="tab-content" id="tabs-custom-settings">
+                {% for section in sections %}
+                    <div class="tab-pane{{ sections|length >= tab_limit ? '' : ' active in' }}" id="tab-custom-setting-{{ section.section_code }}">
+                        <div class="tab-content">
+                            <fieldset>
+                                <legend>{{ section.title }}</legend>
+                                {% for setting in section.settings %}
+                                    {{ setting.output }}
+                                {% endfor %}
+                            </fieldset>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</div>
+<style>
+    .google-map-search {
+        max-width: 300px;
+        width: 85%;
+        margin: 12px;
+        height: 31px;
+        position: absolute;
+    }
+    .cs-colorpicker .colorpicker-saturation {
+        width: 125px;
+        height: 125px;
+    }
+
+    .cs-colorpicker .colorpicker-hue,
+    .cs-colorpicker .colorpicker-alpha {
+        width: 14px;
+        height: 125px;
+    }
+
+    .cs-colorpicker .colorpicker-color,
+    .cs-colorpicker .colorpicker-color div {
+        height: 14px;
+    }
+    .cs-colorpicker .colorpicker-selectors i {
+        width: 14px;
+        height: 14px;
+    }
+
+    .custom-setting-view-code .CodeMirror {
+
+        height: auto;
+    }
+    .custom-setting-view-code .CodeMirror .CodeMirror-scroll {
+        overflow-y: hidden;
+        overflow-x: auto;
+    }
+    .custom-setting-range {
+        /* display: table; */
+        height: 68px;
+    }
+</style>
+<script>
+    var oc_settings = {
+        user_token: '{{ user_token }}',
+        datepicker: '{{ datepicker }}',
+        language_id: {{ language_id|number_format }},
+        languages: {{ languages|json_encode }},
+        coords: '{{ coords }}',
+        text: {
+            entry_tab_name: '{{ entry_tab_name }}',
+            text_none: '{{ text_none }}',
+            text_tab: '{{ text_tab }}',
+            error_text:'{{ error_text }}',
+            text_confirm:'{{ text_confirm }}',
+            button_remove:'{{ button_remove }}',
+            button_edit:'{{ button_edit }}',
+            button_save:'{{ button_save }}',
+            button_add:'{{ button_add }}',
+        },
+    };
+</script>

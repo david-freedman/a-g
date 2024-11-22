@@ -1,0 +1,504 @@
+{{ header }}{{ column_left }}
+
+{# {% set integrated = 1 %}
+{% set developer_status = 0 %} #}
+
+<div id="content">
+    <style>
+        .input-group +.input-group {
+            margin-top: 5px;
+            display: table;
+        }
+        input[type="checkbox"][readonly] {
+            cursor: no-drop;
+            background-color: #eee !important;
+            opacity: 1;
+            border-color: #ccc;
+        }
+        .btn-default.disabled.active:hover {
+            color: #666;
+            background-color: #e6e6e6;
+            border-color: #bebebe;
+        }
+    </style>
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="pull-right">
+                <button type="button" id="form-apply" data-toggle="tooltip" data-loading-text="{{ text_loading }}" title="{{ add ? button_add : button_apply }}" class="btn btn-{{ add ? 'primary' : 'success' }}">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                    {{ add ? button_add : button_apply }}
+                </button>
+                <button type="submit" form="form-setting" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary">
+                    <i class="fa fa-save"></i>
+                </button>
+                <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default">
+                    <i class="fa fa-reply"></i>
+                </a>
+            </div>
+            <h1>{{ heading_title }}</h1>
+            <ul class="breadcrumb">
+                {% for breadcrumb in breadcrumbs %}
+                    <li>
+                        <a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="container-fluid">
+
+        {% if success %}
+            <div class="alert alert-success alert-dismissible" id="alert-success">
+                <i class="fa fa-exclamation-circle"></i>
+                {{ success }}
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+        {% endif %}
+        {% if error_warning %}
+            <div class="alert alert-danger alert-dismissible" id="alert-warning">
+                <i class="fa fa-exclamation-circle"></i>
+                {{ error_warning }}
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+        {% endif %}
+        {% if integrated %}
+            <div class="alert alert-info alert-dismissible">
+                <i class="fa fa-info-circle"></i>
+                {{ text_integrated_info }}
+
+            </div>
+        {% endif %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <i class="fa fa-pencil"></i>
+                    {{ text_form }}</h3>
+            </div>
+            <div class="panel-body">
+                <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-setting" class="form-horizontal">
+                    <ul class="nav nav-tabs" id="nav-setting">
+                        <li class="active">
+                            <a href="#tab-setting-main" data-toggle="tab">
+                                {{ tab_general }}</a>
+                        </li>
+                        <li>
+                            <a href="#tab-setting-other" data-toggle="tab">
+                                {{ tab_other }}</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab-setting-main">
+                            <div class="form-group required">
+                                <label class="col-sm-2 control-label" for="input-setting-code">
+                                    <span title="{{ help_code }}" data-toggle="tooltip">{{ entry_setting_code }}</span>
+                                </label>
+                                <div class="col-sm-10 form-inline">
+                                    <input name="setting_code" id="input-setting-code" size="80" class="form-control " value="{{ setting_code }}" placeholder="{{ entry_setting_code }}" type="text" {{ integrated ? ' readonly="readonly"':'' }}/>
+                                    {% if error_code %}
+                                        <div class="text-danger">{{ error_code }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="form-group required">
+                                <label class="col-sm-2 control-label" for="input-section">
+                                    {{ entry_section }}
+                                </label>
+                                <div class="col-sm-10 form-inline">
+                                    <select style="width:100%;max-width:300px" name="section_id" id="input-section" class="form-control" {{ integrated ? ' readonly="readonly"' : '' }}>
+                                        <option value="0"></option>
+                                        {% for section in sections %}
+                                            {% if section.section_id == section_id %}
+                                                <option value="{{ section.section_id }}" selected="selected">{{ section.title }}</option>
+                                            {% else %}
+                                                <option value="{{ section.section_id }}">{{ section.title }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group required">
+                                <label class="col-sm-2 control-label">
+                                    {{ entry_title }}
+                                </label>
+                                <div class="col-sm-10 form-inline">
+                                    {% for language in languages %}
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+                                            <input size="60" type="text" id="input-setting-description-{{ language.language_id }}-title" placeholder="{{ entry_title }}" name="setting_description[{{ language.language_id }}][title]" value="{{ setting_description[language.language_id]['title'] }}" class="form-control"/>
+                                        </div>
+                                        {% if error_title[language.language_id] %}
+                                            <div class="text-danger">{{ error_title[language.language_id] }}</div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="form-group required" id="setting-select-type">
+                                <label class="col-sm-2 control-label" for="input-type">
+                                    {{ entry_type }}
+                                </label>
+                                <div class="col-sm-10 form-inline">
+                                    <select style="width:100%;max-width:300px" name="type" id="input-type" class="form-control" {{ integrated ? ' readonly':'' }}>
+                                        {% set optgroup = [] %}
+                                        {% for o in types if o not in optgroup %}
+                                            {% if o.group %}
+                                                <optgroup label="{{ o.group }}">
+                                                {% endif %}
+                                                {% for t in types if t.group == o.group and t not in optgroup %}
+                                                    <option value="{{ t.value }}" {{ type == t.value ? ' selected="selected"': '' }}>{{ t.title }}</option>
+                                                    {% set optgroup = optgroup|merge([t]) %}
+                                                {% endfor %}
+                                                {% if o.group %}
+                                                </optgroup>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input-setting-required">
+                                    {{ entry_required }}
+                                </label>
+                                <div class="col-sm-10">
+                                    <div class="btn-group" data-toggle="buttons">
+                                        {% if required %}
+                                            <label class="btn btn-default active btn-toggle-on{{ integrated ? ' disabled':'' }}">
+                                                <input type="radio" name="required" value="1" checked="" {{ integrated ? ' readonly="readonly"':'' }}/>
+                                                <span class="on-off">{{ text_yes }}</span>
+                                            </label>
+                                        {% else %}
+                                            <label class="btn btn-default btn-toggle-on{{ integrated ? ' disabled':'' }}">
+                                                <input type="radio" name="required" value="1" {{ integrated ? ' readonly="readonly"':'' }}/>
+                                                <span class="on-off">{{ text_yes }}</span>
+                                            </label>
+                                        {% endif %}
+                                        {% if required %}
+                                            <label class="btn btn-default btn-toggle-off{{ integrated ? ' disabled':'' }}">
+                                                <input type="radio" name="required" value="0" {{ integrated ? ' readonly="readonly"':'' }}/>
+                                                <span class="on-off">{{ text_no }}</span>
+                                            </label>
+                                        {% else %}
+                                            <label class="btn btn-default active btn-toggle-off{{ integrated ? ' disabled':'' }}">
+                                                <input type="radio" name="required" value="0" checked="" {{ integrated ? ' readonly="readonly"':'' }}/>
+                                                <span class="on-off">{{ text_no }}</span>
+                                            </label>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input-setting-show-developer">
+                                    <span title="{{ help_ignore }}" data-toggle="tooltip">{{ entry_status }}</span>
+                                </label>
+                                <div class="col-sm-10">
+                                    <div class="btn-group" data-toggle="buttons">
+                                        {% if status %}
+                                            <label class="btn btn-default active btn-toggle-on{{ integrated ? ' disabled':'' }}">
+                                                <input type="radio" name="status" value="1" checked="" {{ integrated ? ' readonly="readonly"':'' }}/>
+                                                <span class="on-off">{{ text_enabled }}</span>
+                                            </label>
+                                        {% else %}
+                                            <label class="btn btn-default btn-toggle-on{{ integrated ? ' disabled':'' }}">
+                                                <input type="radio" name="status" value="1" {{ integrated ? ' readonly="readonly"':'' }}/>
+                                                <span class="on-off">{{ text_enabled }}</span>
+                                            </label>
+                                        {% endif %}
+
+                                        {% if status %}
+                                            <label class="btn btn-default btn-toggle-off{{ integrated ? ' disabled':'' }}">
+                                                <input type="radio" name="status" value="0" {{ integrated ? ' readonly="readonly"':'' }}/>
+                                                <span class="on-off">{{ text_disabled }}</span>
+                                            </label>
+                                        {% else %}
+                                            <label class="btn btn-default active btn-toggle-off{{ integrated ? ' disabled':'' }}">
+                                                <input type="radio" name="status" value="0" checked="" {{ integrated ? ' readonly="readonly"':'' }}/>
+                                                <span class="on-off">{{ text_disabled }}</span>
+                                            </label>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="tab-pane" id="tab-setting-other">
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input-setting-default-value">
+                                    {{ entry_value_default }}
+                                </label>
+                                <div class="col-sm-10 form-inline">
+                                    <input size="80" placeholder="{{ entry_value_default }}" name="default_value" id="input-setting-default-value" class="form-control " value="{{ default_value }}" type="text"/>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group form-inline">
+                                <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_sort_order }}</label>
+                                <div class="col-sm-10">
+                                    <input type="number" name="sort_order" value="{{ sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input-setting-show-developer">
+                                    <span title="{{ help_error_ignore }}" data-toggle="tooltip">{{ entry_show_developer }}</span>
+                                </label>
+                                <div class="col-sm-10">
+                                    <div class="btn-group" data-toggle="buttons">
+                                        {% if show_developer %}
+                                            <label class="btn btn-default active btn-toggle-on">
+                                                <input type="radio" name="show_developer" value="1" checked=""/>
+                                                <span class="on-off">{{ text_yes }}</span>
+                                            </label>
+                                        {% else %}
+                                            <label class="btn btn-default btn-toggle-on">
+                                                <input type="radio" name="show_developer" value="1"/>
+                                                <span class="on-off">{{ text_yes }}</span>
+                                            </label>
+                                        {% endif %}
+
+                                        {% if show_developer %}
+                                            <label class="btn btn-default btn-toggle-off">
+                                                <input type="radio" name="show_developer" value="0"/>
+                                                <span class="on-off">{{ text_no }}</span>
+                                            </label>
+                                        {% else %}
+                                            <label class="btn btn-default active btn-toggle-off">
+                                                <input type="radio" name="show_developer" value="0" checked=""/>
+                                                <span class="on-off">{{ text_no }}</span>
+                                            </label>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input-setting-values-options-custom-handle">
+                                    <span title="{{ help_custom_handle }}" data-toggle="tooltip">{{ entry_custom_handle }}</span>
+                                </label>
+                                <div class="col-sm-10 form-inline">
+                                    <input size="80" placeholder="custom/dev/my_setting_handle" name="values_options[custom_handle]" id="input-setting-values-options-custom-handle" class="form-control " value="{{ values_options['custom_handle'] }}" type="text" {{ integrated ? ' readonly="readonly"' : '' }}/>
+                                    {% if error_custom_handle %}
+                                        <div class="text-danger">{{ error_custom_handle }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    {{ entry_help }}
+                                </label>
+                                <div class="col-sm-10">
+                                    {% for language in languages %}
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+                                            <textarea placeholder=" {{ entry_help }}" id="input-setting-description-{{ language.language_id }}-help" name="setting_description[{{ language.language_id }}][help]" class="form-control">{{ setting_description[language.language_id]['help'] }}</textarea>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="display:none">
+                                <label class="col-sm-2 control-label">
+                                    {{ entry_popover }}
+                                </label>
+                                <div class="col-sm-10 ">
+                                    {% for language in languages %}
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+                                            <textarea style="max-width:500px" placeholder="{{ entry_popover }}" id="input-setting-description-{{ language.language_id }}-popover" name="setting_description[{{ language.language_id }}][popover]" class="form-control">{{ setting_description[language.language_id]['popover'] }}</textarea>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    {{ entry_error }}
+                                </label>
+                                <div class="col-sm-10">
+                                    {% for language in languages %}
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+                                            <textarea placeholder="{{ entry_error }}" id="input-setting-description-{{ language.language_id }}-error-text" name="setting_description[{{ language.language_id }}][error_text]" class="form-control">{{ setting_description[language.language_id]['error_text'] }}</textarea>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            {% set pages = pages %}
+                            {% set extensions = extensions %}
+                            {% if pages or extensions %}
+                                <legend>{{ entry_page }}</legend>
+                            {% endif %}
+                            {% if pages %}
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">
+                                        <span title="{{ help_ignore }}" data-toggle="tooltip">{{ entry_page }}</span>
+                                    </label>
+                                    <div class="col-sm-10">
+
+                                        <div class="well well-sm" style="height: {{ (pages|length * 28) + 28 > 350 ? 350 : (pages|length * 28)+ 28 }}px; overflow: auto;">
+                                            {% for page in pages %}
+                                           
+                                                <div class="checkbox"{{ integrated and page.id not in setting_page ? ' style="display:none"' :''}}>
+                                                    <label>
+                                                        <input type="checkbox" name="setting_page[]" value="{{ page.id }}" {{ page.id in setting_page ? ' checked="checked"' : '' }} {{ integrated ? ' readonly="readonly"':'' }}/>
+                                                        {{ page.name }}
+                                                    </label>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                        {% if not integrated %}
+                                            <button type="button" onclick="$(this).parent().find(':checkbox:not([readonly])').prop('checked', true);" class="btn btn-link">{{ text_select_all }}</button>
+                                            <button type="button" onclick="$(this).parent().find(':checkbox:not([readonly])').prop('checked', false);" class="btn btn-link">{{ text_unselect_all }}</button>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            {% if extensions %}
+                                {% for extension in extensions %}
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">
+                                            <span title="{{ help_ignore }}" data-toggle="tooltip">{{ extension.heading_title }}</span>
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <div class="well well-sm" style="height: {{ (extension.modules|length * 28) + 28 > 350 ? 350 : (extension.modules|length * 28)+ 28 }}px; overflow: auto;">
+                                                {% for module in extension.modules %}
+                                                    <div class="checkbox" {{ integrated and module.id not in setting_page ? ' style="display:none"' :''}}>
+                                                        <label>
+                                                            <input type="checkbox" name="setting_page[]" value="{{ module.id }}" {{ module.id in setting_page ? ' checked="checked"' : '' }} {{ integrated ? ' readonly="readonly"':'' }}/>
+                                                            {{ module.name }}
+                                                        </label>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                            {% if not integrated %}
+                                                <button type="button" onclick="$(this).parent().find(':checkbox:not([readonly])').prop('checked', true);" class="btn btn-link">{{ text_select_all }}</button>
+                                                <button type="button" onclick="$(this).parent().find(':checkbox:not([readonly])').prop('checked', false);" class="btn btn-link">{{ text_unselect_all }}</button>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        var settings = {
+            user_token: '{{ user_token }}',
+            datepicker: '{{ datepicker }}',
+            language_id: {{ language_id|number_format }},
+            languages: {{ languages|json_encode }},
+            placeholder: '{{ placeholder }}',
+            errors: {{ error|json_encode }},
+            type: '{{ type }}',
+            section_id: '{{ section_id }}',
+            values_route: '{{ values_route }}',
+            values_options: {{ values_options|json_encode }},
+            controllers: {{ controllers|json_encode }},
+            settings: {{ settings|json_encode }},
+            types: {{ types|json_encode }},
+            regex: '{{ regex }}',
+            integrated: {{ integrated|number_format }},
+            developer_status: {{ developer_status|number_format }},
+            text: {
+                datetime_format: '{{ datetime_format }}',
+                text_none: '{{ text_none }}',
+                text_enabled: '{{ text_enabled }}',
+                text_disabled: '{{ text_disabled }}',
+                text_min: '{{ text_min }}',
+                text_max: '{{ text_max }}',
+                text_yes: '{{ text_yes }}',
+                text_no: '{{ text_no }}',
+                text_confirm: '{{ text_confirm }}',
+                text_select: '{{ text_select }}',
+                text_all: '{{ text_all }}',
+                text_date: '{{ text_date }}',
+                text_time: '{{ text_time }}',
+                text_pages: '{{ text_pages }}',
+                text_developer_block_value_integrated: '{{ text_developer_block_value_integrated }}',
+                text_yandex_map: '{{ text_yandex_map }}',
+                text_google_map: '{{ text_google_map }}',
+                text_2gis_map: '{{ text_2gis_map }}',
+                text_single: '{{ text_single }}',
+                text_double: '{{ text_double }}',
+                entry_regex: '{{ entry_regex }}',
+                entry_step: '{{ entry_step }}',
+                entry_title: '{{ entry_title }}',
+                entry_range_grid: '{{ entry_range_grid }}',
+                entry_Inline: '{{ entry_Inline }}',
+                entry_placeholder: '{{ entry_placeholder }}',
+                entry_row_title: '{{ entry_row_title }}',
+                entry_row_value: '{{ entry_row_value }}',
+                entry_row_setting: '{{ entry_row_setting }}',
+                entry_row_key: '{{ entry_row_key }}',
+                entry_row_column: '{{ entry_row_column }}',
+                entry_row_width: '{{ entry_row_width }}',
+                entry_route: '{{ entry_route }}',
+                entry_model: '{{ entry_model }}',
+                entry_filter: '{{ entry_filter }}',
+                entry_style: '{{ entry_style }}',
+                entry_rows: '{{ entry_rows }}',
+                entry_collation: '{{ entry_collation }}',
+                entry_text_none: '{{ entry_text_none }}',
+                entry_values: '{{ entry_values }}',
+                entry_column_number: '{{ entry_column_number }}',
+                entry_format: '{{ entry_format }}',
+                entry_pick: '{{ entry_pick }}',
+                entry_text: '{{ entry_text }}',
+                entry_code: '{{ entry_code }}',
+                entry_show_tab: '{{ entry_show_tab }}',
+                entry_settings: '{{ entry_settings }}',
+                entry_placeholder_size: '{{ entry_placeholder_size }}',
+                entry_placeholder_size_width: '{{ entry_placeholder_size_width }}',
+                entry_placeholder_size_height: '{{ entry_placeholder_size_height }}',
+                entry_block_width: '{{ entry_block_width }}',
+                entry_range: '{{ entry_range }}',
+                entry_range_type: '{{ entry_range_type }}',
+                entry_rows_limit: '{{ entry_rows_limit }}',
+                entry_height_map: '{{ entry_height_map }}',
+                entry_pre_rows: '{{ entry_pre_rows }}',
+                entry_integrate_values: '{{ entry_integrate_values }}',
+                entry_section: '{{ entry_section }}',
+                entry_value_from: '{{ entry_value_from }}',
+                entry_vertical_tab: '{{ entry_vertical_tab }}',
+                entry_mask: '{{ entry_mask }}',
+                entry_custom_validate: '{{ entry_custom_validate }}',
+                entry_map_type: '{{ entry_map_type }}',
+                entry_html: '{{ entry_html }}',
+                entry_accordion: '{{ entry_accordion }}',
+                help_regex: '{{ help_regex }}',
+                help_controller: '{{ help_controller }}',
+                help_rows: '{{ help_rows }}',
+                help_text_none: '{{ help_text_none }}',
+                help_Inline: '{{ help_Inline }}',
+                help_filter: '{{ help_filter }}',
+                help_integrate: '{{ help_integrate }}',
+                help_settings: '{{ help_settings }}',
+                help_value_from: '{{ help_value_from }}',
+                help_values: '{{ help_values }}',
+                help_row_key: '{{ help_row_key }}',
+                help_collation: '{{ help_collation }}',
+                help_route: '{{ help_route }}',
+                help_mask: '{{ help_mask }}',
+                help_custom_validate: '{{ help_custom_validate }}',
+                button_remove: '{{ button_remove }}',
+                button_add: '{{ button_add }}',
+                error_text: '{{ error_text }}',
+            },
+        };
+    </script>
+</div>
+{{ footer }}

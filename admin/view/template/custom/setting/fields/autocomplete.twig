@@ -1,0 +1,8 @@
+<div{{ popover }}>
+    <input type="text" data-empty="{{ values_options.empty }}" value="{{ value.title }}" data-id="{{ setting_id }}"  id="input-custom-setting-{{ id }}" class="form-control input-autocomplete" placeholder="{{ placeholder }}"/>
+    {% if error %}
+        <div class="text-danger">{{ error }}</div>
+    {% endif %}
+    <input type="hidden" name="custom_setting{{ name }}[value]" id="input-custom-setting-{{ id }}-value" value="{{ value.value }}"/>
+    <input type="hidden" name="custom_setting{{ name }}[title]" id="input-custom-setting-{{ id }}-title" value="{{ value.title }}"/>
+</div>

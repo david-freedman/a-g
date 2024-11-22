@@ -1,0 +1,16 @@
+{% if values_options.map_type == 'google' %}
+    <input type="text" id="input-custom-setting-{{ id }}-search" class="google-map-search form-control"/>
+{% endif %}
+<div id="map-custom-setting-{{ id }}" class="map" style=" height: {{ values_options.height }}px;" data-type="{{ values_options.map_type }}" data-input="#input-custom-setting-{{ id }}"></div>
+<br/>
+<div class="row">
+    <div class="col-sm-5">
+        <input type="text" name="custom_setting{{ name }}[geocode]" value="{{ value.geocode }}" placeholder="Geocode" id="input-custom-setting-{{ id }}-geocode" class="form-control"/></div>
+    <div class="col-sm-5">
+        <input type="text" name="custom_setting{{ name }}[center]" value="{{ value.center }}" placeholder="Geocode Center" id="input-custom-setting-{{ id }}-center" class="form-control"/></div>
+    <div class="col-sm-2">
+        <input type="number" name="custom_setting{{ name }}[zoom]" value="{{ value.zoom }}" value="14" placeholder="Geocode Zoom" id="input-custom-setting-{{ id }}-zoom" class="form-control"/></div>
+</div>
+{% if error %}
+    <div class="text-danger">{{ error }}</div>
+{% endif %}

@@ -1,0 +1,13 @@
+{% for v in values %}{% endfor %}
+<div style="height: {{ (values|length * 19) + 19 > 350 ? 350 : (values|length * 19)+ 19 }}px; overflow: auto;" class="well well-sm" id="input-custom-setting-{{ id }}">
+    {% for key, v in values %}
+        {{ v.title }}
+        <small>({{ v.value }})</small>
+        <br/>
+        <input type="hidden" name="custom_setting{{ name }}[{{ key }}]" value=""/>
+        <input id="input-custom-setting-{{ id }}-{{ key }}" type="hidden" name="custom_setting{{ name }}[{{ key }}]" value="{{ v.value }}" readonly="readonly" autocomplete="off"/>
+    {% endfor %}
+</div>
+{% if error %}
+    <div class="text-danger">{{ error }}</div>
+{% endif %}

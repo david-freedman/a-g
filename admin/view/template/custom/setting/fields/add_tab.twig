@@ -1,0 +1,53 @@
+<input type="hidden" name="custom_setting{{ name }}"/>
+<div id="setting-value-block-{{ setting_id }}-{{ id }}" data-id="{{ id }}" data-name="{{ name }}" data-vertical="{{ values_options['vertical_tab'] ? 1 : 0 }}">
+    {% if values_options['vertical_tab'] %}
+        <div class="row">
+            <div class="col-lg-2 col-md-3">
+            {% endif %}
+            <ul class="nav{{ values_options['vertical_tab'] ? ' nav-pills nav-stacked list-group' : ' nav-tabs' }}" id="nav-setting-value-block-{{ setting_id }}-{{ id }}">
+                {% for tab_id, tab in tabs %}
+                    <li class="title-tab" data-tab_id="{{ tab_id }}" {{ values_options['model_route'] ? '' : ' data-popover="true"' }}>
+                        <a href="#setting-value-block-{{ setting_id }}-{{ id }}-row-{{ tab_id }}" data-toggle="tab" aria-expanded="false">
+                            <span class="tab-name">{{ tab.title }}</span>
+                            <i class="fa fa-minus-circle" onclick="confirm('{{ text_confirm }}') ?  removeTab(this, 'setting-value-block-{{ setting_id }}-{{ id }}', '{{ tab_id }}') : false" data-toggle="tooltip" title="{{ button_remove }}"></i>
+                        </a>
+                    </li>
+                {% endfor %}
+                {% if values_options['model_route'] %}
+                    <li>
+                        <input type="text" data-setting_id="{{ setting_id }}" placeholder="{{ text_route }}" class="form-control tab-autocomplete" id="autocomplete-setting-value-block-{{ setting_id }}-{{ id }}" autocomplete="off"/>
+                    </li>
+                {% else %}
+                    <li class="active">
+                        <a href="#" style=" text-align: left; " class="btn button-add-tab" onclick="addTab('{{ setting_id }}','{{ id }}'); event.preventDefault();">
+                            <i class="fa fa-plus"></i>
+                            {{ button_add }}</a>
+                    </li>
+                {% endif %}
+            </ul>
+            {% if values_options['vertical_tab'] %}
+            </div>
+        {% endif %}
+        {% if values_options['vertical_tab'] %}
+            <div class="col-lg-10 col-md-9">
+            {% endif %}
+            <div class="tab-content" id="tabs-setting-value-block-{{ setting_id }}-{{ id }}">
+                {% for tab_id, tab in tabs %}
+                    <div class="tab-pane" id="setting-value-block-{{ setting_id }}-{{ id }}-row-{{ tab_id }}">
+                        {% for language in languages %}
+                            <input type="hidden" value="{{ tab['descriptions'][language.language_id]['title'] }}" name="custom_setting{{ name }}[{{ tab_id }}][descriptions][{{ language.language_id }}][title]"/>
+                        {% endfor %}
+                        {% for v in value[tab_id]['settings'] %}
+                            {{ v.output }}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+            {% if values_options['vertical_tab'] %}
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% if error %}
+    <div class="text-danger">{{ error }}</div>
+{% endif %}

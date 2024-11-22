@@ -1,0 +1,110 @@
+<section id="bestseller" class="home__products-section home__products-section--margin products-section products-section--bg">
+    <div class="products-section__grid-container">
+        <div class="products-section__body">
+            <div class="products-section__content">
+                <div class="products-section__header">
+                    <div class="products-section__icon">
+                        <img src="/catalog/view/theme/accord_group/img/products-section/fire.webp" alt="Image" class="ibg ibg--contain">
+                    </div>
+                    <h2 class="products-section__title title">
+                        {{ title_toppodaj }}
+                    </h2>
+                </div>
+                <div class="products-section__text text">
+                    {{ text_top_prodaj }}
+                </div>
+                <a href="{{ link_btn_prodaj }}" class="products-section__link button button--green">{{ name_btn_prodaj }}</a>
+            </div>
+            <div data-da="#bestseller .products-section__content, 991.98, 1" class="products-section__image">
+                <img src="/image/{{ img_top_prodaj }}" alt="Image" class="ibg">
+            </div>
+        </div>
+        <div class="products-section__slider splide">
+            <div class="splide__track">
+                <ul class="splide__list">
+                    {% if products %}
+                        {% for product in products %}
+                            <li class="splide__slide">
+                                <article class="item-product">
+                                    <div class="item-product__image">
+                                        <div class="item-product__label item-product__label--purple">
+                                            ТОП продажів
+                                        </div>
+                                        <div class="item-product__actions">
+                                            <button type="button" class="item-product__button item-product__button--yellow _icon-heart-fill"></button>
+                                            <button type="button" class="item-product__button _icon-libra"></button>
+                                            <button type="button" class="item-product__button _icon-bag"></button>
+                                        </div>
+                                        <div class="item-product__slider splide">
+                                            <div class="splide__track">
+                                                <a href="{{ product.href }}" class="item-product__image-link"></a>
+                                                <ul class="splide__list">
+                                                  {% for image in product.images %}
+                                                      <li class="splide__slide">
+                                                          <img src="{{ image }}" alt="{{ product.name }}" class="ibg">
+                                                      </li>
+                                                  {% endfor %}
+                                              </ul>
+                                            </div>
+                                            <div class="splide__arrows" style="{% if product.show_slider %} opacity:1 {% else %} opacity:0; pointer-events: none; {% endif %}">
+                                                <button class="splide__arrow splide__arrow--prev _icon-ch-left"></button>
+                                                <div class="splide__pagination"></div>
+                                                <button class="splide__arrow splide__arrow--next _icon-ch-right"></button>
+                                            </div>                                            
+                                            
+                                        </div>
+                                    </div>
+                                    <h3 class="item-product__title">
+                                        <a href="{{ product.href }}" class="item-product__link">{{ product.name }}</a>
+                                    </h3>
+                                    <div class="item-product__text text">
+                                        <p>{{ product.description }}</p>
+                                    </div>
+                                    <div class="item-product__body">
+                                        <div class="item-product__price">
+                                            {% if product.price %}
+                                                {{ product.price }}
+                                            {% endif %}
+                                        </div>
+                                        {% if product.special %}
+                                            <div class="item-product__availability">Скидка: {{ product.special }}</div>
+                                        {% endif %}
+                                        <div class="item-product__availability 
+                                            {% if product.stock == text_special_order %}
+                                                item-product__availability--yellow  <!-- Стиль для под заказ -->
+                                            {% elseif product.stock == text_out_of_stock %}
+                                                item-product__availability--gray  <!-- Стиль для нет в наличии -->
+                                            {% else %}
+                                                item-product__availability--green  <!-- Стиль для в наличии -->
+                                            {% endif %}">
+                                            {{ product.stock }}  <!-- Выводим текст статуса на текущем языке -->
+                                        </div>
+                                    
+                                  
+                                    
+                                       {% if product.stock == text_out_of_stock or product.stock == text_out_of_stock %}
+                                        <button type="button" onclick="cart.add('{{ product.product_id }}', '{{ product.minimum }}');" class="item-product__buy-button button _icon-track" >
+                                            Замовити
+                                        </button>
+                                  
+                                        {% else %}
+                                        <button type="button" onclick="cart.add('{{ product.product_id }}', '{{ product.minimum }}');" class="item-product__buy-button button button--green _icon-cart">
+                                            Купити
+                                        </button>
+                                        {% endif %}
+                                    
+
+
+
+                                    </div>
+                                </article>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <p>Товары не найдены.</p>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

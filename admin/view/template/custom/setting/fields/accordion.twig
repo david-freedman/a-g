@@ -1,0 +1,12 @@
+<div class="panel-group" id="accordion-{{ id }}">
+    {% for key, accordion in values_options.accordion %}
+        <div class="panel panel-default">
+            <a data-toggle="collapse" class="panel-heading panel-title h4 btn-block" data-parent="#accordion-{{ id }}" href="#collapse-accordion-{{ id }}-{{ key }}" aria-expanded="true">{{ accordion['descriptions'][language_id]['title'] }}</a>
+            <div id="collapse-accordion-{{ id }}-{{ key }}" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                <div class="panel-body">
+                    {{ accordion.descriptions[language_id]['description'] }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

@@ -1,0 +1,7 @@
+<div{{ popover }} class="input-group iconpicker-container{{ error ? ' has-error' : '' }} ">
+    <span class="input-group-addon btn btn-default"></span>
+    <input name="custom_setting{{ name }}" id="input-custom-setting-{{ id }}" data-input-search="true" data-placement="bottomLeft" class="form-control  icp icp-auto iconpicker-element iconpicker-input" value="{{ value }}" type="text" placeholder="{{ placeholder }}" {{ values_options.mask ? ' data-mask="'~values_options.mask ~'"' : '' }}/>
+</div>
+{% if error %}
+    <div class="text-danger">{{ error }}</div>
+{% endif %}

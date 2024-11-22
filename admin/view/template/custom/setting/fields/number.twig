@@ -1,0 +1,4 @@
+<input{{ popover }} {{ values_options.min is not empty ? 'min="'~values_options.min~'" ' :'' }} {{ values_options.max is not empty ? 'max="'~values_options.max~'" ' :'' }} type="number" name="custom_setting{{ name }}" value="{{ value }}" id="input-custom-setting-{{ id }}" class="form-control" placeholder="{{ placeholder }}"{{ values_options.mask ? ' data-mask="'~values_options.mask ~'"' : '' }}/>
+{% if error %}
+    <div class="text-danger">{{ error }}</div>
+{% endif %}

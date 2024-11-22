@@ -1,0 +1,992 @@
+{{ header }}
+<div id="product-product">
+  <main class="page page--gray">
+    <div class="page__breadcrumbs breadcrumbs">
+      <div class="breadcrumbs__container">
+        <a href="#" class="breadcrumbs__link _icon-house"></a>
+        <ul class="breadcrumbs__list">
+          {% for breadcrumb in breadcrumbs %}
+          <li class="breadcrumbs__item">
+              <a class="breadcrumbs__link" href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+          </li>
+          {% endfor %}
+      </ul>      
+      </div>
+    </div>
+
+    <section class="page__product product">
+      <h1 data-da=".main-product__col, 767.98, first" class="product__title">{{ heading_title }}</h1>
+      <div data-tabs class="product__tabs">
+        <nav data-tabs-titles class="product__navigation">
+          <button type="button" class="product__tab-title  _tab-active">Про товар</button>
+          <button type="button" class="product__tab-title _icon-file">Опис</button>
+          <button type="button" class="product__tab-title  _icon-list">Характеристики</button>
+          {% if video_prod %}<button type="button" class="product__tab-title _icon-camera">Відео-огляд</button>{% endif %}
+          <button type="button" class="product__tab-title _icon-track">Доставка</button>
+        </nav>
+        <div data-tabs-body class="product__content">
+          <div class="product__tab-item">
+            <section class="product__main main-product">
+              <div class="main-product__container">
+                <div class="main-product__content">
+                  <div class="main-product__col">
+                    <div class="main-product__sliders">
+                      {% if images or thumb %}
+                        {% if images %}
+                          <!-- Main Image Slider (слайдер для нескольких изображений) -->
+                          <div class="splide main-product__main-slider">
+                            <div class="main-product__label">Новинка</div>
+                            <div class="splide__track">
+                              <ul class="splide__list">
+                                {% if thumb %}
+                                  <li class="splide__slide">
+                                    <a href="{{ popup }}" title="{{ heading_title }}">
+                                      <img class="ibg ibg--contain" src="{{ thumb }}" alt="{{ heading_title }}" />
+                                    </a>
+                                  </li>
+                                {% endif %}
+                                {% for image in images %}
+                                  <li class="splide__slide">
+                                    <a href="{{ image.popup }}" title="{{ heading_title }}">
+                                      <img class="ibg ibg--contain" src="{{ image.thumb }}" alt="{{ heading_title }}" />
+                                    </a>
+                                  </li>
+                                {% endfor %}
+                              </ul>
+                            </div>
+                            <div class="splide__arrows">
+                              <button class="splide__arrow splide__arrow--prev _icon-ch-left"></button>
+                              <div class="splide__pagination"></div>
+                              <button class="splide__arrow splide__arrow--next _icon-ch-right"></button>
+                            </div>
+                          </div>
+                    
+                          <!-- Thumbnail Slider -->
+                          <div class="splide main-product__thumbnail-slider">
+                            <div class="splide__track">
+                              <ul class="splide__list">
+                                <li class="splide__slide">
+                                  <img class="ibg ibg--contain" src="{{ thumb }}" alt="{{ heading_title }}" />
+                                </li>
+                                {% for image in images %}
+                                  <li class="splide__slide">
+                                    <img class="ibg ibg--contain" src="{{ image.thumb }}" alt="{{ heading_title }}" />
+                                  </li>
+                                {% endfor %}
+                              </ul>
+                            </div>
+                          </div>
+                        {% else %}
+                          <!-- Если только одно изображение, просто выводим его без Splide -->
+                          <div class="main-product__single-image">
+                            <a href="{{ popup }}" title="{{ heading_title }}">
+                              <img class="ibg ibg--contain" src="{{ thumb }}" alt="{{ heading_title }}" />
+                            </a>
+                          </div>
+                        {% endif %}
+                      {% endif %}
+                    </div>
+                    
+                    
+                    
+                    <div data-da=".main-product__content, 767.98, last" class="main-product__info info-main-product">
+                      {{ text_pro_tovar }}
+                      
+                    </div>
+                  </div>
+                  <div class="main-product__body">
+                    <div class="main-product__order order-p-block">
+                      <!-- Product Title -->
+                      <h2 class="order-p-block__title">{{ heading_title }}</h2>
+                    
+                      <div class="order-p-block__info">
+                        <div class="order-p-block__label">
+                          {% if manufacturer %}
+                              {{ text_manufacturer }}
+                              <a href="{{ manufacturers }}">
+                                  <span>{{ manufacturer }}</span>
+                              </a>
+                              {% if manufacturer_image %}
+                                  <img src="{{ manufacturer_image }}" alt="{{ manufacturer }}-logo" class="order-p-block__logo">
+                              {% endif %}
+                          {% endif %}
+
+
+                        </div>
+                    
+                        <!-- Product SKU (Model) -->
+                        <div class="order-p-block__label">
+                          Артикул: <span>{{ model }}</span>
+                        </div>
+                    
+                        <!-- Action Buttons -->
+                        <div class="order-p-block__actions">
+                          <button class="order-p-block__icon-btn order-p-block__icon-btn--fav _icon-heart"></button>
+                          <button class="order-p-block__icon-btn _icon-libra"></button>
+                          <button class="order-p-block__icon-btn _icon-bag"></button>
+                        </div>
+                      </div>
+                    
+                      <!-- Colors Selector (Example Placeholder) -->
+                      {% if options %}
+                        <div class="order-p-block__options">
+                            {% for option in options %}
+                                {% if option.type == 'radio' %}
+                                    <div class="order-p-block__colors-switch">
+                                        <div class="order-p-block__label order-p-block__label--colors">
+                                            {{ option.name }}:<span>{{ option.product_option_value[0].name }}</span>
+                                        </div>
+                                        <div class="order-p-block__colors colors-product">
+                                            {% for option_value in option.product_option_value %}
+                                                <label style="--color: {{ option_value.color }}" class="colors-product__item">
+                                                    <input name="option[{{ option.product_option_id }}]" value="{{ option_value.product_option_value_id }}" type="radio" {% if loop.first %}checked{% endif %}>
+                                                </label>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    
+                    
+                      <div class="order-p-block__footer">
+                        <!-- Product Price -->
+                        <div class="order-p-block__price">
+                          {{ price }}
+                          {% if special %}
+                            <span>{{ special }}</span>
+                          {% endif %}
+                        </div>
+                    
+                        <!-- Quantity Selector -->
+                        <div data-min="1" data-max="999" class="counter">
+                          <button class="counter__btn counter__btn--decrement" type="button">-</button>
+                          <input type="number" value="1">
+                          <button class="counter__btn counter__btn--increment" type="button">+</button>
+                        </div>
+                    
+                        <!-- Order Button -->
+                        <div class="order-p-block__order">
+                          <div class="order-p-block__order-label">
+                             {{ stock }}
+                          </div>
+                          <button class="order-p-block__button _icon-track button" onclick="cart.add('{{ product.product_id }}' , '{{ product.minimum }}');">
+                            Замовити
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div data-showmore="items" class="main-product__desc desc-product">
+                      <h3 class="desc-product__title title-product title-product--margin _icon-file">Опис</h3>
+                      <div data-showmore-content="1" class="desc-product__content">
+                          
+                              {{ description }}
+                          
+                        
+                      </div>
+                      <button hidden data-showmore-button type="button" class="desc-product__more">
+                          <span>Повний опис</span><span>Сховати</span>
+                      </button>
+                  </div>
+                  
+                  {% if attribute_groups %}
+                    <div data-da=".main-product__content, 1099.98, last" data-showmore="items" class="main-product__specs desc-product">
+                        <h3 class="desc-product__title title-product title-product--margin _icon-file">Характеристики</h3>
+                        <dl data-showmore-content="7" class="desc-product__specs">
+                            {% for attribute_group in attribute_groups %}
+                                {% for attribute in attribute_group.attribute %}
+                                    <div>
+                                        <dt>{{ attribute.name }}</dt>
+                                        <dd>{{ attribute.text }}</dd>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+                        </dl>
+                        <button hidden data-showmore-button type="button" class="desc-product__more">
+                            <span>Всі характеристики </span><span>Сховати</span>
+                        </button>
+                    </div>
+                {% endif %}
+
+                
+                
+                </div>
+              </div>
+            </section>
+            <section class="product__recomendations recomendations recomendations--small-scrollbar">
+            {% if products %}
+             
+                <div class="recomendations__grid-container">
+                    <div class="recomendations__header">
+                        <h2 class="recomendations__title">{{ text_related }}</h2>
+                        <a href="#" data-da="{.recomendations__grid-container}, 767.98, last" class="recomendations__link button button--border">
+                            Переглянути всі товари
+                        </a>
+                    </div>
+                    <div class="recomendations__label">
+                        Ідеальне поєднання для вашої кухні – ми зібрали товари, які доповнюють один одного.
+                    </div>
+                    <div data-simplebar class="recomendations__body">
+                        <div class="recomendations__items">
+                            {% for product in products %}
+                            <article class="item-product-min">
+                                <div class="item-product-min__image">
+                                    <button type="button" onclick="wishlist.add('{{ product.product_id }}');" class="item-product-min__fav _icon-heart {% if product.wishlist %}_active{% endif %}">
+                                    </button>
+                                    <a href="{{ product.href }}" class="item-product-min__image-link">
+                                        <img class="ibg" src="{{ product.thumb }}" alt="{{ product.name }}">
+                                    </a>
+                                </div>
+                                <h3 class="item-product-min__title">
+                                    <a href="{{ product.href }}" class="item-product-min__link">{{ product.name }}</a>
+                                </h3>
+                                <div class="item-product-min__body">
+                                    <div class="item-product-min__price">
+                                        {% if product.special %}
+                                            {{ product.special }}
+                                            <span>{{ product.price }}</span>
+                                        {% else %}
+                                            {{ product.price }}
+                                        {% endif %}
+                                    </div>
+                                    <button type="button" onclick="cart.add('{{ product.product_id }}', '{{ product.minimum }}');" class="item-product-min__buy-button button button--green _icon-cart">
+                                    </button>
+                                </div>
+                            </article>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+           
+            {% endif %}
+ </section>
+            <section class="product__stoelzle stoelzle">
+              <div class="stoelzle__grid-container">
+                <div class="stoelzle__wrapper">
+                  <div class="stoelzle__image">
+                    <img src="img/stoelzle.webp" alt="Image" class="ibg">
+                  </div>
+                  <div class="stoelzle__body">
+                    <div class="stoelzle__text text">
+                      <p>
+                        Обирайте Stoelzle для створення неповторної атмосфери на вашій кухні та у ресторані.
+                      </p>
+                    </div>
+                    <h2 class="stoelzle__title">
+                      Stoelzle
+                    </h2>
+                    <a href="#" class="stoelzle__link button button--border">Переглянути всі товари</a>
+                  </div>
+                </div>
+
+              </div>
+            </section>
+
+          </div>
+          <div class="product__tab-item">
+            <div class="product__desc-section desc-section">
+              <div class="desc-section__container">
+                <div class="desc-section__content">
+                  <div class="desc-section__body">
+                    <div class="desc-section__order order-p-block">
+                      <h2 class="order-p-block__title">
+                        {{ heading_title }}
+                      </h2>
+                      <div class="order-p-block__images">
+
+                      </div>
+                      <div class="order-p-block__info">
+                        <div data-da="{.order-p-block}, 1099.98, 2" class="order-p-block__label">
+                          {% if manufacturer %}
+                              {{ text_manufacturer }}
+                              <a href="{{ manufacturers }}">
+                                  <span>{{ manufacturer }}</span>
+                              </a>
+                              {% if manufacturer_image %}
+                              <img src="{{ manufacturer_image }}" alt="{{ manufacturer }}-logo" class="order-p-block__logo">
+                            {% endif %}
+                          {% endif %}
+                        </div>
+                        <div class="order-p-block__label">
+                          Артикул: <span>{{ model }}</span>
+                        </div>
+                        <div class="order-p-block__actions">
+                          <button class="order-p-block__icon-btn order-p-block__icon-btn--fav _icon-heart">
+                          </button>
+                          <button class="order-p-block__icon-btn _icon-libra">
+                          </button>
+                          <button class="order-p-block__icon-btn _icon-bag">
+                          </button>
+                        </div>
+                      </div>
+                      {% if options %}
+                        <div class="order-p-block__options">
+                            {% for option in options %}
+                                {% if option.type == 'radio' %}
+                                    <div class="order-p-block__colors-switch">
+                                        <div class="order-p-block__label order-p-block__label--colors">
+                                            {{ option.name }}:<span>{{ option.product_option_value[0].name }}</span>
+                                        </div>
+                                        <div class="order-p-block__colors colors-product">
+                                            {% for option_value in option.product_option_value %}
+                                                <label style="--color: {{ option_value.color }}" class="colors-product__item">
+                                                    <input name="option[{{ option.product_option_id }}]" value="{{ option_value.product_option_value_id }}" type="radio" {% if loop.first %}checked{% endif %}>
+                                                </label>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                      <div class="order-p-block__footer">
+                        <div class="order-p-block__price">
+                          {{ price }}
+                          {% if special %}
+                            <span>{{ special }}</span>
+                          {% endif %}
+                        </div>
+                        <div data-min="1" data-max="999" class="counter">
+                          <button class="counter__btn counter__btn--decrement" type="button">-</button>
+                          <input type="number" value="1">
+                          <button class="counter__btn counter__btn--increment" type="button">+</button>
+                        </div>
+                        <div class="order-p-block__order">
+                          <div class="order-p-block__order-label">
+                            {{ stock }}
+                          </div>
+                          <button class="order-p-block__button _icon-track button" onclick="cart.add('{{ product.product_id }}' , '{{ product.minimum }}');">
+                            Замовити
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    {% if thumb %}
+                      <div class="desc-section__image" data-da="{.desc-section} .order-p-block__images, 767.98">
+                        <img src="{{ thumb }}" alt="{{ heading_title }}" class="ibg ibg--contain">
+                      </div>                     
+                      {% if images|length > 0 %}
+                        <div class="desc-section__image" data-da="{.desc-section} .order-p-block__images, 767.98">
+                          <img src="{{ images[0].thumb }}" alt="{{ heading_title }}" class="ibg ibg--contain">
+                        </div>
+                      {% endif %}
+                    {% endif %}
+                  </div>
+                  <div class="desc-section__desc desc-product">
+                    <h3 class="desc-product__title title-product title-product--margin _icon-file">Опис
+                    </h3>
+                    <div data-showmore-content="1" class="desc-product__content">
+                      {{ description }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="product__tab-item">
+            <div class="product__desc-section desc-section">
+              <div class="desc-section__container">
+                <div class="desc-section__content">
+                  <div class="desc-section__body">
+                    <div class="desc-section__order order-p-block">
+                      <h2 class="order-p-block__title">
+                        {{ heading_title }}
+                      </h2>
+                      <div class="order-p-block__images">
+
+                      </div>
+                      <div class="order-p-block__info">
+                        <div data-da="{.order-p-block}, 1099.98, 2" class="order-p-block__label">
+                          {% if manufacturer %}
+                              {{ text_manufacturer }}
+                              <a href="{{ manufacturers }}">
+                                  <span>{{ manufacturer }}</span>
+                              </a>
+                              {% if manufacturer_image %}
+                                  <img src="{{ manufacturer_image }}" alt="{{ manufacturer }}-logo" class="order-p-block__logo">
+                              {% endif %}
+                          {% endif %}
+                        </div>
+                        <div class="order-p-block__label">
+                          Артикул: <span>{{ model }}</span>
+                        </div>
+                        <div class="order-p-block__actions">
+                          <button class="order-p-block__icon-btn order-p-block__icon-btn--fav _icon-heart">
+                          </button>
+                          <button class="order-p-block__icon-btn _icon-libra">
+                          </button>
+                          <button class="order-p-block__icon-btn _icon-bag">
+                          </button>
+                        </div>
+                      </div>
+                      {% if options %}
+                        <div class="order-p-block__options">
+                            {% for option in options %}
+                                {% if option.type == 'radio' %}
+                                    <div class="order-p-block__colors-switch">
+                                        <div class="order-p-block__label order-p-block__label--colors">
+                                            {{ option.name }}:<span>{{ option.product_option_value[0].name }}</span>
+                                        </div>
+                                        <div class="order-p-block__colors colors-product">
+                                            {% for option_value in option.product_option_value %}
+                                                <label style="--color: {{ option_value.color }}" class="colors-product__item">
+                                                    <input name="option[{{ option.product_option_id }}]" value="{{ option_value.product_option_value_id }}" type="radio" {% if loop.first %}checked{% endif %}>
+                                                </label>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                      <div class="order-p-block__footer">
+                        <div class="order-p-block__price">
+                          {{ price }}
+                          {% if special %}
+                            <span>{{ special }}</span>
+                          {% endif %}
+                        </div>
+                        <div data-min="1" data-max="999" class="counter">
+                          <button class="counter__btn counter__btn--decrement" type="button">-</button>
+                          <input type="number" value="1">
+                          <button class="counter__btn counter__btn--increment" type="button">+</button>
+                        </div>
+                        <div class="order-p-block__order">
+                          <div class="order-p-block__order-label">
+                            {{ stock }}
+                          </div>
+                          <button class="order-p-block__button _icon-track button" onclick="cart.add('{{ product.product_id }}' , '{{ product.minimum }}');">
+                            Замовити
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    {% if thumb %}
+                      <div class="desc-section__image" data-da="{.desc-section} .order-p-block__images, 767.98">
+                        <img src="{{ thumb }}" alt="{{ heading_title }}" class="ibg ibg--contain">
+                      </div>                     
+                      {% if images|length > 0 %}
+                        <div class="desc-section__image" data-da="{.desc-section} .order-p-block__images, 767.98">
+                          <img src="{{ images[0].thumb }}" alt="{{ heading_title }}" class="ibg ibg--contain">
+                        </div>
+                      {% endif %}
+                    {% endif %}
+                    
+                  </div>
+                  <div class="desc-section__desc desc-product">
+                    {% if attribute_groups %}
+                        <h3 class="desc-product__title title-product title-product--margin _icon-list">Характеристики</h3>
+                        <dl class="desc-product__specs">
+                            {% for attribute_group in attribute_groups %}
+                                {% for attribute in attribute_group.attribute %}
+                                    <div>
+                                        <dt>{{ attribute.name }}</dt>
+                                        <dd>{{ attribute.text }}</dd>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+                        </dl>
+                    </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+           
+          {% if video_prod %}
+          <div class="product__tab-item">
+            <div class="product__desc-section desc-section">
+              <div class="desc-section__container">
+                <div class="desc-section__content">
+                  <div class="desc-section__body">
+                    <div class="desc-section__order order-p-block">
+                      <h2 class="order-p-block__title">
+                        {{ heading_title }}
+                      </h2>
+                      <div class="order-p-block__images">
+
+                      </div>
+                      <div class="order-p-block__info">
+                        <div data-da="{.order-p-block}, 1099.98, 2" class="order-p-block__label">
+                          {% if manufacturer %}
+                              {{ text_manufacturer }}
+                              <a href="{{ manufacturers }}">
+                                  <span>{{ manufacturer }}</span>
+                              </a>
+                              {% if manufacturer_image %}
+                                  <img src="{{ manufacturer_image }}" alt="{{ manufacturer }}-logo" class="order-p-block__logo">
+                              {% endif %}
+                          {% endif %}
+                        </div>
+                        <div class="order-p-block__label">
+                          Артикул: <span>{{ model }}</span>
+                        </div>
+                        <div class="order-p-block__actions">
+                          <button class="order-p-block__icon-btn order-p-block__icon-btn--fav _icon-heart">
+                          </button>
+                          <button class="order-p-block__icon-btn _icon-libra">
+                          </button>
+                          <button class="order-p-block__icon-btn _icon-bag">
+                          </button>
+                        </div>
+                      </div>
+                      {% if options %}
+                        <div class="order-p-block__options">
+                            {% for option in options %}
+                                {% if option.type == 'radio' %}
+                                    <div class="order-p-block__colors-switch">
+                                        <div class="order-p-block__label order-p-block__label--colors">
+                                            {{ option.name }}:<span>{{ option.product_option_value[0].name }}</span>
+                                        </div>
+                                        <div class="order-p-block__colors colors-product">
+                                            {% for option_value in option.product_option_value %}
+                                                <label style="--color: {{ option_value.color }}" class="colors-product__item">
+                                                    <input name="option[{{ option.product_option_id }}]" value="{{ option_value.product_option_value_id }}" type="radio" {% if loop.first %}checked{% endif %}>
+                                                </label>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                      {% endif %}
+                      <div class="order-p-block__footer">
+                        <div class="order-p-block__price">
+                          {{ price }}
+                          {% if special %}
+                            <span>{{ special }}</span>
+                          {% endif %}
+                        </div>
+                        <div data-min="1" data-max="999" class="counter">
+                          <button class="counter__btn counter__btn--decrement" type="button">-</button>
+                          <input type="number" value="1">
+                          <button class="counter__btn counter__btn--increment" type="button">+</button>
+                        </div>
+                        <div class="order-p-block__order">
+                          <div class="order-p-block__order-label">
+                            {{ stock }}
+                          </div>
+                          <button class="order-p-block__button _icon-track button" onclick="cart.add('{{ product.product_id }}' , '{{ product.minimum }}');">
+                            Замовити
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    {% if thumb %}
+                      <div class="desc-section__image" data-da="{.desc-section} .order-p-block__images, 767.98">
+                        <img src="{{ thumb }}" alt="{{ heading_title }}" class="ibg ibg--contain">
+                      </div>                     
+                      {% if images|length > 0 %}
+                        <div class="desc-section__image" data-da="{.desc-section} .order-p-block__images, 767.98">
+                          <img src="{{ images[0].thumb }}" alt="{{ heading_title }}" class="ibg ibg--contain">
+                        </div>
+                      {% endif %}
+                    {% endif %}
+                  </div>
+                  
+                  <div class="desc-section__video video-product">
+                    <h3 class="video-product__title title-product title-product--margin _icon-camera">Відео
+                    </h3>
+                    <div class="video-product__subtitle">
+                      {{ title_video_prod }}
+                    </div>
+                    <div class="video-product__body video-block">
+                      <div class="video-block__wrapper">
+                        <div data-video="{{ video_prod }}" class="video-block__body">
+                          <div class="video-block__placeholder">
+                            
+                            <div class="video-block__background">
+                              <img src="/image/{{ img_ples_prod }}" class="ibg" alt="Image">
+                            </div>
+                            <button class="video-block__button">
+                              <img src="/catalog/view/theme/accord_group/img/video/button.svg" alt="Icon" class="ibg ibg--contain">
+                            </button>
+                          </div>
+                        </div>
+                        <h4 class="video-block__title">{{ title_video_prod_ples }}</h4>
+                        <div class="video-block__label">
+                          {{ desc_video_prod_ples }}
+                        </div>
+                      </div>
+                      <div class="video-block__text text">
+                        {{ desc_video_prod }}
+                      </div>
+                    </div>
+                  </div>
+                
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+            <div class="product__tab-item">
+							<div class="product__desc-section desc-section">
+								<div class="desc-section__container">
+									<div class="desc-section__content">
+										<div class="desc-section__body">
+											<div class="desc-section__order order-p-block">
+												<h2 class="order-p-block__title">
+                          {{ heading_title }}
+												</h2>
+												<div class="order-p-block__images">
+
+												</div>
+												<div class="order-p-block__info">
+													<div data-da="{.order-p-block}, 1099.98, 2" class="order-p-block__label">
+                            {% if manufacturer %}
+                              {{ text_manufacturer }}
+                              <a href="{{ manufacturers }}">
+                                  <span>{{ manufacturer }}</span>
+                              </a>
+                              {% if manufacturer_image %}
+                                  <img src="{{ manufacturer_image }}" alt="{{ manufacturer }}-logo" class="order-p-block__logo">
+                              {% endif %}
+                          {% endif %}
+													</div>
+													<div class="order-p-block__label">
+														Артикул: <span>{{ model }}</span>
+													</div>
+													<div class="order-p-block__actions">
+														<button class="order-p-block__icon-btn order-p-block__icon-btn--fav _icon-heart">
+														</button>
+														<button class="order-p-block__icon-btn _icon-libra">
+														</button>
+														<button class="order-p-block__icon-btn _icon-bag">
+														</button>
+													</div>
+												</div>
+												{% if options %}
+                        <div class="order-p-block__options">
+                            {% for option in options %}
+                                {% if option.type == 'radio' %}
+                                    <div class="order-p-block__colors-switch">
+                                        <div class="order-p-block__label order-p-block__label--colors">
+                                            {{ option.name }}:<span>{{ option.product_option_value[0].name }}</span>
+                                        </div>
+                                        <div class="order-p-block__colors colors-product">
+                                            {% for option_value in option.product_option_value %}
+                                                <label style="--color: {{ option_value.color }}" class="colors-product__item">
+                                                    <input name="option[{{ option.product_option_id }}]" value="{{ option_value.product_option_value_id }}" type="radio" {% if loop.first %}checked{% endif %}>
+                                                </label>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                      {% endif %}
+												<div class="order-p-block__footer">
+													<div class="order-p-block__price">
+                            {{ price }}
+                            {% if special %}
+                              <span>{{ special }}</span>
+                            {% endif %}
+													</div>
+													<div data-min="1" data-max="999" class="counter">
+														<button class="counter__btn counter__btn--decrement" type="button">-</button>
+														<input type="number" value="1">
+														<button class="counter__btn counter__btn--increment" type="button">+</button>
+													</div>
+													<div class="order-p-block__order">
+														<div class="order-p-block__order-label">
+                              {{ stock }}
+                            </div>
+                            <button class="order-p-block__button _icon-track button" onclick="cart.add('{{ product.product_id }}' , '{{ product.minimum }}');">
+                              Замовити
+                            </button>
+													</div>
+												</div>
+											</div>
+											{% if thumb %}
+                      <div class="desc-section__image" data-da="{.desc-section} .order-p-block__images, 767.98">
+                        <img src="{{ thumb }}" alt="{{ heading_title }}" class="ibg ibg--contain">
+                      </div>                     
+                      {% if images|length > 0 %}
+                        <div class="desc-section__image" data-da="{.desc-section} .order-p-block__images, 767.98">
+                          <img src="{{ images[0].thumb }}" alt="{{ heading_title }}" class="ibg ibg--contain">
+                        </div>
+                      {% endif %}
+                    {% endif %}
+										</div>
+										<div class="desc-section__ship ship-product">
+											<div class="ship-product__header">
+												<h3 class="ship-product__title title-product _icon-track">Доставка
+												</h3>
+												<div class="ship-product__label">
+													{{ title_deliv_prod }}
+												</div>
+											</div>
+											<div class="ship-product__items">
+												{{ text_deliv_one_blok_prod }}
+											</div>
+										</div>
+									</div>
+									<div data-da="{.desc-section} .ship-product, 991.98, last" class="desc-section__text">
+										{{ text_deliv_two_blok_prod }}
+									</div>
+								</div>
+							</div>
+						</div>
+          </div>
+        
+            {{ recomendation_products|raw }}
+            <section class="home__readmore readmore">
+              <div data-showmore="items" class="readmore__container">
+                <div data-showmore-content="1" class="readmore__content text">
+                  <div>
+                    <h4>Професійне оснащення для ресторанів та кафе від Accord Group</h4>
+                    <p>
+                      Accord Group спеціалізується на комплексному оснащенні професійним посудом і обладнанням для
+                      ресторанів,
+                      кафе, барів, фаст-фудів та інших закладів громадського харчування. Ми пропонуємо понад 70
+                      всесвітньо
+                      відомих брендів, включаючи Stalgast, iSi, Stölzle, Porland, Eternum, APS, Lubiana, Hamilton
+                      Beach,
+                      Kogast та інші.
+                    </p>
+                  </div>
+                  <div>
+                    <p>
+                      Accord Group спеціалізується на комплексному оснащенні професійним посудом і обладнанням для
+                      ресторанів,
+                      кафе, барів, фаст-фудів та інших закладів громадського харчування. Ми пропонуємо понад 70
+                      всесвітньо
+                      відомих брендів, включаючи Stalgast, iSi, Stölzle, Porland, Eternum, APS, Lubiana, Hamilton
+                      Beach,
+                      Kogast та інші. Accord Group спеціалізується на комплексному оснащенні професійним посудом і
+                      обладнанням
+                      для ресторанів,
+                      кафе, барів, фаст-фудів та інших закладів громадського харчування. Ми пропонуємо понад 70
+                      всесвітньо
+                      відомих брендів, включаючи Stalgast, iSi, Stölzle, Porland, Eternum, APS, Lubiana, Hamilton
+                      Beach,
+                      Kogast та інші.
+                    </p>
+                    <p>
+                      Accord Group спеціалізується на комплексному оснащенні професійним посудом і обладнанням для
+                      ресторанів,
+                      кафе, барів, фаст-фудів та інших закладів громадського харчування. Ми пропонуємо понад 70
+                      всесвітньо
+                      відомих брендів, включаючи Stalgast, iSi, Stölzle, Porland, Eternum, APS, Lubiana, Hamilton
+                      Beach,
+                      Kogast та інші.
+                    </p>
+                    <p>
+                      Accord Group спеціалізується на комплексному оснащенні професійним посудом і обладнанням для
+                      ресторанів,
+                      кафе, барів, фаст-фудів та інших закладів громадського харчування. Ми пропонуємо понад 70
+                      всесвітньо
+                      відомих брендів, включаючи Stalgast, iSi, Stölzle, Porland, Eternum, APS, Lubiana, Hamilton
+                      Beach,
+                      Kogast та інші.
+                    </p>
+                  </div>
+                </div>
+                <button hidden data-showmore-button type="button" class="readmore__button _icon-arrow-down"><span>Показати
+                    ще</span><span>Сховати</span></button>
+              </div>
+            </section>
+      </div>
+    </section>
+  </main>
+</div>
+<script type="text/javascript"><!--
+$('select[name=\'recurring_id\'], input[name="quantity"]').change(function(){
+	$.ajax({
+		url: 'index.php?route=product/product/getRecurringDescription',
+		type: 'post',
+		data: $('input[name=\'product_id\'], input[name=\'quantity\'], select[name=\'recurring_id\']'),
+		dataType: 'json',
+		beforeSend: function() {
+			$('#recurring-description').html('');
+		},
+		success: function(json) {
+			$('.alert-dismissible, .text-danger').remove();
+
+			if (json['success']) {
+				$('#recurring-description').html(json['success']);
+			}
+		}
+	});
+});
+//--></script> 
+<script type="text/javascript"><!--
+$('#button-cart').on('click', function() {
+	$.ajax({
+		url: 'index.php?route=checkout/cart/add',
+		type: 'post',
+		data: $('#product input[type=\'text\'], #product input[type=\'hidden\'], #product input[type=\'radio\']:checked, #product input[type=\'checkbox\']:checked, #product select, #product textarea'),
+		dataType: 'json',
+		beforeSend: function() {
+			$('#button-cart').button('loading');
+		},
+		complete: function() {
+			$('#button-cart').button('reset');
+		},
+		success: function(json) {
+			$('.alert-dismissible, .text-danger').remove();
+			$('.form-group').removeClass('has-error');
+
+			if (json['error']) {
+				if (json['error']['option']) {
+					for (i in json['error']['option']) {
+						var element = $('#input-option' + i.replace('_', '-'));
+
+						if (element.parent().hasClass('input-group')) {
+							element.parent().after('<div class="text-danger">' + json['error']['option'][i] + '</div>');
+						} else {
+							element.after('<div class="text-danger">' + json['error']['option'][i] + '</div>');
+						}
+					}
+				}
+
+				if (json['error']['recurring']) {
+					$('select[name=\'recurring_id\']').after('<div class="text-danger">' + json['error']['recurring'] + '</div>');
+				}
+
+				// Highlight any found errors
+				$('.text-danger').parent().addClass('has-error');
+			}
+
+			if (json['success']) {
+				$('.breadcrumb').after('<div class="alert alert-success alert-dismissible">' + json['success'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+
+				$('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
+
+				$('html, body').animate({ scrollTop: 0 }, 'slow');
+
+				$('#cart > ul').load('index.php?route=common/cart/info ul li');
+			}
+		},
+        error: function(xhr, ajaxOptions, thrownError) {
+            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+	});
+});
+//--></script> 
+<script type="text/javascript"><!--
+$('.date').datetimepicker({
+	language: '{{ datepicker }}',
+	pickTime: false
+});
+
+$('.datetime').datetimepicker({
+	language: '{{ datepicker }}',
+	pickDate: true,
+	pickTime: true
+});
+
+$('.time').datetimepicker({
+	language: '{{ datepicker }}',
+	pickDate: false
+});
+
+$('button[id^=\'button-upload\']').on('click', function() {
+	var node = this;
+
+	$('#form-upload').remove();
+
+	$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file" /></form>');
+
+	$('#form-upload input[name=\'file\']').trigger('click');
+
+	if (typeof timer != 'undefined') {
+    	clearInterval(timer);
+	}
+
+	timer = setInterval(function() {
+		if ($('#form-upload input[name=\'file\']').val() != '') {
+			clearInterval(timer);
+
+			$.ajax({
+				url: 'index.php?route=tool/upload',
+				type: 'post',
+				dataType: 'json',
+				data: new FormData($('#form-upload')[0]),
+				cache: false,
+				contentType: false,
+				processData: false,
+				beforeSend: function() {
+					$(node).button('loading');
+				},
+				complete: function() {
+					$(node).button('reset');
+				},
+				success: function(json) {
+					$('.text-danger').remove();
+
+					if (json['error']) {
+						$(node).parent().find('input').after('<div class="text-danger">' + json['error'] + '</div>');
+					}
+
+					if (json['success']) {
+						alert(json['success']);
+
+						$(node).parent().find('input').val(json['code']);
+					}
+				},
+				error: function(xhr, ajaxOptions, thrownError) {
+					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+				}
+			});
+		}
+	}, 500);
+});
+//--></script> 
+<script type="text/javascript"><!--
+$('#review').delegate('.pagination a', 'click', function(e) {
+    e.preventDefault();
+
+    $('#review').fadeOut('slow');
+
+    $('#review').load(this.href);
+
+    $('#review').fadeIn('slow');
+});
+
+$('#review').load('index.php?route=product/product/review&product_id={{ product_id }}');
+
+$('#button-review').on('click', function() {
+	$.ajax({
+		url: 'index.php?route=product/product/write&product_id={{ product_id }}',
+		type: 'post',
+		dataType: 'json',
+		data: $("#form-review").serialize(),
+		beforeSend: function() {
+			$('#button-review').button('loading');
+		},
+		complete: function() {
+			$('#button-review').button('reset');
+		},
+		success: function(json) {
+			$('.alert-dismissible').remove();
+
+			if (json['error']) {
+				$('#review').after('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '</div>');
+			}
+
+			if (json['success']) {
+				$('#review').after('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
+
+				$('input[name=\'name\']').val('');
+				$('textarea[name=\'text\']').val('');
+				$('input[name=\'rating\']:checked').prop('checked', false);
+			}
+		}
+	});
+});
+
+$(document).ready(function() {
+	$('.thumbnails').magnificPopup({
+		type:'image',
+		delegate: 'a',
+		gallery: {
+			enabled: true
+		}
+	});
+});
+//--></script> 
+{{ footer }} 

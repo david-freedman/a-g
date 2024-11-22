@@ -1,0 +1,34 @@
+<input type="hidden" name="custom_setting{{ name }}"/>
+{% if values_options['vertical_tab'] %}
+    <div class="row">
+        <div class="col-lg-2 col-md-3">
+        {% endif %}
+        <ul class="nav{{ values_options['vertical_tab'] ? ' nav-pills nav-stacked list-group' : ' nav-tabs' }}" id="nav-custom-setting-tab-{{ id }}">
+            {% for tab_id, tab in tabs %}
+                <li>
+                    <a href="#tab-custom-setting-tab-{{ id }}-{{ tab_id }}" data-toggle="tab" aria-expanded="false">{{ tab.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        {% if values_options['vertical_tab'] %}
+        </div>
+    {% endif %}
+    {% if values_options['vertical_tab'] %}
+        <div class="col-lg-10 col-md-9">
+        {% endif %}
+        <div class="tab-content">
+            {% for tab_id, tab in tabs %}
+                <div class="tab-pane" id="tab-custom-setting-tab-{{ id }}-{{ tab_id }}">
+                    {% for v in value[tab_id]['settings'] %}
+                        {{ v.output }}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+        {% if values_options['vertical_tab'] %}
+        </div>
+    </div>
+{% endif %}
+{% if error %}
+    <div class="text-danger">{{ error }}</div>
+{% endif %}

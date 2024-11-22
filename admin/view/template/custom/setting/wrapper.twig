@@ -1,0 +1,25 @@
+{% if type not in disabled_label %}
+    <div data-id="{{ setting_id }}" class="form-group{{ required ? ' required' : '' }}{{ error and type not in ['block'] ? ' has-error' : '' }}" {{ not developer_status and not error and show_developer ? ' style="display:none"': '' }}>
+        {% if values_options.block_width %}
+            <legend class="col-sm-12">
+            {% else %}
+                <label class="col-sm-2 control-label" for="input-custom-setting-{{ id }}">
+                {% endif %}
+                {% if help %}
+                    <span data-toggle="tooltip" title="{{ help }}">{{ title }}</span>
+                {% else %}
+                    {{ title }}
+                {% endif %}
+                {% if values_options.block_width %}
+                </legend>
+        {% else %}
+            </label>
+        {% endif %}
+        <div class="{{ values_options.block_width ? 'col-sm-12' : 'col-sm-10' }}{{ values_options.inline ? ' form-inline' : '' }}">
+        {% endif %}
+        {{ output }}
+        {{ view_code }}
+        {% if type not in disabled_label %}
+        </div>
+    </div>
+{% endif %}

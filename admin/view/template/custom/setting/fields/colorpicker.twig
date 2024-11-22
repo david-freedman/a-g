@@ -1,0 +1,9 @@
+<div class="input-group colorpicker-component" data-format="{{ values_options.format }}">
+    <span class="input-group-addon btn btn-default">
+        <i></i>
+    </span>
+    <input{{ popover }} id="input-custom-setting-{{ id }}"  name="custom_setting{{ name }}" type="text" value="{{ value }}" class="form-control" placeholder="{{ placeholder }}"{{ values_options.mask ? ' data-mask="'~values_options.mask ~'"' : '' }}/>
+</div>
+{% if error %}
+    <div class="text-danger">{{ error }}</div>
+{% endif %}

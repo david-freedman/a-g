@@ -1,0 +1,468 @@
+{{ header }}{{ column_left }}
+<div id="content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="pull-right">
+                <button type="button" data-toggle="tooltip" title="{{ button_filter }}" onclick="$('#filter-setting').toggleClass('hidden-sm hidden-xs');" class="btn btn-default hidden-md hidden-lg">
+                    <i class="fa fa-filter"></i>
+                </button>
+                {% if developer_status %}
+                    <button type="button" id="button-download" formaction="{{ download }}" data-toggle="tooltip" title="{{ button_download }}" class="btn btn-default">
+                        <i class="fa fa-download"></i>
+                    </button>
+                    <button type="button" id="button-integrated" formaction="{{ integrated }}" data-toggle="tooltip" title="{{ button_integrated }}" class="btn btn-default">
+                        <i class="fa fa-chain"></i>
+                    </button>
+                    <button type="button" id="button-disintegrated" formaction="{{ disintegrated }}" data-toggle="tooltip" title="{{ button_disintegrated }}" class="btn btn-default">
+                        <i class="fa fa-chain-broken"></i>
+                    </button>
+                {% endif %}
+
+                <a href="{{ add }}" data-toggle="tooltip" title="{{ button_add }}" class="btn btn-primary">
+                    <i class="fa fa-plus"></i>
+                </a>
+
+                <button type="button" data-toggle="tooltip" formaction="{{ delete }}" title="{{ button_delete }}" class="btn btn-danger" onclick="confirm('{{ text_confirm }}') ? $('#form-setting').submit() : false;">
+                    <i class="fa fa-trash-o"></i>
+                </button>
+            </div>
+            <h1>{{ heading_title }}</h1>
+            <ul class="breadcrumb">
+                {% for breadcrumb in breadcrumbs %}
+                    <li>
+                        <a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="container-fluid">
+        {% if error_warning %}
+            <div class="alert alert-danger alert-dismissible">
+                <i class="fa fa-exclamation-circle"></i>
+                {{ error_warning }}
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+        {% endif %}
+        {% if success %}
+            <div class="alert alert-success alert-dismissible">
+                <i class="fa fa-check-circle"></i>
+                {{ success }}
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+        {% endif %}
+        <div class="row">
+            <div id="filter-setting" class="col-md-3 col-md-push-9 col-sm-12 hidden-sm hidden-xs">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="fa fa-filter"></i>
+                            {{ text_filter }}</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="control-label" for="input-title">{{ entry_title }}</label>
+                            <input type="text" name="filter_title" value="{{ filter_title }}" placeholder="{{ entry_title }}" id="input-name" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="input-filter-type">{{ entry_type }}</label>
+                            <select name="filter_type" id="input-filter-type" class="form-control">
+                                <option value=""></option>
+                                    {% set optgroup = [] %}
+                                    {% for o in types if o not in optgroup %}
+                                        {% if o.group %}
+                                            <optgroup label="{{ o.group }}">
+                                            {% endif %}
+                                            {% for t in types if t.group == o.group and t not in optgroup %}
+                                                <option value="{{ t.value }}" {{ filter_type == t.value ? ' selected="selected"': '' }}>{{ t.title }}</option>
+                                                {% set optgroup = optgroup|merge([t]) %}
+                                            {% endfor %}
+                                            {% if o.group %}
+                                            </optgroup>
+                                        {% endif %}
+                                    {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="input-filter-section-id">{{ entry_section }}</label>
+                            <select name="filter_section_id" id="input-filter-section-id" class="form-control">
+                                <option value=""></option>
+                                {% for section in sections %}
+                                    {% if section.section_id == filter_section_id %}
+                                        <option value="{{ section.section_id }}" selected="selected">{{ section.title }}</option>
+                                    {% else %}
+                                        <option value="{{ section.section_id }}">{{ section.title }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="input-integrated">{{ entry_integrated }}</label>
+                            <select name="filter_integrated" id="input-integrated" class="form-control">
+                                <option value=""></option>
+                                {% if filter_integrated == '1' %}
+                                    <option value="1" selected="selected">{{ text_yes }}</option>
+                                {% else %}
+                                    <option value="1">{{ text_yes }}</option>
+                                {% endif %}
+                                {% if filter_integrated == '0' %}
+                                    <option value="0" selected="selected">{{ text_no }}</option>
+                                {% else %}
+                                    <option value="0">{{ text_no }}</option>
+                                {% endif %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="input-status">{{ entry_status }}</label>
+                            <select name="filter_status" id="input-status" class="form-control">
+                                <option value=""></option>
+                                {% if filter_status == '1' %}
+                                    <option value="1" selected="selected">{{ text_enabled }}</option>
+                                {% else %}
+                                    <option value="1">{{ text_enabled }}</option>
+                                {% endif %}
+                                {% if filter_status == '0' %}
+                                    <option value="0" selected="selected">{{ text_disabled }}</option>
+                                {% else %}
+                                    <option value="0">{{ text_disabled }}</option>
+                                {% endif %}
+                            </select>
+                        </div>
+                        <div class="form-group text-right">
+                            <button type="button" id="button-filter" class="btn btn-default">
+                                <i class="fa fa-filter"></i>
+                                {{ button_filter }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9 col-md-pull-3 col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="fa fa-list"></i>
+                            {{ text_list }}</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="alert alert-info alert-dismissible">
+                            <i class="fa fa-info-circle"></i>
+                            {{ text_developer_integrated_info }}
+
+                        </div>
+                        <div class="table-responsive">
+                            <form action="{{ delete }}" method="post" enctype="multipart/form-data" id="form-setting">
+
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"/></td>
+                                            <td class="text-left">
+                                                {% if sort == 'csd.title' %}
+                                                    <a href="{{ sort_title }}" class="{{ order|lower }}">{{ column_title }}</a>
+                                                {% else %}
+                                                    <a href="{{ sort_title }}">{{ column_title }}</a>
+                                                {% endif %}
+                                            </td>
+                                            <td class="text-left">
+                                                {% if sort == 'cs.setting_code' %}
+                                                    <a href="{{ sort_setting_code }}" class="{{ order|lower }}">{{ column_setting_code }}</a>
+                                                {% else %}
+                                                    <a href="{{ sort_setting_code }}">{{ column_setting_code }}</a>
+                                                {% endif %}
+                                            </td>
+                                            <td class="text-left">
+                                                {% if sort == 'type' %}
+                                                    <a href="{{ sort_type }}" class="{{ order|lower }}">{{ column_type }}</a>
+                                                {% else %}
+                                                    <a href="{{ sort_type }}">{{ column_type }}</a>
+                                                {% endif %}
+                                            </td>
+                                            <td class="text-left">
+                                                {% if sort == 'section' %}
+                                                    <a href="{{ sort_section }}" class="{{ order|lower }}">{{ column_section }}</a>
+                                                {% else %}
+                                                    <a href="{{ sort_section }}">{{ column_section }}</a>
+                                                {% endif %}
+                                            </td>
+                                            <td class="text-right">
+                                                {% if sort == 'cs.sort_order' %}
+                                                    <a href="{{ sort_sort_order }}" class="{{ order|lower }}">{{ column_sort_order }}</a>
+                                                {% else %}
+                                                    <a href="{{ sort_sort_order }}">{{ column_sort_order }}</a>
+                                                {% endif %}
+                                            </td>
+                                            <td class="text-right">
+                                                {% if sort == 'cs.status' %}
+                                                    <a href="{{ sort_status }}" class="{{ order|lower }}">{{ column_status }}</a>
+                                                {% else %}
+                                                    <a href="{{ sort_status }}">{{ column_status }}</a>
+                                                {% endif %}
+                                            </td>
+
+                                            <td class="text-right">{{ column_action }}</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% if settings %}
+                                            {% for setting in settings %}
+                                                <tr>
+                                                    <td class="text-center">
+
+                                                        {% if setting.setting_id in selected %}
+                                                            <input type="checkbox" name="selected[]" value="{{ setting.setting_id }}" checked="checked"/>
+                                                        {% else %}
+                                                            <input type="checkbox" name="selected[]" value="{{ setting.setting_id }}"/>
+                                                        {% endif %}
+
+                                                    </td>
+                                                    <td class="text-left">
+                                                        {% if setting.integrated %}
+                                                            <i class="fa fa-code" data-toggle="tooltip" title="{{ text_integrated }}"></i>
+                                                        {% endif %}
+                                                        {{ setting.title }}</td>
+                                                    <td class="text-left">{{ setting.setting_code }}</td>
+                                                    <td class="text-left">{{ setting.type }}</td>
+                                                    <td class="text-left">{{ setting.section }}</td>
+                                                    <td class="text-right">{{ setting.sort_order }}</td>
+                                                    <td class="text-right">{{ setting.status }}</td>
+                                                    <td class="text-right">
+                                                        <div class="btn-group" style="min-width: 65px;">
+                                                            <a href="{{ setting.edit }}" data-toggle="tooltip" class="btn btn-primary" title="{{ button_edit }}">
+                                                                <i class="fa fa-pencil"></i>
+                                                            </a>
+                                                            <button type="button" data-toggle="dropdown" class="btn btn-primary dropdown-toggle" aria-expanded="false">
+                                                                <span class="caret"></span>
+                                                            </button>
+                                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                                <li>
+                                                                    <a href="#" type="button" onclick="confirm('{{ text_confirm }}') ? location.href='{{ setting.delete }}' : false;event.preventDefault();">
+                                                                        <i class="fa fa-trash-o"></i>
+                                                                        {{ button_remove }}</a>
+                                                                </li>
+                                                                {% if developer_status %}
+                                                                    <li class="dropdown-header">{{ text_developer }}</li>
+                                                                    {% if setting.integrated %}
+                                                                        <li>
+                                                                            <a href="#" onclick="confirm('{{ text_confirm }}') ? location.href='{{ setting.disintegrate }}' : false;event.preventDefault();">
+                                                                                <i class="fa fa-chain-broken"></i>
+                                                                                {{ button_disintegrated }}</a>
+                                                                        </li>
+                                                                    {% else %}
+                                                                        <li>
+                                                                            <a href="#" onclick="confirm('{{ text_confirm }}') ? location.href='{{ setting.integrate }}' : false;event.preventDefault();">
+                                                                                <i class="fa fa-chain"></i>
+                                                                                {{ button_integrated }}</a>
+                                                                        </li>
+                                                                    {% endif %}
+                                                                    <li>
+                                                                        <a href="#" onclick="downloadSetting(this, {{ setting.setting_id }});">
+                                                                            <i class="fa fa-download"></i>
+                                                                            {{ button_download }}</a>
+                                                                    </li>
+                                                                {% endif %}
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        {% else %}
+                                            <tr>
+                                                <td class="text-center" colspan="8">{{ text_no_results }}</td>
+                                            </tr>
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6 text-left">{{ pagination }}</div>
+                            <div class="col-sm-6 text-right">{{ results }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal-download" class="modal fade">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">{{ button_download }}</h4>
+                </div>
+                <div class="modal-body">
+                    <textarea class="code"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .code + .CodeMirror {
+            height: 600px;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+        var user_token = '{{ user_token }}';
+        {% if developer_status %}
+        var codemirror = CodeMirror.fromTextArea($('#modal-download textarea').get(0), {
+            mode: 'text/x-php',
+            indentWithTabs: 4,
+            lineNumbers: true,
+            theme: 'monokai',
+            padding: '0 0 20px 0',
+            readOnly: true,
+        });
+        function downloadSetting(e, id) {
+            event.preventDefault();
+            var ids = [];
+            ids.push(id);
+            download(ids);
+        }
+        function download(ids) {
+            $.ajax({
+                url: $.trim('index.php?route=custom/setting/download&user_token=' + user_token),
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    selected: ids
+                },
+                beforeSend: function () {
+                    $('#button-download').button('loading');
+                },
+                complete: function () {
+                    $('#button-download').button('reset');
+                },
+                success: function (json) {
+                    codemirror.getDoc().setValue(json['content']);
+
+                    $('#modal-download').modal('show');
+
+                },
+            });
+        }
+        $('#button-download').on('click', function (e) {
+            var checkValues = $('[name="selected[]"]:checked').map(function () {
+                return $(this).val();
+            }).get();
+            download(checkValues);
+
+        });
+
+        $(document).on('shown.bs.modal', '#modal-download', function (e) {
+            codemirror.refresh();
+        });
+        {% endif %}
+
+        $('.table-responsive').on('shown.bs.dropdown', function (e) {
+            var t = $(this),
+                m = $(e.target).find('.dropdown-menu'),
+                tb = t.offset().top + t.height(),
+                mb = m.offset().top + m.outerHeight(true),
+                d = 20;
+            if (t[0].scrollWidth > t.innerWidth()) {
+                if (mb + d > tb) {
+                    t.css('padding-bottom', ((mb + d) - tb));
+                }
+            } else {
+                t.css('overflow', 'visible');
+            }
+        }).on('hidden.bs.dropdown', function () {
+            $(this).css({'padding-bottom': '', 'overflow': '',});
+        });
+        //
+    </script>
+    <script type="text/javascript">
+        $('#button-filter').on('click', function () {
+            var url = '';
+
+            var filter_title = $('input[name=\'filter_title\']').val();
+
+            if (filter_title) {
+                url += '&filter_title=' + encodeURIComponent(filter_title);
+            }
+
+            var filter_type = $('select[name=\'filter_type\']').val();
+
+            if (filter_type !== '') {
+                url += '&filter_type=' + encodeURIComponent(filter_type);
+            }
+
+            var filter_section = $('select[name=\'filter_section_id\']').val();
+
+            if (filter_section) {
+                url += '&filter_section_id=' + encodeURIComponent(filter_section);
+            }
+
+
+            var filter_status = $('select[name=\'filter_status\']').val();
+
+            if (filter_status !== '') {
+                url += '&filter_status=' + encodeURIComponent(filter_status);
+            }
+
+            var filter_integrated = $('select[name=\'filter_integrated\']').val();
+
+            if (filter_integrated !== '') {
+                url += '&filter_integrated=' + encodeURIComponent(filter_integrated);
+            }
+
+            location = 'index.php?route=custom/setting&user_token=' + user_token + url;
+        });
+        //
+    </script>
+    <script type="text/javascript">
+
+
+        $('button[formaction]').on('click', function (e) {
+            $('#form-setting').attr('action', $(this).attr('formaction'));
+        });
+        $('#button-integrated,#button-disintegrated').on('click', function (e) {
+            $('#form-setting').attr('action', $(this).attr('formaction'));
+            var r = confirm('{{ text_confirm }}');
+            if (r == true) {
+                $('#form-setting').submit();
+            } else {}
+        });
+        $('input[name=\'filter_title\']').autocomplete({
+            'source': function (request, response) {
+                $.ajax({
+                    url: 'index.php?route=custom/setting/autocomplete&user_token=' + user_token + '&filter_title=' + encodeURIComponent(request),
+                    dataType: 'json',
+                    success: function (json) {
+                        response($.map(json, function (item) {
+                            return {label: item['title'], value: item['setting_id'],};
+                        }));
+                    },
+                });
+            },
+            'select': function (item) {
+                $('input[name=\'filter_title\']').val(item['label']);
+            },
+        });
+
+        $('input[name=\'filter_section\']').autocomplete({
+            'source': function (request, response) {
+                $.ajax({
+                    url: 'index.php?route=custom/setting_section/autocomplete&user_token=' + user_token + '&filter_title=' + encodeURIComponent(request),
+                    dataType: 'json',
+                    success: function (json) {
+                        response($.map(json, function (item) {
+                            return {label: item['title'], value: item['section_id'],};
+                        }));
+                    },
+                });
+            },
+            'select': function (item) {
+                $('input[name=\'filter_section\']').val(item['label']);
+            },
+        });
+        //
+    </script>
+</div>
+{{ footer }}
