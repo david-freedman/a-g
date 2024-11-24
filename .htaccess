@@ -15,18 +15,7 @@ RewriteEngine On
 
 RewriteBase /
 
-# 2. Видалення слеша в кінці URL для всіх сторінок, окрім виключень
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_URI} !^/(blog|another-exception)/?$ [NC]
-RewriteRule ^(.*)/$ /$1 [L,R=301]
-
-# 3. Додавання слеша для "каталожних" сторінок
-RewriteCond %{REQUEST_URI} ^/(blog|another-exception)$ [NC]
-RewriteRule ^(.*)$ /$1/ [L,R=301]
-
-# 4. Стандартні OpenCart правила
-RewriteCond %{QUERY_STRING} ^(.*)&?page=1$ 
+RewriteCond %{QUERY_STRING} ^(.*)&?page=1$
 RewriteRule ^(.*)/?$ /$1?%1%2 [R=301,L] #remove page=1 from url
 RewriteRule ^sitemap.xml$ index.php?route=extension/feed/google_sitemap [L]
 RewriteRule ^googlebase.xml$ index.php?route=extension/feed/google_base [L]

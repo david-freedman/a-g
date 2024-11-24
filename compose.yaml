@@ -1,0 +1,63 @@
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: nginx_reverse_proxy
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./:/var/www/html
+    ports:
+      - "80:80"
+    depends_on:
+      - apache
+    networks:
+      - opencart_net
+
+  apache:
+    build:
+      context: .
+      dockerfile: docker/apache/Dockerfile
+    container_name: apache_opencart
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - opencart_net
+
+  db:
+    image: mysql:5.7
+    container_name: mysql_opencart
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - ${DB_PORT}:3306
+    networks:
+      - opencart_net
+
+  db-sync:
+    build:
+      context: docker/syncdb
+      dockerfile: Dockerfile
+    container_name: db_sync
+    volumes:
+      - ./backup:/backup
+    env_file:
+      - .env
+    depends_on:
+      - db
+    networks:
+      - opencart_net
+    profiles:
+      - manual
+
+volumes:
+  db_data:
+    driver: local
+    name: a_g_db_data
+
+networks:
+  opencart_net:
+    driver: bridge
