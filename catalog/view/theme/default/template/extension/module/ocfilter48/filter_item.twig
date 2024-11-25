@@ -22,8 +22,8 @@
 {% set class = class ~ ' ocf-active' %}
 {% endif %} #}
 
-<div class="{{ class }}" id="ocf-filter-{{ filter.id }}">
-  <div class="ocf-filter-body">
+{# <div class="filter-catalog__spoilers" data-spoilers=""> #}
+  {# <div class="ocf-filter-body">
     <div class="ocf-filter-header" data-ocf="expand">  
       <i class="ocf-mobile ocf-icon ocf-arrow-long ocf-arrow-left"></i> 
       
@@ -37,7 +37,7 @@
         {{ filter.suffix }}
       </span>    
       {% else %}
-      {# <span class="ocf-active-label">{{ filter.text_selected }}</span>     #}
+      <span class="ocf-active-label">{{ filter.text_selected }}</span>    
       {% endif %}                      
       
       <span class="ocf-filter-name">{{ filter.name }}</span>
@@ -58,14 +58,14 @@
       </span>
     </div><!-- /.ocf-filter-header -->
     
-    {% if filter.type == 'slide' or filter.type == 'slide_dual' %}
+  </div> #}
+  {% if filter.type == 'slide' or filter.type == 'slide_dual' %}
     
-    {% include('default/template/extension/module/ocfilter48/filter_slider_item.twig') %}
-    
-    {% else %}
-    
-    {% include('default/template/extension/module/ocfilter48/value_list.twig') %}
-    
-    {% endif %}
-  </div>    
-</div>
+  {% include('default/template/extension/module/ocfilter48/filter_slider_item.twig') %}
+  
+  {% else %}
+  
+  {% include('default/template/extension/module/ocfilter48/value_list.twig') %}
+  
+  {% endif %}    
+{# </div> #}

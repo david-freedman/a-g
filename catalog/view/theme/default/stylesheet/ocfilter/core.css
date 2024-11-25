@@ -76,6 +76,15 @@
   background-color: #6f4a8f;
 }
 
+.ocf-noUi-target {
+  background-color: #d8d8d9;
+  border-radius: .1875rem;
+}
+
+.ocf-noUi-horizontal {
+  height: .1875rem;
+}
+
 .ocf-noUi-draggable { cursor: ew-resize; }
 /* .ocf-noUi-handle {
   border: 3px solid #ffffff;
@@ -372,7 +381,7 @@ textarea.ocf-form-control:focus {
 .ocf-container,
 .ocf-filter-list { overflow-anchor: auto; }
 
-.ocf-header{ font-size: 20px; line-height: 1.2; display: flex; align-items: center; }
+/* .ocf-header{ font-size: 20px; line-height: 1.2; display: flex; align-items: center; } */
   .ocf-header .ocf-brand{ margin-right: 10px; }
 
 .ocf-hidden-filters-divider {

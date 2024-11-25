@@ -44,7 +44,7 @@ body { min-height: 100%!important; /*height: -webkit-fill-available;*/ }
   z-index: 1!important;
 }
 
-.ocf-noUi-handle { border-width: 4px; width: 28px; height: 28px; right: -14px; top: -5px; }
+/* .ocf-noUi-handle { border-width: 4px; width: 28px; height: 28px; right: -14px; top: -5px; } */
 .ocf-noUi-txt-dir-rtl .ocf-noUi-handle { left: -14px; right: auto; }
 .ocf-noUi-base:before,
 .ocf-noUi-connect:before { height: 6px; margin-top: -3px; }
@@ -230,7 +230,7 @@ body { min-height: 100%!important; /*height: -webkit-fill-available;*/ }
   }  
 
 .ocf-slider-input-group { margin-bottom: 30px; }  
-.ocf-value-slider { padding: 0 20px; }
+/* .ocf-value-slider { padding: 0 20px; } */
 .ocf-btn-search-slider{ padding-top: 25px; }
 
 .ocf-btn-show-values{ margin-top: 20px; font-size: 16px; padding: 0; }

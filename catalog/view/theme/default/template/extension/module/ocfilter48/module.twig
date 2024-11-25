@@ -3,38 +3,36 @@
 <link rel="stylesheet" href="{{ stylesheet }}" />
 {% endif %}
 
-  <div class="ocf-content">
-    <div class="ocf-header">
-      {# <i class="ocf-icon ocf-icon-16 ocf-brand ocf-sliders"></i> #}
-      
-      {{ heading_title }}
-      
-      {% if layout == 'horizontal' and (search_button or selecteds) %}
-      <div class="ocf-header-btn ocf-desktop">
+  <div class="body-catalog__filter filter-catalog">
+    {# <div class="body-catalog__filter filter-catalog"> #}
+      <div class="filter-catalog__header">
+        {# <i class="ocf-icon ocf-icon-16 ocf-brand ocf-sliders"></i> #}
+        
+        {{ heading_title }}
+        
+        {% if layout == 'horizontal' and (search_button or selecteds) %}
+        <div class="ocf-header-btn ocf-desktop">
+          {% if selecteds %}
+          <button type="button" onclick="location = '{{ link }}';" class="ocf-btn ocf-btn-link">{{ button_cancel_all }}</button>
+          {% else %}
+          <button type="button" data-ocf-discard="*" class="ocf-btn ocf-btn-link ocf-disabled" disabled="disabled">{{ button_cancel_all }}</button>
+          {% endif %}         
+          {% if search_button %}
+          <button type="button" class="ocf-btn ocf-btn-link ocf-disabled" data-ocf="button" data-loading-text="{{ text_loading_ocf }}" disabled="disabled">{{ button_select }}</button>
+          {% endif %}        
+        </div>   
+        {% endif %}  
+        
+        <button data-filter-close="" data-ocf="mobile" type="button" class="filter-catalog__button _icon-cross"  aria-label="Close filter"></button>
+        {# <button type="button" data-ocf="mobile" class="ocf-btn ocf-btn-link ocf-mobile ocf-close-mobile" aria-label="Close filter"><i class="ocf-icon ocf-icon-16 ocf-times"></i></button> #}
+      </div>
+      <div class="filter-catalog__tags-mobile">
         {% if selecteds %}
-        <button type="button" onclick="location = '{{ link }}';" class="ocf-btn ocf-btn-link">{{ button_cancel_all }}</button>
-        {% else %}
-        <button type="button" data-ocf-discard="*" class="ocf-btn ocf-btn-link ocf-disabled" disabled="disabled">{{ button_cancel_all }}</button>
-        {% endif %}         
-        {% if search_button %}
-        <button type="button" class="ocf-btn ocf-btn-link ocf-disabled" data-ocf="button" data-loading-text="{{ text_loading_ocf }}" disabled="disabled">{{ button_select }}</button>
-        {% endif %}        
-      </div>   
-      {% endif %}  
-      
-      <button type="button" data-ocf="mobile" class="ocf-btn ocf-btn-link ocf-mobile ocf-close-mobile" aria-label="Close filter"><i class="ocf-icon ocf-icon-16 ocf-times"></i></button>
-    </div>
-          
-
-    <div class="filter-catalog__tags-mobile">
-      {% if selecteds %}
-        <button type="button" onclick="location = '{{ link }}';" class="filter-catalog__reset">{{ button_cancel_all_selected }}</button>        
-      {% endif %}
-    </div>
-
-    <div class="ocf-body">     
+          <button type="button" onclick="location = '{{ link }}';" class="filter-catalog__reset">{{ button_cancel_all_selected }}</button>        
+        {% endif %}
+      </div>  
       {% include('default/template/extension/module/ocfilter48/filter_list.twig') %}
-    </div>      
+    {# </div> #}
        
     {% if search_button or selecteds %}
       {% if layout == 'vertical' %}
@@ -42,18 +40,18 @@
       {% else %}
         {% set class = 'ocf-footer ocf-mobile' %}
       {% endif %}
-      <div class="{{ class }}">
-        <div class="ocf-between">
-          {% if selecteds %}
-            <button type="button" onclick="location = '{{ link }}';" class="ocf-btn ocf-btn-link">{{ button_cancel_all }}</button>
-          {% else %}
-            <button type="button" data-ocf-discard="*" class="ocf-btn ocf-btn-link ocf-disabled" disabled="disabled">{{ button_cancel_all }}</button>
-          {% endif %}
+      <div class="filter-catalog__footer">
+        {# <div class="ocf-between"> #}
           {% if search_button %}
             <button type="button" class="ocf-disabled filter-catalog__submit button button--green" data-ocf="button" data-loading-text="{{ text_loading_ocf }}" disabled="disabled">{{ button_select }}</button>
-          {% endif %}        
-        </div>
-      </div>            
+          {% endif %}
+          {% if selecteds %}
+            <button type="button" onclick="location = '{{ link }}';" class="filter-catalog__reset filter-catalog__reset--footer">{{ button_cancel_all }}</button>
+          {% else %}
+            <button type="button" data-ocf-discard="*" class="filter-catalog__reset filter-catalog__reset--footer ocf-disabled" disabled="disabled">{{ button_cancel_all }}</button>
+          {% endif %}   
+        {# </div> #}
+      </div>
     {% endif %}
   </div><!-- /.ocf-content -->
   

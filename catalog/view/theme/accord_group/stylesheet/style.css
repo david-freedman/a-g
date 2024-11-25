@@ -5707,8 +5707,6 @@ body::after {
     height: 100%;
     z-index: 60;
     overflow: auto;
-    -webkit-transform: translateX(-100%);
-    transform: translateX(-100%);
     transition: -webkit-transform .3s;
     transition: transform .3s;
     transition: transform .3s,-webkit-transform .3s;
@@ -5723,12 +5721,6 @@ body::after {
   }
   .rangebox__input {
     font-size: .875rem
-  }
-}
-@media (max-width:65.5625em) {
-  .rangebox__input {
-    padding: 0 .5rem;
-    max-width: 5.0625rem
   }
 }
 @media (max-width:61.99875em) {

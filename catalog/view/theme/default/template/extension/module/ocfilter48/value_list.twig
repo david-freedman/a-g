@@ -10,7 +10,7 @@
 {% set class_value_list_body = 'ocf-value-list-body' %}
 {% endif %}
 
-<div class="ocf-value-list {% if class_scroll is not defined or not class_scroll %} filter-catalog__spoilers {% endif %}" {% if class_scroll is not defined or not class_scroll %} data-spoilers {% endif %}>
+<div id="ocf-filter-{{ filter.id }}" class="ocf-value-list {% if class_scroll is not defined or not class_scroll %} filter-catalog__spoilers {% endif %}" {% if class_scroll is not defined or not class_scroll %} data-spoilers {% endif %}>
   {% if class_scroll %}
   <div data-spoilers class="{{ class_scroll }} filter-catalog__spoilers">  
   {% endif %}   
