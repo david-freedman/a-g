@@ -332,10 +332,8 @@ $('.body-catalog__filter-button').on('click', function () {
 
 <script>
     $(document).ready(function() {
-        $('.ocf-selected-discard').each(function() {
-            $(this).find('i').removeClass('ocf-icon ocf-times-circle').addClass('_icon-cross');
-            let e = '<div class="tags-catalog__item">' + $(this).html() + '</div>';
-            $('.body-catalog__tags.tags-catalog').append(e);
+        $('.ocf-selected-filter').each(function() {
+            $('.body-catalog__tags.tags-catalog').append($(this).html());
             $('.ocf-selected-card').hide();
         });
         

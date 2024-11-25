@@ -4,10 +4,11 @@
     <div class="ocf-selected-filter">
       {# <span class="ocf-selected-filter-name">{{ filter.name }}:</span> #}
       
-      {% for value in filter.values %}   
-        <button type="button" onclick="location = '{{ value.href }}';" class="ocf-selected-discard" title="{{ value.name }}">
-          <span class="ocf-selected-value-name">{{ value.name }}</span> 
-          <i class="ocf-icon ocf-times-circle"></i>
+      {% for value in filter.values %}
+        <div class="tags-catalog__item">
+          <span>{{ value.name }}</span>
+          <button type="button" onclick="location = '{{ value.href }}';" class="tags-catalog__remove _icon-cross" title="{{ value.name }}">
+        </div>
         </button>
       {% endfor %}
     </div>
