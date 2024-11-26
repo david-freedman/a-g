@@ -349,6 +349,14 @@ class ControllerCatalogCategory extends Controller {
 			$data['path'] = '';
 		}
 
+		if (isset($this->request->post['banner_search'])) {
+			$data['banner_search'] = $this->request->post['banner_search'];
+		} elseif (!empty($category_info)) {
+			$data['banner_search'] = $category_info['banner_search'];
+		} else {
+			$data['banner_search'] = 0;
+		}
+
 		if (isset($this->request->post['parent_id'])) {
 			$data['parent_id'] = $this->request->post['parent_id'];
 		} elseif (!empty($category_info)) {
@@ -518,6 +526,14 @@ class ControllerCatalogCategory extends Controller {
 			$data['noindex'] = $category_info['noindex'];
 		} else {
 			$data['noindex'] = 1;
+		}
+
+		if (isset($this->request->post['banner_id'])) {
+			$data['banner_id'] = $this->request->post['banner_id'];
+		} elseif (!empty($category_info)) {
+			$data['banner_id'] = $category_info['banner_id'];
+		} else {
+			$data['banner_id'] = 0;
 		}
 
 		if (isset($this->request->post['category_layout'])) {

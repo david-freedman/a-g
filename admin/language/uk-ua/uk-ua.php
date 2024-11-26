@@ -150,6 +150,7 @@ $_['tab_sms']                       = 'SMS';
 $_['tab_extra_tab']          		= 'Додаткова вкладка';
 $_['tab_module']          	 		= 'Вкладка';
 $_['tab_related']          	 		= 'Рекомендуємо';
+$_['tab_banner']          	 		= 'Банер';
 
 // Error
 $_['error_exception']               = 'Помилка коду (%s): %s в %s на рядку %s';
