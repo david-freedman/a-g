@@ -541,4 +541,38 @@ class ModelCatalogProduct extends Model {
 			return 0;
 		}
 	}
+
+	public function getBannerIdByProductId($product_id) {
+		// Отримуємо category_id для продукту
+		$query = $this->db->query("SELECT category_id FROM " . DB_PREFIX . "product_to_category WHERE product_id = '" . (int)$product_id . "' LIMIT 1");
+	
+		if ($query->num_rows) {
+			$category_id = $query->row['category_id'];
+		} else {
+			return null; // Якщо категорія не знайдена, повертаємо null
+		}
+	
+		// Починаємо перевірку ієрархії
+		while ($category_id != 0 && $category_id !== null) {
+			// Отримуємо дані категорії (з banner_id і parent_id)
+			$query = $this->db->query("SELECT banner_id, parent_id FROM " . DB_PREFIX . "category WHERE category_id = '" . (int)$category_id . "'");
+	
+			if ($query->num_rows) {
+				$banner_id = $query->row['banner_id'];
+				$parent_id = $query->row['parent_id'];
+	
+				// Якщо banner_id знайдено і він не дорівнює 0, повертаємо його
+				if ($banner_id != 0) {
+					return $banner_id;
+				}
+	
+				// Переходимо до батьківської категорії
+				$category_id = $parent_id;
+			} else {
+				break; // Якщо категорію не знайдено, виходимо
+			}
+		}
+	
+		return null; // Якщо banner_id не знайдено, повертаємо null
+	}
 }

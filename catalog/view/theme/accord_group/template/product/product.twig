@@ -216,73 +216,53 @@
               </div>
             </section>
             <section class="product__recomendations recomendations recomendations--small-scrollbar">
-            {% if products %}
-             
-                <div class="recomendations__grid-container">
-                    <div class="recomendations__header">
-                        <h2 class="recomendations__title">{{ text_related }}</h2>
-                        <a href="#" data-da="{.recomendations__grid-container}, 767.98, last" class="recomendations__link button button--border">
-                            Переглянути всі товари
-                        </a>
-                    </div>
-                    <div class="recomendations__label">
-                        Ідеальне поєднання для вашої кухні – ми зібрали товари, які доповнюють один одного.
-                    </div>
-                    <div data-simplebar class="recomendations__body">
-                        <div class="recomendations__items">
-                            {% for product in products %}
-                            <article class="item-product-min">
-                                <div class="item-product-min__image">
-                                    <button type="button" onclick="wishlist.add('{{ product.product_id }}');" class="item-product-min__fav _icon-heart {% if product.wishlist %}_active{% endif %}">
-                                    </button>
-                                    <a href="{{ product.href }}" class="item-product-min__image-link">
-                                        <img class="ibg" src="{{ product.thumb }}" alt="{{ product.name }}">
-                                    </a>
-                                </div>
-                                <h3 class="item-product-min__title">
-                                    <a href="{{ product.href }}" class="item-product-min__link">{{ product.name }}</a>
-                                </h3>
-                                <div class="item-product-min__body">
-                                    <div class="item-product-min__price">
-                                        {% if product.special %}
-                                            {{ product.special }}
-                                            <span>{{ product.price }}</span>
-                                        {% else %}
-                                            {{ product.price }}
-                                        {% endif %}
-                                    </div>
-                                    <button type="button" onclick="cart.add('{{ product.product_id }}', '{{ product.minimum }}');" class="item-product-min__buy-button button button--green _icon-cart">
-                                    </button>
-                                </div>
-                            </article>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-           
-            {% endif %}
- </section>
-            <section class="product__stoelzle stoelzle">
-              <div class="stoelzle__grid-container">
-                <div class="stoelzle__wrapper">
-                  <div class="stoelzle__image">
-                    <img src="img/stoelzle.webp" alt="Image" class="ibg">
+              {% if products %}
+              
+                  <div class="recomendations__grid-container">
+                      <div class="recomendations__header">
+                          <h2 class="recomendations__title">{{ text_related }}</h2>
+                          <a href="#" data-da="{.recomendations__grid-container}, 767.98, last" class="recomendations__link button button--border">
+                              Переглянути всі товари
+                          </a>
+                      </div>
+                      <div class="recomendations__label">
+                          Ідеальне поєднання для вашої кухні – ми зібрали товари, які доповнюють один одного.
+                      </div>
+                      <div data-simplebar class="recomendations__body">
+                          <div class="recomendations__items">
+                              {% for product in products %}
+                              <article class="item-product-min">
+                                  <div class="item-product-min__image">
+                                      <button type="button" onclick="wishlist.add('{{ product.product_id }}');" class="item-product-min__fav _icon-heart {% if product.wishlist %}_active{% endif %}">
+                                      </button>
+                                      <a href="{{ product.href }}" class="item-product-min__image-link">
+                                          <img class="ibg" src="{{ product.thumb }}" alt="{{ product.name }}">
+                                      </a>
+                                  </div>
+                                  <h3 class="item-product-min__title">
+                                      <a href="{{ product.href }}" class="item-product-min__link">{{ product.name }}</a>
+                                  </h3>
+                                  <div class="item-product-min__body">
+                                      <div class="item-product-min__price">
+                                          {% if product.special %}
+                                              {{ product.special }}
+                                              <span>{{ product.price }}</span>
+                                          {% else %}
+                                              {{ product.price }}
+                                          {% endif %}
+                                      </div>
+                                      <button type="button" onclick="cart.add('{{ product.product_id }}', '{{ product.minimum }}');" class="item-product-min__buy-button button button--green _icon-cart">
+                                      </button>
+                                  </div>
+                              </article>
+                              {% endfor %}
+                          </div>
+                      </div>
                   </div>
-                  <div class="stoelzle__body">
-                    <div class="stoelzle__text text">
-                      <p>
-                        Обирайте Stoelzle для створення неповторної атмосфери на вашій кухні та у ресторані.
-                      </p>
-                    </div>
-                    <h2 class="stoelzle__title">
-                      Stoelzle
-                    </h2>
-                    <a href="#" class="stoelzle__link button button--border">Переглянути всі товари</a>
-                  </div>
-                </div>
-
-              </div>
+            
+              {% endif %}
             </section>
+            {{ banner }}
 
           </div>
           <div class="product__tab-item">
