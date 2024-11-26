@@ -31,6 +31,7 @@ $_['entry_column']           = 'Столбцы';
 $_['entry_sort_order']       = 'Порядок сортировки';
 $_['entry_status']           = 'Статус';
 $_['entry_layout']           = 'Макет';
+$_['entry_banner']           = 'Баннер';
 
 // Help
 $_['help_filter']            = '(Автозаполнение)';

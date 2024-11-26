@@ -39,6 +39,7 @@ $_['entry_noindex']          = 'Індексація';
 $_['entry_layout']           = 'Змінити макет';
 $_['entry_related_wb']       = 'Рекомендовані товари:';
 $_['entry_related_article']  = 'Рекомендовані статті:';
+$_['entry_banner']           = 'Банер';
 
 // Help
 $_['help_filter']            = '(Автодоповнення)';

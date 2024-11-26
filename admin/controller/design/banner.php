@@ -349,12 +349,13 @@ class ControllerDesignBanner extends Controller {
 				}
 
 				$data['banner_images'][$key][] = array(
-					'title'      => $banner_image['title'],
-					'link'       => $banner_image['link'],
-					'text'      => $banner_image['text'],
-					'image'      => $image,
-					'thumb'      => $this->model_tool_image->resize($thumb, 100, 100),
-					'sort_order' => $banner_image['sort_order']
+					'title'       => $banner_image['title'],
+					'description' => $banner_image['description'],
+					'link'        => $banner_image['link'],
+					'text'        => $banner_image['text'],
+					'image'       => $image,
+					'thumb'       => $this->model_tool_image->resize($thumb, 100, 100),
+					'sort_order'  => $banner_image['sort_order']
 				);
 			}
 		}
@@ -396,5 +397,41 @@ class ControllerDesignBanner extends Controller {
 		}
 
 		return !$this->error;
+	}
+
+	public function autocomplete() {
+		$json = array();
+
+		if (isset($this->request->get['filter_name'])) {
+			$this->load->model('design/banner');
+
+			$filter_data = array(
+				'filter_name' => $this->request->get['filter_name'],
+				'sort'        => 'name',
+				'order'       => 'ASC',
+				'start'       => 0,
+				'limit'       => $this->config->get('config_limit_autocomplete')
+			);
+
+			$results = $this->model_design_banner->getBanners($filter_data);
+
+			foreach ($results as $result) {
+				$json[] = array(
+					'banner_id' => $result['banner_id'],
+					'name'        => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8'))
+				);
+			}
+		}
+
+		$sort_order = array();
+
+		foreach ($json as $key => $value) {
+			$sort_order[$key] = $value['name'];
+		}
+
+		array_multisort($sort_order, SORT_ASC, $json);
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
 	}
 }
